@@ -1,80 +1,93 @@
-"##################################################################################
-" Vundle setting
+" Vim Settings
+" ---------------------------------------------------------------------------------
+" Vundle Setting:"{{{
 " git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-"##################################################################################
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+
+if has('vim_starting')
+  set runtimepath+=~/.vim/neobundle.vim.git/
+  call neobundle#rc(expand('~/.bundle'))
+endif
 
 " original repos on github
-Bundle 't9md/vim-textmanip'
-Bundle 'gmarik/vundle'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/unite.vim'
-Bundle 'vim-scripts/python.vim'
-Bundle 'thinca/vim-quickrun'
-Bundle 'mattn/zencoding-vim'
-Bundle 'othree/eregex.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'pix/vim-align'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tyru/open-browser.vim'
-Bundle 'tyru/urilib.vim'
-Bundle 'rwfitzge/vim-bclose'
-Bundle 'edsono/vim-viewoutput'
-Bundle 'ujihisa/unite-colorscheme'
-Bundle 'ujihisa/unite-font'
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'tyru/stickykey.vim'
-Bundle 'thinca/vim-localrc'
+NeoBundle 't9md/vim-textmanip'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'Shougo/unite-help'
+NeoBundle 'Shougo/unite-ssh'
+NeoBundle 'Sixeight/unite-grep'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'vim-scripts/python.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'othree/eregex.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'tyru/urilib.vim'
+NeoBundle 'rwfitzge/vim-bclose'
+NeoBundle 'edsono/vim-viewoutput'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'ujihisa/unite-font'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'tyru/stickykey.vim'
+NeoBundle 'thinca/vim-localrc'
+NeoBundle 'thinca/vim-ref'
+" <C+_><C+_>でコメントアウト
+NeoBundle 'tomtom/tcomment_vim'
+" 単語へのカーソル移動
+NeoBundle 'Lokaltog/vim-easymotion'
+" インデント量の違いをハイライト表示
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'vim-scripts/AutoClose--Alves'
+NeoBundle 'taku-o/vim-toggle'
 
 " original repos on vim-scripts
-Bundle 'surround.vim'
-Bundle 'IndentAnything'
-Bundle 'grep.vim'
-Bundle 'YankRing.vim'
-Bundle 'sudo.vim'
-Bundle 'renamer.vim'
-Bundle 'yaml.vim'
-Bundle 'AutoClose'
-Bundle 'mru.vim'
-Bundle 'xmledit'
-Bundle 'TwitVim'
+NeoBundle 'surround.vim'
+NeoBundle 'IndentAnything'
+NeoBundle 'grep.vim'
+NeoBundle 'YankRing.vim'
+NeoBundle 'sudo.vim'
+NeoBundle 'renamer.vim'
+NeoBundle 'yaml.vim'
+NeoBundle 'mru.vim'
+NeoBundle 'xmledit'
+NeoBundle 'TwitVim'
+NeoBundle 'Align'
+"NeoBundle 'ManPageView'
 " 「,w」,「,b」でキャメルケース、アンスコの変数を単語毎に移動できる
-Bundle 'camelcasemotion'
-Bundle 'html5.vim'
-Bundle 'gtags.vim'
-Bundle 'Better-Javascript-Indentation'
-Bundle 'project.tar.gz'
-Bundle 'javacomplete'
-Bundle 'smartchr'
+NeoBundle 'camelcasemotion'
+NeoBundle 'html5.vim'
+NeoBundle 'Better-Javascript-Indentation'
+NeoBundle 'project.tar.gz'
+NeoBundle 'javacomplete'
+NeoBundle 'smartchr'
+NeoBundle 'Source-Explorer-srcexpl.vim'
+NeoBundle 'taglist.vim'
+NeoBundle 'buftabs'
 
 " colorscheme
-Bundle 'desert256.vim'
-Bundle 'desertEx'
-Bundle 'wombat256.vim'
-Bundle 'mrkn/mrkn256.vim'
-Bundle 'larssmit/Lucius'
-Bundle 'Wombat'
+NeoBundle 'desert256.vim'
+NeoBundle 'desertEx'
+NeoBundle 'wombat256.vim'
+NeoBundle 'mrkn/mrkn256.vim'
+NeoBundle 'larssmit/Lucius'
+NeoBundle 'Wombat'
 
 " my repo
 " scala付属のvimtool http://www.scala-lang.org/
-Bundle 'scala-vim'
+NeoBundle 'scala-vim'
 
 filetype plugin indent on
+"}}}
 
-"##################################################################################
-" plugins setting
-"##################################################################################
-" minibufexpl.vim
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
+" --------------------------------------------------------------------------------
+" Plugins Setting:"{{{
 
-" unite.vim
+" unite.vim:"{{{
 " インサート/ノーマルどちらからでも呼び出せるようにキーマップ
 nnoremap <silent> <C-r> :<C-u>Unite file_mru<CR>
 " ウィンドウを水平に分割して開く
@@ -83,23 +96,21 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-n> unite#do_action('split
 " ウィンドウを縦に分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
 au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-
-" 入力モードで開始
-let g:unite_enable_start_insert=1
-""" 縦分割で開始
+" 縦分割で開始
 let g:unite_enable_split_vertically = 1
-""" バッファ一覧
+" useally
+nnoremap <silent> ,uu :<C-u>Unite -buffer-name=files buffer_tab file_rec file file_mru<CR>
+" バッファ一覧
 nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-""" ファイル一覧
+" ファイル一覧
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-""" レジスタ一覧
+" レジスタ一覧
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-""" 最近使用したファイル一覧
+" 最近使用したファイル一覧
 nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-""" 常用セット
-nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
-""" 全乗せ
+" 全乗せ
 nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru<CR>
+"}}}
 
 " textmanip.vim
 " 行の複製
@@ -114,7 +125,31 @@ xmap <C-k> <Plug>(textmanip-move-up)
 xmap <C-h> <Plug>(textmanip-move-left)
 xmap <C-l> <Plug>(textmanip-move-right)
 
-" neocomplcache
+" YankRing.vim
+let g:yankring_history_dir = expand('$HOME')
+let g:yankring_history_file = '.yankring_history'
+nnoremap  <silent> <F7> :YRShow<CR>
+let g:yankring_max_history = 10
+let g:yankring_window_height = 13
+
+" vim-align
+let g:Align_xstrlen = 3
+let g:DrChipTopLv1Menu = ''
+
+" buftabs
+" ステータスラインに表示
+" Ctrl+^で直前のバッファへ
+let g:buftabs_in_statusline=1
+let g:buftabs_only_basename=1
+" Space,Shift+Spaceでバッファ切り替え
+noremap <Space> :bnext<CR>
+noremap <S-Space> :bprev<CR>
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+
+" neocomplcache:"{{{
 " neocomplcache有効化
 let g:neocomplcache_enable_at_startup = 1
 " use smartcase
@@ -135,18 +170,14 @@ let g:neocomplcache_dictionary_filetype_lists = {
 " スニペット補完
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
 smap <C-k> <Plug>(neocomplcache_snippets_expand)
-
 " 前回行われた補完のキャンセル
 inoremap <expr><C-g> neocomplcache#undo_completion()
 " 補完候補から共通部分を補完
 inoremap <expr><C-l> neocomplcache#complete_common_string()
 " 選択している候補を確定
 inoremap <expr><C-y> neocomplcache#close_popup()
-
-
 " ファイル名補完
 inoremap <expr><C-x><C-f> neocomplcache#manual_filename_complete()
-
 ""imap <C-k>     <Plug>(neocomplcache_snippets_expand)
 ""smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g>     neocomplcache#undo_completion()
@@ -159,14 +190,16 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 ""inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
+"}}}
 
-" open-browser.vim
+" open-browser.vim:"{{{
 " カーソルがURLならそのURLを開き、それ以外ならその単語でggr
 let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 " 別途開いてるHTMLファイルをブラウザで開く
 cnoremap gx<CR> :! google-chrome %<CR>
+"}}}
 
 " nerdtree
 " add nerdtreegrep git://gist.github.com/414375.git
@@ -174,45 +207,36 @@ nnoremap <silent> nt  : <C-u>NERDTree<CR>
 nnoremap <silent> ntt : <C-u>NERDTreeToggle<CR>
 let NERDTreeShowHidden = 1
 
+" toggle.vim
+let g:toggle_pairs = { 'and': 'or', 'or': 'and'}
+
 " zen-coding
 let g:user_zen_expandabbr_key = '<c-e>'
 " 入力補完有効
+" スニペットは<C-e>で展開
 let g:use_zen_complete_tag = 1
-" jQuery用スニペット
 let g:user_zen_settings = {
-\ 'javascript' : {
-\   'snippets' : {
-\      'jq' : "$(function(){\n\t${cursor}${child}\n});",
-\      'jq:each' : "$each(${cursor}, function(index, item){\n\t${child}\n});",
-\      'fn' : "(function(){\n\t${cursor}\n})();",
-\      'tm' : "setTimeout(function(){\n\t${cursor},\n}, 100);",
-\    },
+\  'lang' : 'ja',
+\  'indentation' : '\t',
+\  'html' : {
+\    'indentation' : ' ',
+\  },
+\  'css' : {
+\    'filters' : 'fc',
+\  },
+\  'javascript' : {
+\    'snippets' : {
+\       'jq' : "$(function(){\n\t${cursor}${child}\n});",
+\       'jq:each' : "$each(${cursor}, function(index, item){\n\t${child}\n});",
+\       'fn' : "(function(){\n\t${cursor}\n})();",
+\       'tm' : "setTimeout(function(){\n\t${cursor},\n}, 100);",
+\     },
+\  },
+\  'php' : {
+\    'extends' : 'html',
+\    'filters' : 'html,c',
 \  },
 \}
-" 独自ファイルタイプへの対応
-let g:user_zen_settings = {
-\    'php' : {
-\        'extends' : 'html',
-\        'filters' : 'html,c',
-\    },
-\}
-
-"gtags.vim
-map <C-g> :Gtags
-map <C-i> :Gtags -f %<CR>
-"map <C-j> :GtagsCursor<CR>
-
-
-" minibufexpl.vim
-nnoremap <Leader>1 :e #1<CR>
-nnoremap <Leader>2 :e #2<CR>
-nnoremap <Leader>3 :e #3<CR>
-nnoremap <Leader>4 :e #4<CR>
-nnoremap <Leader>5 :e #5<CR>
-nnoremap <Leader>6 :e #6<CR>
-nnoremap <Leader>7 :e #7<CR>
-nnoremap <Leader>8 :e #8<CR>
-nnoremap <Leader>9 :e #9<CR>
 
 " quickrun
 let g:quickrun_config = {}
@@ -239,69 +263,15 @@ endif
 inoremap <expr> = smartchr#loop('=',' = ',' == ',' === ')
 inoremap <expr> , smartchr#loop(',', ', ')
 
-"##################################################################################
-" 文字コード自動認識
-"##################################################################################
-if &encoding !=# 'utf-8'
-  set encoding=japan
-  set fileencoding=japan
-endif
-if has('iconv')
-  let s:enc_euc = 'euc-jp'
-  let s:enc_jis = 'iso-2022-jp'
-  " iconvがeucJP-msに対応しているかをチェック
-  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'eucjp-ms'
-    let s:enc_jis = 'iso-2022-jp-3'
-  " iconvがJISX0213に対応しているかをチェック
-  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'euc-jisx0213'
-    let s:enc_jis = 'iso-2022-jp-3'
-  endif
-  " fileencodingsを構築
-  if &encoding ==# 'utf-8'
-    let s:fileencodings_default = &fileencodings
-    let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-    let &fileencodings = &fileencodings .','. s:fileencodings_default
-    unlet s:fileencodings_default
-  else
-    let &fileencodings = &fileencodings .','. s:enc_jis
-    set fileencodings+=utf-8,ucs-2le,ucs-2
-    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-      set fileencodings+=cp932
-      set fileencodings-=euc-jp
-      set fileencodings-=euc-jisx0213
-      set fileencodings-=eucjp-ms
-      let &encoding = s:enc_euc
-      let &fileencoding = s:enc_euc
-    else
-      let &fileencodings = &fileencodings .','. s:enc_euc
-    endif
-  endif
-  " 定数を処分
-  unlet s:enc_euc
-  unlet s:enc_jis
-endif
-" 日本語を含まない場合は fileencoding に encoding を使うようにする
-if has('autocmd')
-  function! AU_ReCheck_FENC()
-    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-      let &fileencoding=&encoding
-    endif
-  endfunction
-  autocmd BufReadPost * call AU_ReCheck_FENC()
-endif
-" 改行コードの自動認識
-set fileformats=unix,dos,mac
-" □とか○の文字があってもカーソル位置がずれないようにする
-if exists('&ambiwidth')
-  set ambiwidth=double
-endif
+" indent-guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_color_change_percent = 30
+let g:indent_guides_guide_size = 1
+"}}}
 
-"##################################################################################
-" setting
-"##################################################################################
-"バックアップ
+" ------------------------------------------------
+" AnySetting:"{{{
+" バックアップ
 set backup
 set backupdir=$HOME/.backup/
 
@@ -312,8 +282,8 @@ augroup cch
   autocmd WinLeave * set nocursorline
   autocmd WinEnter,BufRead * set cursorline
 augroup END
-:hi clear CursorLine
-:hi CursorLine gui=underline
+hi clear CursorLine
+hi CursorLine gui=underline
 highlight CursorLine ctermbg=black guibg=black
 
 "ESC2回押しでハイライト消去
@@ -324,7 +294,7 @@ autocmd BufWritePre * :%s/\s\+$//ge
 "保存時にtabをスペースに変換する
 autocmd BufWritePre * :%s/\t/  /ge
 
-set guifont=Ricky:h12
+""set guifont=Ricky:h12
 syntax on
 colorscheme desert
 highlight LineNr ctermfg=darkgrey
@@ -334,6 +304,7 @@ nnoremap j gj
 nnoremap k gk
 set autoread "ファイル変更されたら自動的に読み直す
 set showtabline=2 "タブを常に表示
+set guioptions-=e
 set noerrorbells "エラーベル利用しない
 set visualbell
 set ttyfast "早い端末を利用
@@ -363,7 +334,25 @@ set wildmenu "補完候補表示
 set helplang=ja
 set title "タイトルを表示
 set backspace=2 "バックスペースでインデント、改行削除
+set clipboard+=unnamed "ビジュアルモードで選択したテキストがクリップボードに入る
+set foldmethod=marker
+nnoremap y "+y
+vnoremap y "+y
 
+"qqq: でコマンド履歴を開く
+"qqq/キーで検索履歴を開く
+nnoremap qqq: <Esc>q:
+nnoremap qqq/ <Esc>q/
+"q:,q/,q?を無効化
+nnoremap q: <Nop>
+nnoremap q/ <Nop>
+nnoremap q? <Nop>
+
+set virtualedit=block
+
+" 連続でインデントサイズを変更
+vnoremap < <gv
+vnoremap > >gv
 "ESCキーを2回押すと終了する
 "パス単位で削除,ESC2回で終了
 autocmd FileType unite call s:unite_my_settings()
@@ -372,31 +361,45 @@ function! s:unite_my_settings()
         nmap <silent><buffer> <ESC><ESC> q
         imap <silent><buffer> <ESC><ESC> <ESC>q
 endfunction
+"}}}
 
+" AnyLanguagesSetting:"{{{
 " HTML setting
 autocmd BufNewFile *.html 0r ~/.vim/template/template.html
-
-" Python setting
+" Python setting:"{{{
 autocmd FileType python setl autoindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd BufNewFile *.py 0r ~/.vim/template/template.py
-
-" Ruby setting
+"}}}
+" Ruby setting:"{{{
 autocmd FileType ruby setl autoindent
 autocmd FileType ruby setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType ruby setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
-
-" ShellScript setting
+"}}}
+" ShellScript setting:"{{{
 autocmd FileType shell setl autoindent
 autocmd FileType shell setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd BufNewFile *.sh 0r ~/.vim/template/template.sh
-
-" JavaScript setting
+"}}}
+" JavaScript setting:"{{{
 autocmd FileType javascript setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
+"}}}
 " Java setting
 autocmd FileType java :setlocal omnifunc=javacomplete#Complete
 autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
 " Vim setting
 autocmd FileType vim setlocal expandtab shiftwidth=2
+"}}}
+
+"-------------------------------------------------------------------------
+" Encoding:"{{{
+set fileencodings=iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
+set encoding=utf-8
+" 改行コードの自動認識
+set fileformats=unix,dos,mac
+if exists('&ambiwidth')
+  set ambiwidth=double
+endif
+"}}}
