@@ -36,6 +36,8 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tyru/stickykey.vim'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-ref'
+" Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
+NeoBundle 'tpope/vim-speeddating'
 " <C+_><C+_>でコメントアウト
 NeoBundle 'tomtom/tcomment_vim'
 " 単語へのカーソル移動
@@ -44,6 +46,7 @@ NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vim-scripts/AutoClose--Alves'
 NeoBundle 'taku-o/vim-toggle'
+NeoBundle 'nvie/vim-pep8'
 
 " original repos on vim-scripts
 NeoBundle 'surround.vim'
@@ -57,6 +60,7 @@ NeoBundle 'mru.vim'
 NeoBundle 'xmledit'
 NeoBundle 'TwitVim'
 NeoBundle 'Align'
+NeoBundle 'matchit.zip'
 "NeoBundle 'ManPageView'
 " 「,w」,「,b」でキャメルケース、アンスコの変数を単語毎に移動できる
 NeoBundle 'camelcasemotion'
@@ -96,47 +100,49 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-n> unite#do_action('split
 " ウィンドウを縦に分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
 au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
+" ノーマルモードで開始
+let g:unite_enable_start_insert = 0
 " 縦分割で開始
 let g:unite_enable_split_vertically = 1
-" useally
-nnoremap <silent> ,uu :<C-u>Unite -buffer-name=files buffer_tab file_rec file file_mru<CR>
+" 通常使用
+nnoremap <silent> ,uu :<C-u>Unite -profile-name=files buffer_tab file_mru file<CR>
+" タブ検索
+nnoremap <silent> <C-t><C-t> :<C-u>Unite -immediately tab:no-current<CR>
 " バッファ一覧
 nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
 " ファイル一覧
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" 全乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru<CR>
 "}}}
 
-" textmanip.vim
+" textmanip.vim:"{{{
 " 行の複製
-xmap <Space>d <Plug>(textmanip-duplicate-down)
-nmap <Space>d <Plug>(textmanip-duplicate-down)
-xmap <Space>D <Plug>(textmanip-duplicate-up)
-nmap <Space>D <Plug>(textmanip-duplicate-up)
-
+"xmap <Space>d <Plug>(textmanip-duplicate-down)
+"nmap <Space>d <Plug>(textmanip-duplicate-down)
+"xmap <Space>D <Plug>(textmanip-duplicate-up)
+"nmap <Space>D <Plug>(textmanip-duplicate-up)
 " 選択したテキストの移動
 xmap <C-j> <Plug>(textmanip-move-down)
 xmap <C-k> <Plug>(textmanip-move-up)
 xmap <C-h> <Plug>(textmanip-move-left)
 xmap <C-l> <Plug>(textmanip-move-right)
+"}}}
 
-" YankRing.vim
+" YankRing.vim:"{{{
 let g:yankring_history_dir = expand('$HOME')
 let g:yankring_history_file = '.yankring_history'
 nnoremap  <silent> <F7> :YRShow<CR>
 let g:yankring_max_history = 10
 let g:yankring_window_height = 13
+"}}}
 
-" vim-align
+" vim-align:"{{{
 let g:Align_xstrlen = 3
 let g:DrChipTopLv1Menu = ''
+"}}}
 
-" buftabs
+" buftabs:"{{{
 " ステータスラインに表示
 " Ctrl+^で直前のバッファへ
 let g:buftabs_in_statusline=1
@@ -148,6 +154,7 @@ nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
+"}}}
 
 " neocomplcache:"{{{
 " neocomplcache有効化
@@ -201,16 +208,17 @@ vmap gx <Plug>(openbrowser-smart-search)
 cnoremap gx<CR> :! google-chrome %<CR>
 "}}}
 
-" nerdtree
+" nerdtree:"{{{
 " add nerdtreegrep git://gist.github.com/414375.git
 nnoremap <silent> nt  : <C-u>NERDTree<CR>
 nnoremap <silent> ntt : <C-u>NERDTreeToggle<CR>
 let NERDTreeShowHidden = 1
+"}}}
 
-" toggle.vim
+" toggle.vim normal is + insert is Ctrl+T
 let g:toggle_pairs = { 'and': 'or', 'or': 'and'}
 
-" zen-coding
+" zen-coding:"{{{
 let g:user_zen_expandabbr_key = '<c-e>'
 " 入力補完有効
 " スニペットは<C-e>で展開
@@ -237,36 +245,39 @@ let g:user_zen_settings = {
 \    'filters' : 'html,c',
 \  },
 \}
+"}}}
 
 " quickrun
 let g:quickrun_config = {}
 let g:quickrun_config['coffee'] = {'command' : 'coffee', 'exec' : ['%c -cbp %s']}
 
-" project.vim
+" project.vim:"{{{
+" カレントディレクトリに管理ファイルがあったら読み込む
+if getcwd() != $HOME
+    if filereadable(getcwd(). '/.vimprojects')
+      Project .vimprojects
+    endif
+endif
 " ファイルが選択されたら、ウィンドウを閉じる
-let g:proj_flags ="imstc"
+let g:proj_flags = "imstc"
 " <Leader>Pでプロジェクトとぐる開閉
 nmap <silent> <Leader>P <Plug>ToggleProject
-
 " <Leader>pで、デフォルトのプロジェクトを開く
 nmap <silent> <Leader>p :Project<CR>
 " プロジェクト開いたときにフォールディングを展開した状態にする
 autocmd BufAdd .vimprojects silent! %foldopen!
-" カレントディレクトリに管理ファイルがあったら読み込む
-if getcwd() != $HOME
-    if filereadable(getcwd().  '/.vimprojects')
-        Project .vimprojects
-    endif
-endif
+"}}}
 
-" smartchr
+" smartchr:"{{{
 inoremap <expr> = smartchr#loop('=',' = ',' == ',' === ')
 inoremap <expr> , smartchr#loop(',', ', ')
+"}}}
 
-" indent-guides
+" indent-guides:"{{{
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_color_change_percent = 30
 let g:indent_guides_guide_size = 1
+"}}}
 "}}}
 
 " ------------------------------------------------
@@ -274,7 +285,6 @@ let g:indent_guides_guide_size = 1
 " バックアップ
 set backup
 set backupdir=$HOME/.backup/
-
 "カーソル行のハイライト
 set cursorline
 augroup cch
@@ -294,7 +304,6 @@ autocmd BufWritePre * :%s/\s\+$//ge
 "保存時にtabをスペースに変換する
 autocmd BufWritePre * :%s/\t/  /ge
 
-""set guifont=Ricky:h12
 syntax on
 colorscheme desert
 highlight LineNr ctermfg=darkgrey
@@ -307,7 +316,7 @@ set showtabline=2 "タブを常に表示
 set guioptions-=e
 set noerrorbells "エラーベル利用しない
 set visualbell
-set ttyfast "早い端末を利用
+set ttyfast
 set wildchar=<TAB> "補完を<Tab>で行う
 set laststatus=2 "常にステータスライン表示
 set showcmd "コマンドをステータスラインに表示
@@ -315,10 +324,10 @@ set cmdheight=1
 set showmatch "対応する括弧を表示
 set hlsearch "検索結果をハイライト
 set expandtab "タブをスペースに置き換える
-"set columns=80
-"set lines=40
 set antialias
 set autoindent "オートインデント
+set textwidth=0 " 勝手な改行をふせぐ
+set list listchars=tab:>-,trail:_ " 不可視文字の表示
 " Tabの画面上での幅
 set tabstop=4
 set shiftwidth=4
@@ -334,10 +343,30 @@ set wildmenu "補完候補表示
 set helplang=ja
 set title "タイトルを表示
 set backspace=2 "バックスペースでインデント、改行削除
-set clipboard+=unnamed "ビジュアルモードで選択したテキストがクリップボードに入る
-set foldmethod=marker
+set clipboard+=unnamed,unnamedplus "ビジュアルモードで選択したテキストがクリップボードに入る
+set foldmethod=marker " 折りたたみ
 nnoremap y "+y
 vnoremap y "+y
+" 日本語入力:"{{{
+let IM_CtrlMode = 1
+inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
+function! IMCtrl(cmd)
+  let cmd = a:cmd
+  if cmd == 'On'
+    let res = system('xvkbd -text "\[Henkan]" > /dev/null 2>&1')
+  elseif cmd == 'Off'
+    let res = system('xvkbd -text "\[Muhenkan]" > /dev/null 2>&1')
+  elseif cmd == 'Toggle'
+    let res = system('xvkbd -text "\[Control]\[space]" > /dev/null 2>&1')
+  endif
+  return ''
+endfunction
+"}}}
+
+" change StatusLineColor Insert and Normal:"{{{
+au InsertEnter * hi StatusLine guifg=DarkBlue guibg=DarkYellow gui=none ctermfg=Blue ctermbg=DarkRed cterm=none
+au InsertLeave * hi StatusLine guifg=DarkBlue guibg=DarkGray   gui=none ctermfg=Blue ctermbg=DarkGray cterm=none
+"}}}
 
 "qqq: でコマンド履歴を開く
 "qqq/キーで検索履歴を開く
@@ -355,12 +384,12 @@ vnoremap < <gv
 vnoremap > >gv
 "ESCキーを2回押すと終了する
 "パス単位で削除,ESC2回で終了
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-        imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-        nmap <silent><buffer> <ESC><ESC> q
-        imap <silent><buffer> <ESC><ESC> <ESC>q
-endfunction
+"autocmd FileType unite call s:unite_my_settings()
+"function! s:unite_my_settings()
+"        imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+"        nmap <silent><buffer> <ESC><ESC> q
+"        imap <silent><buffer> <ESC><ESC> <ESC>q
+"endfunction
 "}}}
 
 " AnyLanguagesSetting:"{{{

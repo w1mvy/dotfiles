@@ -166,7 +166,6 @@ zstyle ':completion:*' completer _oldlist _complete _match _history _ignored  _p
 zstyle ':completion:*' use-cache yes
 # 詳細な情報を使う
 zstyle ':completion:*' verbose yes
-# sudo時にはsudo用のパスも使う
 zstyle ':completion:sudo:*' environ PATH="$SUDO_PATH:$PATH"
 # globを展開しないで候補の一覧から補完
 zstyle ':completion:*' glob_complete
