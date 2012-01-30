@@ -3,6 +3,11 @@
 ############################################################
 bindkey -v
 
+# byobu起動
+if [ $SHLVL = 1 ];then
+    byobu
+fi
+
 ############################################################
 # エイリアス
 ############################################################
@@ -189,5 +194,12 @@ setopt NO_BEEP # ビープを鳴らさない
 # jobsでプロセスIDも出力する
 setopt long_list_jobs
 
+# pythonbrew
+if [ -s "$HOME/.pythonbrew/etc/bashrc" ]; then
+  source "$HOME/.pythonbrew/etc/bashrc"
+  alias mkvirtualenv="pythonbrew venv create"
+  alias rmvirtualenv="pythonbrew venv delete"
+  alias workon="pythonbrew venv use"
+fi
 # オレオレzshrc
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine

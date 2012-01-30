@@ -22,6 +22,8 @@ NeoBundle 'Shougo/unite-ssh'
 NeoBundle 'Sixeight/unite-grep'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'vim-scripts/python.vim'
+NeoBundle 'vim-scripts/pythoncomplete'
+NeoBundle 'vim-scripts/Jinja'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'othree/eregex.vim'
@@ -36,6 +38,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tyru/stickykey.vim'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-ref'
+NeoBundle 'hail2u/vim-css3-syntax'
 " Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
 NeoBundle 'tpope/vim-speeddating'
 " <C+_><C+_>でコメントアウト
@@ -47,9 +50,14 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vim-scripts/AutoClose--Alves'
 NeoBundle 'taku-o/vim-toggle'
 NeoBundle 'nvie/vim-pep8'
+NeoBundle 'h1mesuke/vim-alignta'
+" リファクタ
+NeoBundle 'sontek/rope-vim'
+NeoBundle 'mitechie/pyflakes-pathogen'
 
 " original repos on vim-scripts
 NeoBundle 'surround.vim'
+NeoBundle 'TwitVim'
 NeoBundle 'IndentAnything'
 NeoBundle 'grep.vim'
 NeoBundle 'YankRing.vim'
@@ -58,8 +66,6 @@ NeoBundle 'renamer.vim'
 NeoBundle 'yaml.vim'
 NeoBundle 'mru.vim'
 NeoBundle 'xmledit'
-NeoBundle 'TwitVim'
-NeoBundle 'Align'
 NeoBundle 'matchit.zip'
 "NeoBundle 'ManPageView'
 " 「,w」,「,b」でキャメルケース、アンスコの変数を単語毎に移動できる
@@ -72,6 +78,7 @@ NeoBundle 'smartchr'
 NeoBundle 'Source-Explorer-srcexpl.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'buftabs'
+"NeoBundle 'trinity.vim'
 
 " colorscheme
 NeoBundle 'desert256.vim'
@@ -138,8 +145,8 @@ let g:yankring_window_height = 13
 "}}}
 
 " vim-align:"{{{
-let g:Align_xstrlen = 3
-let g:DrChipTopLv1Menu = ''
+"let g:Align_xstrlen = 3
+"let g:DrChipTopLv1Menu = ''
 "}}}
 
 " buftabs:"{{{
@@ -199,13 +206,16 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 "}}}
 
+" Enable omni completin
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+
 " open-browser.vim:"{{{
 " カーソルがURLならそのURLを開き、それ以外ならその単語でggr
 let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 " 別途開いてるHTMLファイルをブラウザで開く
-cnoremap gx<CR> :! google-chrome %<CR>
+cnoremap gx<CR> :! iron %<CR>
 "}}}
 
 " nerdtree:"{{{
@@ -390,6 +400,17 @@ vnoremap > >gv
 "        nmap <silent><buffer> <ESC><ESC> q
 "        imap <silent><buffer> <ESC><ESC> <ESC>q
 "endfunction
+" create dir auto
+augroup vimrc-auto-mkdir
+  autocmd!
+  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+  function! s:auto_mkdir(dir, force)
+    if !isdirectory(a:dir) && (a:force ||
+          \ input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
+  endfunction
+augroup END
 "}}}
 
 " AnyLanguagesSetting:"{{{
@@ -398,8 +419,19 @@ autocmd BufNewFile *.html 0r ~/.vim/template/template.html
 " Python setting:"{{{
 autocmd FileType python setl autoindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4 smarttab nosmartindent cindent textwidth=80
+autocmd FileType python setl foldmethod=indent
+autocmd FileType python setl foldlevel=99
 autocmd BufNewFile *.py 0r ~/.vim/template/template.py
+function! AddPyEncoding()
+  for line in readfile(expand("%"))
+      if line =~ 'Date'
+          echo line
+      endif
+  endfor
+endfunction
+autocmd BufReadPost *.py :call AddPyEncoding()
+
 "}}}
 " Ruby setting:"{{{
 autocmd FileType ruby setl autoindent
@@ -424,7 +456,7 @@ autocmd FileType vim setlocal expandtab shiftwidth=2
 
 "-------------------------------------------------------------------------
 " Encoding:"{{{
-set fileencodings=iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
+set fileencodings=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,euc-jp,eucjp-ms,cp932
 set encoding=utf-8
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
