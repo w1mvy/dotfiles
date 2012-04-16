@@ -1,13 +1,13 @@
 " Vim Settings
 " ---------------------------------------------------------------------------------
-" Vundle Setting:"{{{
+" Bundle Setting:"{{{
 " git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 set nocompatible
-filetype off
+filetype plugin indent off
 
 if has('vim_starting')
-  set runtimepath+=~/.vim/neobundle.vim.git/
-  call neobundle#rc(expand('~/.bundle'))
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  call neobundle#rc(expand('~/.vim/bundle'))
 endif
 
 " original repos on github
@@ -15,6 +15,7 @@ NeoBundle 't9md/vim-textmanip'
 NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplcache-snippets-complete'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-help'
@@ -31,11 +32,9 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/urilib.vim'
 NeoBundle 'rwfitzge/vim-bclose'
-NeoBundle 'edsono/vim-viewoutput'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
 NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'tyru/stickykey.vim'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'hail2u/vim-css3-syntax'
@@ -51,9 +50,15 @@ NeoBundle 'vim-scripts/AutoClose--Alves'
 NeoBundle 'taku-o/vim-toggle'
 NeoBundle 'nvie/vim-pep8'
 NeoBundle 'h1mesuke/vim-alignta'
+NeoBundle 'mattn/benchvimrc-vim'
+NeoBundle 'petdance/vim-perl'
+NeoBundle 'hotchpotch/perldoc-vim'
+
 " リファクタ
 NeoBundle 'sontek/rope-vim'
 NeoBundle 'mitechie/pyflakes-pathogen'
+NeoBundle 'pekepeke/titanium-vim'
+NeoBundle 'PHP-correct-Indenting'
 
 " original repos on vim-scripts
 NeoBundle 'surround.vim'
@@ -67,10 +72,9 @@ NeoBundle 'yaml.vim'
 NeoBundle 'mru.vim'
 NeoBundle 'xmledit'
 NeoBundle 'matchit.zip'
-"NeoBundle 'ManPageView'
 " 「,w」,「,b」でキャメルケース、アンスコの変数を単語毎に移動できる
 NeoBundle 'camelcasemotion'
-NeoBundle 'html5.vim'
+NeoBundle 'othree/html5.vim'
 NeoBundle 'Better-Javascript-Indentation'
 NeoBundle 'project.tar.gz'
 NeoBundle 'javacomplete'
@@ -78,20 +82,10 @@ NeoBundle 'smartchr'
 NeoBundle 'Source-Explorer-srcexpl.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'buftabs'
-"NeoBundle 'trinity.vim'
 
 " colorscheme
-NeoBundle 'desert256.vim'
-NeoBundle 'desertEx'
-NeoBundle 'wombat256.vim'
-NeoBundle 'mrkn/mrkn256.vim'
-NeoBundle 'larssmit/Lucius'
 NeoBundle 'Wombat'
-
-" my repo
-" scala付属のvimtool http://www.scala-lang.org/
-NeoBundle 'scala-vim'
-
+NeoBundle 'tomasr/molokai'
 filetype plugin indent on
 "}}}
 
@@ -179,9 +173,11 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default'    : '',
     \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
     \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-    \ 'vimshell'   : $HOME.'/.vim/dict/vim.dict'
+    \ 'vimshell'   : $HOME.'/.vim/dict/vim.dict',
+    \ 'perl'       : $HOME.'/.vim/dict/perl.dict'
     \}
 " スニペット補完
+imap <expr><C-k> neocomplecache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
 smap <C-k> <Plug>(neocomplcache_snippets_expand)
 " 前回行われた補完のキャンセル
@@ -204,6 +200,10 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 ""inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 "}}}
 
 " Enable omni completin
@@ -233,14 +233,15 @@ let g:user_zen_expandabbr_key = '<c-e>'
 " 入力補完有効
 " スニペットは<C-e>で展開
 let g:use_zen_complete_tag = 1
+setlocal omnifunc=zencoding#CompleteTag
 let g:user_zen_settings = {
 \  'lang' : 'ja',
-\  'indentation' : '\t',
+\  'indentation' : '    ',
 \  'html' : {
-\    'indentation' : ' ',
+\    'filters' : 'html',
 \  },
 \  'css' : {
-\    'filters' : 'fc',
+\    'filters' : 'html, fc',
 \  },
 \  'javascript' : {
 \    'snippets' : {
@@ -260,6 +261,8 @@ let g:user_zen_settings = {
 " quickrun
 let g:quickrun_config = {}
 let g:quickrun_config['coffee'] = {'command' : 'coffee', 'exec' : ['%c -cbp %s']}
+let g:quickrun_config['markdown'] = {
+    \'outputter':'browser'}
 
 " project.vim:"{{{
 " カレントディレクトリに管理ファイルがあったら読み込む
@@ -288,6 +291,15 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_color_change_percent = 30
 let g:indent_guides_guide_size = 1
 "}}}
+
+" QFix Hown{{{
+set runtimepath+=~/.vim/plugin/qfixapp
+let QFixHowm_Key = 'g'
+let howm_dir='~/Dropbox/howm'
+let homm_fileencoding='utf-8'
+let hown_fileformat='unix'
+"}}}
+"
 "}}}
 
 " ------------------------------------------------
@@ -315,12 +327,15 @@ autocmd BufWritePre * :%s/\s\+$//ge
 autocmd BufWritePre * :%s/\t/  /ge
 
 syntax on
+"colorscheme molokai
 colorscheme desert
 highlight LineNr ctermfg=darkgrey
 
 "行の折り返し時
 nnoremap j gj
 nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 set autoread "ファイル変更されたら自動的に読み直す
 set showtabline=2 "タブを常に表示
 set guioptions-=e
@@ -447,11 +462,29 @@ autocmd BufNewFile *.sh 0r ~/.vim/template/template.sh
 autocmd FileType javascript setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
 "}}}
+" Perl setting{{{
+autocmd BufNewFile *.pl 0r ~/.vim/template/template.pl
+autocmd BufNewFile,BufRead *.psgi set filetype=perl
+autocmd BufRead,BufNewFile *.t set filetype=perl
+autocmd FileType perl,cgi :compiler perl
+autocmd FileType perl setl autoindent
+autocmd FileType perl setl cinkeys=0{,0},:,!^F,o,O,e
+autocmd FileType perl setl formatoptions=tcqr
+autocmd FileType perl setl tabstop=4 shiftwidth=4 softtabstop=4 cindent expandtab
+"}}}
+" PHP setting {{{
+au BufReadPost,BufNewFile *.ctp :setl filetype=php
+autocmd FileType php setl autoindent
+autocmd FileType php setl tabstop=4 shiftwidth=4 softtabstop=4 cindent expandtab
+" }}}
 " Java setting
 autocmd FileType java :setlocal omnifunc=javacomplete#Complete
 autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
 " Vim setting
 autocmd FileType vim setlocal expandtab shiftwidth=2
+" Markdown setting
+autocmd BufRead,BufNewFile *.mkd setfiletype mkd
+autocmd BufRead,BufNewFile *.md setfiletype mkd
 "}}}
 
 "-------------------------------------------------------------------------

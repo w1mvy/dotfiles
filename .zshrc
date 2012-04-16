@@ -3,9 +3,9 @@
 ############################################################
 bindkey -v
 
-# byobu起動
+# tmux起動
 if [ $SHLVL = 1 ];then
-    byobu
+    tmux
 fi
 
 ############################################################
@@ -42,8 +42,8 @@ alias -s sh=vim
 alias -s py=vim
 alias -s js=vim
 alias -s xml=lv
-alias -s html=google-chrome
-alias -s xhtml=google-chrome
+alias -s html=iron
+alias -s xhtml=iron
 alias -s gif=display
 alias -s jpg=display
 alias -s png=display
@@ -201,5 +201,11 @@ if [ -s "$HOME/.pythonbrew/etc/bashrc" ]; then
   alias rmvirtualenv="pythonbrew venv delete"
   alias workon="pythonbrew venv use"
 fi
+
 # オレオレzshrc
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
+_Z_CMD=j
+source ~/dotfiles/.zsh/z/z.sh
+precmd() {
+    _z --add "$(pwd -P)"
+}
