@@ -30,7 +30,7 @@ autoload -Uz zmv
 alias zmv='noglob zmv -w'
 
 ## ファイル操作の確認
-alias rm="rm -i"
+# alias rm="rm -i"
 alias cp="cp -i"
 alias cp="cp -i"
 alias mv="mv -i"
@@ -129,7 +129,7 @@ bindkey "^S" history-incremental-pattern-search-forward
 # 補完関係
 ############################################################
 # 標準補完
-autoload -U compinit
+autoload -Uz compinit
 compinit
 
 setopt auto_cd # ディレクトリ名を入力するだけでディレクトリ変更
@@ -204,8 +204,31 @@ fi
 
 # オレオレzshrc
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
+
+# z.sh
 _Z_CMD=j
-source ~/dotfiles/.zsh/z/z.sh
+source ~/dotfiles/zsh/z/z.sh
 precmd() {
     _z --add "$(pwd -P)"
 }
+
+# cdd 他のウィンドウのディレクトリに移動できる
+compinit
+. $HOME/dotfiles/zsh/cdd/cdd
+chpwd() {
+    _cdd_chpwd
+}
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'
+
+# zaw.zsh
+source $HOME/dotfiles/zsh/zaw/zaw.zsh
+bindkey '^R' zaw-history
+# zaw.zshでディレクトリスタック絞り込み
+zmodload zsh/parameter
+function zaw-src-dirstack() {
+    : ${(A)candidates::=$dirstack}
+    actions=("zaw-callback-execute" "zaw-callback-replace-buffer" "zaw-callback-append-to-buffer")
+    act_descriptions=("execute" "replace edit buffer" "append to edit buffer")
+}
+zaw-register-src -n dirstack zaw-src-dirstack
