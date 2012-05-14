@@ -53,6 +53,9 @@ NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'mattn/benchvimrc-vim'
 NeoBundle 'petdance/vim-perl'
 NeoBundle 'hotchpotch/perldoc-vim'
+NeoBundle 'lambdalisue/vim-python-virtualenv'
+" Python用構文チェック
+NeoBundle 'mitechie/pyflakes-pathogen'
 
 " リファクタ
 NeoBundle 'sontek/rope-vim'
@@ -82,6 +85,7 @@ NeoBundle 'smartchr'
 NeoBundle 'Source-Explorer-srcexpl.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'buftabs'
+NeoBundle 'JSON.vim'
 
 " colorscheme
 NeoBundle 'Wombat'
@@ -299,7 +303,15 @@ let howm_dir='~/Dropbox/howm'
 let homm_fileencoding='utf-8'
 let hown_fileformat='unix'
 "}}}
-"
+
+"{{{ vim-python-virtualenv
+" Apply g:pythonworkon to statusline
+if exists('g:pythonworkon')
+    let &statusline='%F%m%r%h%w [FORMAT=%{&ff}] [ENC=%{&fileencoding}] [TYPE=%Y] [ASCII=\%03.3b] [HEX=\%02.2B] [POS=%04l,%04v][%p%%] [LEN=%L] %= [WORKON=%{pythonworkon}]'
+endif
+"}}}
+
+
 "}}}
 
 " ------------------------------------------------
@@ -432,9 +444,9 @@ augroup END
 " HTML setting
 autocmd BufNewFile *.html 0r ~/.vim/template/template.html
 " Python setting:"{{{
-autocmd FileType python setl autoindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4 smarttab nosmartindent cindent textwidth=80
+autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4 smarttab nosmartindent cindent textwidth=80 colorcolumn=80 autoindent
+" Folding
 autocmd FileType python setl foldmethod=indent
 autocmd FileType python setl foldlevel=99
 autocmd BufNewFile *.py 0r ~/.vim/template/template.py
@@ -465,7 +477,7 @@ autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
 " Perl setting{{{
 autocmd BufNewFile *.pl 0r ~/.vim/template/template.pl
 autocmd BufNewFile,BufRead *.psgi set filetype=perl
-autocmd BufRead,BufNewFile *.t set filetype=perl
+autocmd BufRead,BufNewFile *.t,*.pm set filetype=perl
 autocmd FileType perl,cgi :compiler perl
 autocmd FileType perl setl autoindent
 autocmd FileType perl setl cinkeys=0{,0},:,!^F,o,O,e
@@ -485,6 +497,19 @@ autocmd FileType vim setlocal expandtab shiftwidth=2
 " Markdown setting
 autocmd BufRead,BufNewFile *.mkd setfiletype mkd
 autocmd BufRead,BufNewFile *.md setfiletype mkd
+
+"{{{: JSON setting use JSON.vim
+au! BufRead,BufNewFile *.json set filetype=json
+augroup json_autocmd
+  autocmd!
+  autocmd FileType json set autoindent
+  autocmd FileType json set formatoptions=tcq2l
+  autocmd FileType json set textwidth=78 shiftwidth=2
+  autocmd FileType json set softtabstop=2 tabstop=8
+  autocmd FileType json set expandtab
+  autocmd FileType json set foldmethod=syntax
+augroup END
+"}}}
 "}}}
 
 "-------------------------------------------------------------------------
