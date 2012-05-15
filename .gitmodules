@@ -7,3 +7,15 @@
 [submodule "zsh"]
 	path = zsh
 	url = git://github.com/m4i/cdd.git
+[submodule "zsh/auto-fu"]
+	path = zsh/auto-fu
+	url = git://github.com/hchbaw/auto-fu.zsh.git
+[submodule "zsh/z"]
+	path = zsh/z
+	url = git://github.com/rupa/z.git
+[submodule "zsh/zaw"]
+	path = zsh/zaw
+	url = git://github.com/nakamuray/zaw.git
+[submodule "zsh/cdd"]
+	path = zsh/cdd
+	url = git://github.com/m4i/cdd.git
