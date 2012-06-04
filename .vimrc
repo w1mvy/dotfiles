@@ -38,6 +38,9 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'hail2u/vim-css3-syntax'
+" JavaScript コーディング規約チェック
+" sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
+NeoBundle 'scrooloose/syntastic'
 " Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
 NeoBundle 'tpope/vim-speeddating'
 " <C+_><C+_>でコメントアウト
@@ -476,6 +479,7 @@ autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
 "}}}
 " Perl setting{{{
 autocmd BufNewFile *.pl 0r ~/.vim/template/template.pl
+autocmd BufNewFile *.pm 0r ~/.vim/template/template.pm
 autocmd BufNewFile,BufRead *.psgi set filetype=perl
 autocmd BufRead,BufNewFile *.t,*.pm set filetype=perl
 autocmd FileType perl,cgi :compiler perl
