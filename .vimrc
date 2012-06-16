@@ -12,7 +12,14 @@ endif
 
 " original repos on github
 NeoBundle 't9md/vim-textmanip'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neocomplcache-snippets-complete'
@@ -20,7 +27,9 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-help'
 NeoBundle 'Shougo/unite-ssh'
+" :Unite grep:target:options:pattern
 NeoBundle 'Sixeight/unite-grep'
+NeoBundle 't9md/vim-unite-ack'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'vim-scripts/python.vim'
 NeoBundle 'vim-scripts/pythoncomplete'
@@ -85,6 +94,7 @@ NeoBundle 'Better-Javascript-Indentation'
 NeoBundle 'project.tar.gz'
 NeoBundle 'javacomplete'
 NeoBundle 'smartchr'
+" taglist, Source-Explorer-srcexpl, ctags用プラグイン
 NeoBundle 'Source-Explorer-srcexpl.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'buftabs'
@@ -93,6 +103,8 @@ NeoBundle 'JSON.vim'
 " colorscheme
 NeoBundle 'Wombat'
 NeoBundle 'tomasr/molokai'
+NeoBundle 'dante.vim'
+NeoBundle 'jellybeans.vim'
 filetype plugin indent on
 "}}}
 
@@ -100,28 +112,22 @@ filetype plugin indent on
 " Plugins Setting:"{{{
 
 " unite.vim:"{{{
-" インサート/ノーマルどちらからでも呼び出せるようにキーマップ
-nnoremap <silent> <C-r> :<C-u>Unite file_mru<CR>
-" ウィンドウを水平に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-n> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-n> unite#do_action('split')
-" ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-" ノーマルモードで開始
-let g:unite_enable_start_insert = 0
-" 縦分割で開始
-let g:unite_enable_split_vertically = 1
+" unite start settings
+let g:unite_enable_start_insert=1
+let g:unite_split_rule="botright"
+let g:unite_enable_split_vertically = 0
+nnoremap [unite] <Nop>
+nmap f [unite]
 " 通常使用
-nnoremap <silent> ,uu :<C-u>Unite -profile-name=files buffer_tab file_mru file<CR>
-" タブ検索
-nnoremap <silent> <C-t><C-t> :<C-u>Unite -immediately tab:no-current<CR>
-" バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]u :<C-u>Unite -profile-name=files buffer_tab file_mru file<CR>
+" show all buffers
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+" show all tabs
+nnoremap <silent> <C-t><C-t> :<C-u>Unite tab:no-current<CR>
+" 最近使ったファイル
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 " ファイル一覧
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir file_rec -buffer-name=files<CR>
 "}}}
 
 " textmanip.vim:"{{{
@@ -154,10 +160,13 @@ let g:yankring_window_height = 13
 " ステータスラインに表示
 " Ctrl+^で直前のバッファへ
 let g:buftabs_in_statusline=1
+" ファイル名のみ表示
 let g:buftabs_only_basename=1
-" Space,Shift+Spaceでバッファ切り替え
-noremap <Space> :bnext<CR>
-noremap <S-Space> :bprev<CR>
+" 現在のバッファをハイライト
+let g:buftabs_active_highlight_group="Visual"
+" Space,Ctrl+Spaceでバッファ切り替え
+nmap <Space> :bnext<CR>
+nmap <Nul> :bprev<CR>
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
 nmap <C-j> <C-w>j
@@ -342,7 +351,6 @@ autocmd BufWritePre * :%s/\s\+$//ge
 autocmd BufWritePre * :%s/\t/  /ge
 
 syntax on
-"colorscheme molokai
 colorscheme desert
 highlight LineNr ctermfg=darkgrey
 
@@ -385,6 +393,9 @@ set title "タイトルを表示
 set backspace=2 "バックスペースでインデント、改行削除
 set clipboard+=unnamed,unnamedplus "ビジュアルモードで選択したテキストがクリップボードに入る
 set foldmethod=marker " 折りたたみ
+set wildignorecase " :e でファイル開くとき大文字小文字区別しないで候補を探sす
+" 選択した文字列を"*"で検索する
+vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
 nnoremap y "+y
 vnoremap y "+y
 " 日本語入力:"{{{
