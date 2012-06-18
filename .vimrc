@@ -1,5 +1,4 @@
 " Vim Settings
-" ---------------------------------------------------------------------------------
 " Bundle Setting:"{{{
 " git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 set nocompatible
@@ -111,7 +110,6 @@ NeoBundle 'jellybeans.vim'
 filetype plugin indent on
 "}}}
 
-" --------------------------------------------------------------------------------
 " Plugins Setting:"{{{
 
 " unite.vim:"{{{
@@ -130,7 +128,29 @@ nnoremap <silent> <C-t><C-t> :<C-u>Unite tab:no-current<CR>
 " 最近使ったファイル
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 " ファイル一覧
-nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir file_rec -buffer-name=files<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir file -buffer-name=files<CR>
+"バッファ一覧
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+"uniteを開いている間のキーマッピング
+augroup vimrc
+  autocmd FileType unite call s:unite_my_settings()
+augroup END
+function! s:unite_my_settings()
+  "入力モードのときjjでノーマルモードに移動
+  imap <buffer> jj <Plug>(unite_insert_leave)
+  "入力モードのときctrl+wでバックスラッシュも削除
+  imap <buffer> <C-j> <Plug>(unite_delete_backward_path)
+  "sでsplit
+  nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
+  inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
+  "vでvsplit
+  nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
+  inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
+  "fでvimfiler
+  nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
+  inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
+endfunction
+
 "}}}
 
 " textmanip.vim:"{{{
@@ -329,7 +349,6 @@ endif
 
 "}}}
 
-" ------------------------------------------------
 " AnySetting:"{{{
 " バックアップ
 set backup
@@ -530,7 +549,6 @@ augroup END
 "}}}
 "}}}
 
-"-------------------------------------------------------------------------
 " Encoding:"{{{
 set fileencodings=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,euc-jp,eucjp-ms,cp932
 set encoding=utf-8
