@@ -153,6 +153,10 @@ endfunction
 
 "}}}
 
+" unite.vim:"{{{
+let g:vimfiler_as_default_explorer=1
+" }}}
+
 " textmanip.vim:"{{{
 " 行の複製
 "xmap <Space>d <Plug>(textmanip-duplicate-down)
@@ -174,11 +178,6 @@ let g:yankring_max_history = 10
 let g:yankring_window_height = 13
 "}}}
 
-" vim-align:"{{{
-"let g:Align_xstrlen = 3
-"let g:DrChipTopLv1Menu = ''
-"}}}
-
 " buftabs:"{{{
 " ステータスラインに表示
 " Ctrl+^で直前のバッファへ
@@ -187,13 +186,11 @@ let g:buftabs_in_statusline=1
 let g:buftabs_only_basename=1
 " 現在のバッファをハイライト
 let g:buftabs_active_highlight_group="Visual"
+" ステータスライン
+set statusline=%=\ [%{(&fenc!=''?&fenc:&enc)}/%{&ff}]\[%Y]\[%04l,%04v][%p%%]
 " Space,Ctrl+Spaceでバッファ切り替え
 nmap <Space> :bnext<CR>
 nmap <Nul> :bprev<CR>
-nmap <C-h> <C-w>h
-nmap <C-l> <C-w>l
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
 "}}}
 
 " neocomplcache:"{{{
@@ -376,11 +373,16 @@ syntax on
 colorscheme desert
 highlight LineNr ctermfg=darkgrey
 
-"行の折り返し時
+" 行の折り返し時
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+" ウィンドウの移動
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
 set autoread "ファイル変更されたら自動的に読み直す
 set showtabline=2 "タブを常に表示
 set guioptions-=e
