@@ -198,17 +198,8 @@ setopt NO_BEEP # ビープを鳴らさない
 # jobsでプロセスIDも出力する
 setopt long_list_jobs
 
-# pythonbrew
-if [ -s "$HOME/.pythonbrew/etc/bashrc" ]; then
-  source "$HOME/.pythonbrew/etc/bashrc"
-  alias mkvirtualenv="pythonbrew venv create"
-  alias rmvirtualenv="pythonbrew venv delete"
-  alias workon="pythonbrew venv use"
-fi
-
 # オレオレzshrc
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
-
 
 ############################################################
 # zshライブラリ的な
@@ -305,3 +296,5 @@ EOT
 bindkey-advice-before "^G" afu+cancel
 bindkey-advice-before "^[" afu+cancel
 bindkey-advice-before "^J" afu+cancel afu+accept-line
+
+source $HOME/dotfiles/.zshrc.git
