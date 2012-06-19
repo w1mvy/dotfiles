@@ -1,7 +1,14 @@
 #
+# zsh用git設定
+#
+alias gst='git status -s -b'
+alias gch='git cherry -v'
+alias glgg='git log'
+alias glg='git logg | head'
+export PATH=$HOME/dotfiles/zsh/git:$PATH
+
 # Show branch name in Zsh's right prompt
 #
-
 autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
 
 setopt prompt_subst
@@ -31,5 +38,4 @@ function rprompt-git-current-branch {
     fi
     echo "$color$name$action%f%b "
 }
-
 RPROMPT='[`rprompt-git-current-branch`%~]'

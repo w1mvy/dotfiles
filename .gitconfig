@@ -1,0 +1,13 @@
+[user]
+  name = ${NAME}
+  email = ${EMAIL}
+[color]
+  ui = auto
+[core]
+  pager = lv -c
+[tig "bind"]
+    generic = g move-first-line
+    generic = G move-first-line
+[alias]
+    logg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
+    loggr = log --graph --date-order --pretty=format:'%Cblue%h %Cgreen%ci %Cred%an %Cblue%m %Creset%s %Cred%d'
