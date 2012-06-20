@@ -242,6 +242,13 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 "}}}
 
+" alignta: {{{
+xnoremap <silent> a= :Alignta =>\=<CR>
+xnoremap <silent> a: :Alignta  01 :<CR>
+xmap <silent><expr> as mode() !=# 'v' ? ':Alignta \S\+'."\<CR>" : 'as'
+xnoremap al :Alignta<Space>
+" }}}
+
 " Enable omni completin
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 
@@ -349,7 +356,15 @@ endif
 " AnySetting:"{{{
 " バックアップ
 set backup
+if !isdirectory($HOME.'/.backup/')
+    call mkdir($HOME.'/.backup/')
+endif
 set backupdir=$HOME/.backup/
+set swapfile
+if !isdirectory($HOME.'/.swp/')
+    call mkdir($HOME.'/.swp/')
+endif
+set directory=$HOME/.swp/
 "カーソル行のハイライト
 set cursorline
 augroup cch
