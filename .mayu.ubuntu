@@ -1,0 +1,16 @@
+include "linux109.mayu"
+keymap Global
+
+# Enter 無効化
+key Enter =
+key BackSpace =
+# CapsキーをCtrlに
+mod control += Eisuu
+key *Eisuu = *LControl
+key LControl =
+
+key *IL-*IC-Semicolon = Enter
+key C-Semicolon = Semicolon
+# Ctrl+H to Backspace
+key C-h = BackSpace
+# vim:ft=mayu sw=4 sts=4
