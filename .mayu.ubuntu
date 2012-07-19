@@ -2,15 +2,29 @@ include "linux109.mayu"
 keymap Global
 
 # Enter 無効化
-key Enter =
-key BackSpace =
-# CapsキーをCtrlに
-mod control += Eisuu
-key *Eisuu = *LControl
-key LControl =
+key Enter = &Undefined
+key BackSpace = &Undefined
+
+# CapsLock 単発だと Esc になり、押しながら何かを押すと Ctrl になる
+mod control += !!Eisuu
+key *Eisuu = *Esc
+key R-*Eisuu = &Ignore
 
 key *IL-*IC-Semicolon = Enter
-key C-Semicolon = Semicolon
+key C-Semicolon       = Semicolon
+key *IC-S-SemiColon   = Colon                # :
 # Ctrl+H to Backspace
 key C-h = BackSpace
+
+# map Ctrl + Alt + hjkl to cursor
+key *IC-C-A-K = Up
+key *IC-C-A-L = Right
+key *IC-C-A-J = Down
+key *IC-C-A-H = Left
+
+# map Ctrl + Alt + ,. to <BS> and <Del>
+key *IC-C-A-Comma    = Backspace
+key *IC-C-A-FullStop = Delete
+
+key *IC-S-SemiColon          = Colon                # :
 # vim:ft=mayu sw=4 sts=4
