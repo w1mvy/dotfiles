@@ -10,9 +10,12 @@ mod control += !!Eisuu
 key *Eisuu = *Esc
 key R-*Eisuu = &Ignore
 
+# Semicolon to Enter C
 key *IL-*IC-Semicolon = Enter
 key C-Semicolon       = Semicolon
 key *IC-S-SemiColon   = Colon                # :
+
+key *IL-*IC-Colon = S-Semicolon
 # Ctrl+H to Backspace
 key C-h = BackSpace
 
