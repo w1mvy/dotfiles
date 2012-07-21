@@ -67,6 +67,8 @@ NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'mattn/benchvimrc-vim'
 NeoBundle 'petdance/vim-perl'
 NeoBundle 'hotchpotch/perldoc-vim'
+" vim用w3m
+NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'lambdalisue/vim-python-virtualenv'
 " Python用構文チェック
 NeoBundle 'mitechie/pyflakes-pathogen'
@@ -114,6 +116,7 @@ filetype plugin indent on
 
 " unite.vim:"{{{
 " unite start settings
+let g:vimfiler_as_default_explorer=1
 let g:unite_enable_start_insert=1
 let g:unite_split_rule="botright"
 let g:unite_enable_split_vertically = 0
@@ -129,6 +132,11 @@ nnoremap <silent> <C-t><C-t> :<C-u>Unite tab:no-current<CR>
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 " ファイル一覧
 nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir file -buffer-name=files<CR>
+" ファイル一覧
+nnoremap <silent> [unite]n :<C-u>UniteWithCurrentDir file_rec -buffer-name=files<CR>
+nnoremap <silent> [unite]t :<C-u>Unite file_rec<CR>
+" 現在開いてるバッファがあるディレクトリのファイル一覧
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file -buffer-name=files<CR>
 "バッファ一覧
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 "uniteを開いている間のキーマッピング
@@ -150,12 +158,8 @@ function! s:unite_my_settings()
   nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
   inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
 endfunction
-
 "}}}
 
-" unite.vim:"{{{
-let g:vimfiler_as_default_explorer=1
-" }}}
 
 " textmanip.vim:"{{{
 " 行の複製
@@ -360,10 +364,10 @@ if !isdirectory($HOME.'/.backup/')
     call mkdir($HOME.'/.backup/')
 endif
 set backupdir=$HOME/.backup/
-set swapfile
 if !isdirectory($HOME.'/.swp/')
     call mkdir($HOME.'/.swp/')
 endif
+set swapfile
 set directory=$HOME/.swp/
 "カーソル行のハイライト
 set cursorline
@@ -394,10 +398,10 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 " ウィンドウの移動
-nmap <C-h> <C-w>h
-nmap <C-l> <C-w>l
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
+nmap gh <C-w>h
+nmap gl <C-w>l
+nmap gj <C-w>j
+nmap gk <C-w>k
 set autoread "ファイル変更されたら自動的に読み直す
 set showtabline=2 "タブを常に表示
 set guioptions-=e
