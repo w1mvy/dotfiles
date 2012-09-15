@@ -39,3 +39,5 @@ function rprompt-git-current-branch {
     echo "$color$name$action%f%b "
 }
 RPROMPT='[`rprompt-git-current-branch`%~]'
+
+source $HOME/dotfiles/zsh/git/src/git/contrib/completion/git-completion.bash

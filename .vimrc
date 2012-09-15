@@ -1,6 +1,6 @@
 " Vim Settings
 " Bundle Setting:"{{{
-" git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+" git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/neobundle.vim
 set nocompatible
 filetype plugin indent off
 
@@ -60,7 +60,9 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'Lokaltog/vim-easymotion'
 " インデント量の違いをハイライト表示
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'vim-scripts/AutoClose--Alves'
+" 括弧の自動補完
+"NeoBundle 'vim-scripts/AutoClose--Alves'
+NeoBundle 'Townk/vim-autoclose'
 NeoBundle 'taku-o/vim-toggle'
 NeoBundle 'nvie/vim-pep8'
 NeoBundle 'h1mesuke/vim-alignta'
@@ -72,6 +74,7 @@ NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'lambdalisue/vim-python-virtualenv'
 " Python用構文チェック
 NeoBundle 'mitechie/pyflakes-pathogen'
+NeoBundle 'glidenote/memolist.vim'
 
 " リファクタ
 NeoBundle 'sontek/rope-vim'
@@ -90,6 +93,7 @@ NeoBundle 'renamer.vim'
 NeoBundle 'yaml.vim'
 NeoBundle 'mru.vim'
 NeoBundle 'xmledit'
+" '%' で対応する括弧に飛ぶ機能を強化
 NeoBundle 'matchit.zip'
 " 「,w」,「,b」でキャメルケース、アンスコの変数を単語毎に移動できる
 NeoBundle 'camelcasemotion'
@@ -304,6 +308,11 @@ let g:user_zen_settings = {
 \  },
 \}
 "}}}
+
+" memolist
+map <Leader>mn  :MemoNew<CR>
+map <Leader>ml  :MemoList<CR>
+map <Leader>mg  :MemoGrep<CR>
 
 " quickrun
 let g:quickrun_config = {}

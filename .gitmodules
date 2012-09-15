@@ -19,3 +19,6 @@
 [submodule "zsh/cdd"]
 	path = zsh/cdd
 	url = git://github.com/m4i/cdd.git
+[submodule "zsh/git/src/git"]
+	path = zsh/git/src/git
+	url = git://github.com/git/git.git

@@ -28,6 +28,8 @@ key *IC-C-A-H = Left
 # map Ctrl + Alt + ,. to <BS> and <Del>
 key *IC-C-A-Comma    = Backspace
 key *IC-C-A-FullStop = Delete
+key Backspace =&Ignore
+key Delete = &Ignore
 
 key *IC-S-SemiColon          = Colon                # :
 # vim:ft=mayu sw=4 sts=4
