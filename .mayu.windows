@@ -1,0 +1,38 @@
+# default
+include "109.mayu"
+
+key *IC-S-SemiColon          = Colon                # :
+
+# One Shot modifier settings
+# CapsLk
+mod ctrl += !!英数
+key *IC-*S-*A-*C-*英数 = *Esc
+key R-*英数 = &Ignore
+
+# ひらがな
+key *IC-C-ひらがな = S-Minus            # =
+key *IC-S-ひらがな = S-Semicolon        # +
+
+# SemiColon
+key *IC-SemiColon      = Enter
+key *IC-A-SemiColon    = A-Enter
+key *IC-C-~S-SemiColon = SemiColon # ;
+key *IL-*IC-Colon = S-SemiColon
+
+# map Ctrl + Alt + hjkl to cursor
+key *IC-C-A-K = ↑
+key *IC-C-A-L = →
+key *IC-C-A-J = ↓
+key *IC-C-A-H = ←
+
+# map Ctrl + Alt + ,. to <BS> and <Del>
+key *IC-C-A-Comma    = Backspace
+key *IC-C-A-FullStop = Delete
+
+# map ScrollLock to Windows Lock
+key ScrollLock = W-L
+key Pause      = &LoadSetting("日本語 109 キーボード")
+key Insert     = &LoadSetting
+
+#
+key *IC-C-H = Backspace
