@@ -21,7 +21,7 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
+NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-help'
@@ -557,8 +557,9 @@ autocmd FileType php setl autoindent
 autocmd FileType php setl tabstop=4 shiftwidth=4 softtabstop=4 cindent expandtab
 " }}}
 " Java setting
-autocmd FileType java :setlocal omnifunc=javacomplete#Complete
-autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType java setlocal completefunc=javacomplete#CompleteParamsInfo
+autocmd FileType java setl tabstop=8 expandtab shiftwidth=4 tabstop softtabstop=4 smarttab nosmartindent cindent textwidth=80 colorcolumn=80 autoindent
 " Vim setting
 autocmd FileType vim setlocal expandtab shiftwidth=2
 " Markdown setting

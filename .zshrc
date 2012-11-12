@@ -298,3 +298,6 @@ bindkey-advice-before "^[" afu+cancel
 bindkey-advice-before "^J" afu+cancel afu+accept-line
 
 source $HOME/dotfiles/.zshrc.git
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
