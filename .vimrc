@@ -127,7 +127,7 @@ let g:unite_enable_split_vertically = 0
 nnoremap [unite] <Nop>
 nmap f [unite]
 " 通常使用
-nnoremap <silent> [unite]u :<C-u>Unite -profile-name=files buffer_tab file_mru file<CR>
+nnoremap <silent> [unite]u :<C-u>Unite -profile-name=files buffer_tab file_mru file file/new<CR>
 " show all buffers
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 " show all tabs
@@ -135,14 +135,12 @@ nnoremap <silent> <C-t><C-t> :<C-u>Unite tab:no-current<CR>
 " 最近使ったファイル
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 " ファイル一覧
-nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir file -buffer-name=files<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file -buffer-name=files file/new<CR>
 " ファイル一覧
-nnoremap <silent> [unite]n :<C-u>UniteWithCurrentDir file_rec -buffer-name=files<CR>
+nnoremap <silent> [unite]n :<C-u>UniteWithCurrentDir file_rec -buffer-name=files file/new<CR>
 nnoremap <silent> [unite]t :<C-u>Unite file_rec<CR>
-" 現在開いてるバッファがあるディレクトリのファイル一覧
-nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file -buffer-name=files<CR>
 "バッファ一覧
-nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]b :<C-u>Unite buffer -buffer-name=buffer_tab file/new<CR>
 "uniteを開いている間のキーマッピング
 augroup vimrc
   autocmd FileType unite call s:unite_my_settings()
