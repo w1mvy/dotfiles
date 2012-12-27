@@ -49,6 +49,10 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'hail2u/vim-css3-syntax'
+" 検索後のハイライトを変更する
+NeoBundle 'daisuzu/rainbowcyclone.vim'
+" underscore,camelcase文字列をテキストオブジェ化
+" NeoBundle 'h1mesuke/textobj-wiw'
 " JavaScript コーディング規約チェック
 " sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
 NeoBundle 'scrooloose/syntastic'
@@ -113,6 +117,7 @@ NeoBundle 'Wombat'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'dante.vim'
 NeoBundle 'jellybeans.vim'
+NeoBundle 'vim-scripts/Lucius'
 filetype plugin indent on
 "}}}
 
@@ -361,6 +366,28 @@ if exists('g:pythonworkon')
 endif
 "}}}
 
+"{{{ easymotion
+
+" ホームポジションに近いキーを使う
+let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+" 「'」 + 何かにマッピング
+let g:EasyMotion_leader_key="'"
+" 1 ストローク選択を優先する
+let g:EasyMotion_grouping=1
+" カラー設定変更
+hi EasyMotionTarget ctermbg=none ctermfg=red
+hi EasyMotionShade  ctermbg=none ctermfg=blue
+"}}}
+
+"{{{ rainbowcyclone
+nmap c/ <Plug>(rc_search_forward)
+nmap c? <Plug>(rc_search_backward)
+nmap c* <Plug>(rc_search_forward_with_cursor)
+nmap c# <Plug>(rc_search_backward_with_cursor)
+nmap cn <Plug>(rc_search_forward_with_last_pattern)
+nmap cN <Plug>(rc_search_backward_with_last_pattern)
+nmap cc <Plug>(rc_highlight)
+"}}}
 
 "}}}
 
@@ -398,6 +425,8 @@ autocmd BufWritePre * :%s/\t/  /ge
 syntax on
 colorscheme desert
 highlight LineNr ctermfg=darkgrey
+" Ctrl+Pで連続ペースト
+vnoremap <silent> <C-p> "0p<CR>"
 
 " 行の折り返し時
 nnoremap j gj
@@ -558,6 +587,7 @@ autocmd FileType php setl tabstop=4 shiftwidth=4 softtabstop=4 cindent expandtab
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType java setlocal completefunc=javacomplete#CompleteParamsInfo
 autocmd FileType java setl tabstop=8 expandtab shiftwidth=4 tabstop softtabstop=4 smarttab nosmartindent cindent textwidth=80 colorcolumn=80 autoindent
+autocmd FileType xml  setl tabstop=8 expandtab shiftwidth=4 tabstop softtabstop=4 smarttab nosmartindent cindent textwidth=80 colorcolumn=80 autoindent
 " Vim setting
 autocmd FileType vim setlocal expandtab shiftwidth=2
 " Markdown setting
