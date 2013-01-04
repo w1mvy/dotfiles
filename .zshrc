@@ -108,6 +108,9 @@ kterm*|xterm)
     ;;
 esac
 
+# インクリメンタルサーチ
+zle_highlight=(isearch:bold,fg="015",bg="105",underline)
+
 ############################################################
 # 履歴関係
 ############################################################
@@ -152,6 +155,8 @@ setopt complete_in_word # 語の途中でもカーソル位置で補完
 setopt always_last_prompt #補完のときプロンプトの位置を変えない
 setopt list_types # 補完候補の表示を親切に
 
+# 今いるディレクトリを補完候補から外す
+zstyle ':completion:*' ignore-parents parent pwd ..
 # 補完候補に色を付ける
 # "": 空文字列はデフォルト値
 zstyle ':completion:*:default' list-colors ""
@@ -166,6 +171,9 @@ zstyle ':completion:*:default' menu select=2
 # m:{a-z}={A-Z}:小文字を大文字に変えて検索
 # r:|[._-]=*: ._-の前にワイルドカードがあるものとして補完
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
+
+# 設定した時間以上処理が掛かった場合詳細を表示
+REPORTTIME=3
 # 補完方法の設定
 # _oldlist 前回の補完結果の再利用
 # _complete 補完する
@@ -343,6 +351,34 @@ EOT
 bindkey-advice-before "^G" afu+cancel
 bindkey-advice-before "^[" afu+cancel
 bindkey-advice-before "^J" afu+cancel afu+accept-line
+
+
+# url: $1, delimiter: $2, prefix: $3, words: $4..
+function web_search {
+  local url=$1       && shift
+  local delimiter=$1 && shift
+  local prefix=$1    && shift
+  local query
+
+  while [ -n "$1" ]; do
+    if [ -n "$query" ]; then
+      query="${query}${delimiter}${prefix}$1"
+    else
+      query="${prefix}$1"
+    fi
+    shift
+  done
+
+  iron "${url}${query}"
+}
+
+function qiita () {
+  web_search "http://qiita.com/search?utf8=✓&q=" "+" "" $*
+}
+
+function google () {
+  web_search "https://www.google.co.jp/search?&q=" "+" "" $*
+}
 
 source $HOME/dotfiles/.zshrc.git
 
