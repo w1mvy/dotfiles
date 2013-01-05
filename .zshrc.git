@@ -183,34 +183,10 @@ function _update_vcs_info_msg() {
         prompt="${(j: :)messages}"
     fi
 
-    RPROMPT="$prompt"
+    #RPROMPT="$prompt"
+    RPROMPT="$prompt [%~]"
 }
 add-zsh-hook precmd _update_vcs_info_msg
 
-#function rprompt-git-current-branch {
-#    local name st color gitdir action
-#    if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
-#        return
-#    fi
-#    name=`git rev-parse --abbrev-ref=loose HEAD 2> /dev/null`
-#    if [[ -z $name ]]; then
-#        return
-#    fi
-#    gitdir=`git rev-parse --git-dir 2> /dev/null`
-#    action=`VCS_INFO_git_getaction "$gitdir"` && action="($action)"
-#
-#    st=`git status 2> /dev/null`
-#    if [[ "$st" =~ "(?m)^nothing to" ]]; then
-#        color=%F{green}
-#    elif [[ "$st" =~ "(?m)^nothing added" ]]; then
-#        color=%F{yellow}
-#    elif [[ "$st" =~ "(?m)^# Untracked" ]]; then
-#        color=%B%F{red}
-#    else
-#        color=%F{red}
-#    fi
-#    echo "$color$name$action%f%b "
-#}
-#RPROMPT='[`rprompt-git-current-branch`%~]'
-
-source $HOME/dotfiles/zsh/git/src/git/contrib/completion/git-completion.bash
+# ln -n $HOME/dotfiles/zsh/git/src/git/contrib/completion/git-completion.zsh ~/.git-completion.sh
+zstyle ':completion:*:*:git:*' script ~/.git-completion.sh

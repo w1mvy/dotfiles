@@ -277,7 +277,8 @@ zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'
 
 # zaw.zsh
 source $HOME/dotfiles/zsh/zaw/zaw.zsh
-bindkey '^R' zaw-history
+#bindkey '^R' zaw-history
+bindkey '^Xh' zaw-cdr
 # zaw.zshでディレクトリスタック絞り込み
 zmodload zsh/parameter
 function zaw-src-dirstack() {
