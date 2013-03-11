@@ -5,6 +5,10 @@ alias gst='git status -s -b'
 alias gch='git cherry -v'
 alias glgg='git log'
 alias glg='git logg | head'
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gcm='git commit'
+alias gcmm='git commit -m'
 export PATH=$HOME/dotfiles/zsh/git:$PATH
 
 # Show branch name in Zsh's right prompt
@@ -184,9 +188,13 @@ function _update_vcs_info_msg() {
     fi
 
     #RPROMPT="$prompt"
-    RPROMPT="$prompt [%~]"
+    RPS1="%{${fg[cyan]}%}[%~]%{${reset_color}%}${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    RPS2=$RPS1
+    RPROMPT="$prompt $RPS1"
+    #zle reset-prompt
 }
 add-zsh-hook precmd _update_vcs_info_msg
+zle -N _update_vcs_info_msg
 
 # ln -n $HOME/dotfiles/zsh/git/src/git/contrib/completion/git-completion.zsh ~/.git-completion.sh
 zstyle ':completion:*:*:git:*' script ~/.git-completion.sh

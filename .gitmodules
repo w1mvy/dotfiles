@@ -22,3 +22,6 @@
 [submodule "zsh/zaw"]
 	path = zsh/zaw
 	url = git://github.com/zsh-users/zaw.git
+[submodule "zsh/antigen"]
+	path = zsh/antigen
+	url = git://github.com/zsh-users/antigen.git
