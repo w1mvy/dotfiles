@@ -1,8 +1,7 @@
 ############################################################
 # キーバインド
 ############################################################
-bindkey -v
-
+bindkey -v #vimlike
 # tmux起動
 if [ $SHLVL = 1 ];then
     tmux
@@ -27,11 +26,9 @@ alias vz='vim ~/.zshrc && . ~/.zshrc'
 alias vv='vim ~/.vimrc'
 alias vs='vim ~/.screenrc'
 autoload -Uz zmv
-alias zmv='noglob zmv -w'
+alias zmv='noglob zmv -W'
 
 ## ファイル操作の確認
-# alias rm="rm -i"
-alias cp="cp -i"
 alias cp="cp -i"
 alias mv="mv -i"
 
@@ -49,67 +46,10 @@ alias -s jpg=display
 alias -s png=display
 alias -s bmp=display
 
-#Titanium Develop
-alias titanium="/home/w1mvy/.titanium/mobilesdk/linux/1.5.1/titanium.py"
-
 ############################################################
 # プロンプト、色関係
 ############################################################
-autoload -U colors
-colors
-
-#autoload promptinit
-#promptinit
-#prompt adam2
-#PROMPT="%n%% "
-#PROMPT="[${USER}@${HOST%%.*} %1~]%(!.#.$) "
-#RPROMPT="[%~]"
-#SPROMPT="correct: %R -> %r ? "
-
-# 256色生成用関数
-### red: 0-5
-### green: 0-5
-### blue: 0-5
-color256(){
-    local red=$1; shift
-    local green=$2; shift
-    local blue=$3; shift
-
-    echo -n $[$red * 36 + $green * 6 + $blue + 16]
-}
-
-fg256(){
-    echo -n $'\e[38;5;'$(color256 "$@")"m"
-}
-
-bg256(){
-    echo -n $'\e[48;5;'$(color256 "$@")"m"
-}
-
-#PROMPT="%{${fg[yellow]}%}[%n@%m]# %{${reset_color}%}" #左側
-# プロンプト指定
-PROMPT="
-%{${fg[yellow]}%}[%n@%m]# %{${reset_color}%}
-%(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
-# プロンプト指定(コマンドの続き)
-PROMPT2='[%n]> '
-#PROMPT2="%{${fg[yellow]}%}}->: %{${reset_color}%}" #2行以上のプロンプトの表示
-#SPROMPT="%{${fg[yellow]}%}correct:%R -> %r [n y a e]? %{${reset_color}%}" #入力を間違えたときの表示
-# もしかして時のプロンプト指定
-SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),, e]:${reset_color} "
-RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}" #右側
-
-#ターミナルのタイトル[ユーザ@ホスト:カレントディレクトリ]
-case "${TERM}" in
-kterm*|xterm)
-    precmd(){
-        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-    }
-    ;;
-esac
-
-# インクリメンタルサーチ
-zle_highlight=(isearch:bold,fg="015",bg="105",underline)
+source ~/dotfiles/.zshrc.color
 
 ############################################################
 # 履歴関係
@@ -131,10 +71,15 @@ autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':chpwd:*' recent-dirs-max 5000
+zstyle ':chpwd:*' recent-dirs-default yes
+zstyle ':completion:*' recent-dirs-insert both
+
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 bindkey "^R" history-incremental-pattern-search-backward
-#bindkey "^S" history-incremental-pattern-search-forward
 
 ############################################################
 # 補完関係
@@ -199,8 +144,6 @@ setopt re_match_pcre
 # カレントディレクトリ中に指定されたディレクトリがみつからなかった場合に
 # 移動先を検索するリスト
 cdpath=(~)
-# ディレクトリが変わったらディレクトリスタックを表示
-chpwd_functions=($chpwd_functions dirs)
 
 # URLを自動エスケープする
 autoload -Uz url-quote-magic
@@ -264,6 +207,7 @@ precmd() {
 }
 
 # cdd 他のウィンドウのディレクトリに移動できる
+autoload -Uz compinit
 compinit
 . $HOME/dotfiles/zsh/cdd/cdd
 
@@ -271,14 +215,16 @@ compinit
 chpwd() {
     _cdd_chpwd
     ls_abbrev
+    _reg_pwd_screennum
 }
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'
 
 # zaw.zsh
+# insert modeで Ctrl+x ; プレフィックスキー
 source $HOME/dotfiles/zsh/zaw/zaw.zsh
-#bindkey '^R' zaw-history
-bindkey '^Xh' zaw-cdr
+zstyle ':filter-select' case-insensitive yes # 絞り込みをcase-insensitiveに
+bindkey '^@' zaw-cdr # zaw-cdrをbindkey
 # zaw.zshでディレクトリスタック絞り込み
 zmodload zsh/parameter
 function zaw-src-dirstack() {
@@ -290,6 +236,7 @@ zaw-register-src -n dirstack zaw-src-dirstack
 
 # auto-fu.zsh
 setopt   auto_list auto_param_slash list_packed rec_exact
+#zle -N zle-keymap-select auto-fu-zle-keymap-select
 unsetopt list_beep
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors 'di=1;34'
