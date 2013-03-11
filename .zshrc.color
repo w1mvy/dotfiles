@@ -1,0 +1,56 @@
+############################################################
+# プロンプト、色関係
+############################################################
+autoload -U colors
+colors
+
+autoload promptinit
+promptinit
+
+# 256色生成用関数
+### red: 0-5
+### green: 0-5
+### blue: 0-5
+color256(){
+    local red=$1; shift
+    local green=$2; shift
+    local blue=$3; shift
+
+    echo -n $[$red * 36 + $green * 6 + $blue + 16]
+}
+
+fg256(){
+    echo -n $'\e[38;5;'$(color256 "$@")"m"
+}
+
+bg256(){
+    echo -n $'\e[48;5;'$(color256 "$@")"m"
+}
+
+# プロンプト指定
+PROMPT="
+%{${fg[yellow]}%}[%n@%m]# %{${reset_color}%}
+%(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
+# プロンプト指定(コマンドの続き)
+PROMPT2='[%n]> '
+# もしかして時のプロンプト指定
+SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),, e]:${reset_color} "
+#RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}" #右側
+function zle-line-init zle-keymap-select {
+    RPS1="%{${fg[cyan]}%}[%~]%{${reset_color}%}${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    RPS2=$RPS1
+    #zle reset-prompt
+}
+#zle -N zle-line-init
+#zle -N zle-keymap-select
+
+#ターミナルのタイトル[ユーザ@ホスト:カレントディレクトリ]
+case "${TERM}" in
+kterm*|xterm)
+    precmd(){
+        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+    }
+    ;;
+esac
+# インクリメンタルサーチ
+zle_highlight=(isearch:bold,fg="015",bg="105",underline)
