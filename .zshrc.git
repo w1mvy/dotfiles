@@ -7,8 +7,12 @@ alias glgg='git log'
 alias glg='git logg | head'
 alias gco='git checkout'
 alias gcob='git checkout -b'
-alias gcm='git commit'
-alias gcmm='git commit -m'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gd='git diff'
+alias gdhh='git diff HEAD^ HEAD'
+alias ga='git add'
+alias gall='git add --all'
 export PATH=$HOME/dotfiles/zsh/git:$PATH
 
 # Show branch name in Zsh's right prompt

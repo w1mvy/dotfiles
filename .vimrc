@@ -26,6 +26,9 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-help'
 NeoBundle 'Shougo/unite-ssh'
+" 折りたたみ
+NeoBundle 'osyo-manga/unite-fold'
+NeoBundle 'thinca/vim-unite-history'
 " :Unite grep:target:options:pattern
 NeoBundle 'kmnk/vim-unite-giti.git'
 NeoBundle 'Sixeight/unite-grep'
@@ -231,8 +234,9 @@ smap <C-k> <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g> neocomplcache#undo_completion()
 " 補完候補から共通部分を補完
 inoremap <expr><C-l> neocomplcache#complete_common_string()
-" 選択している候補を確定
-inoremap <expr><C-y> neocomplcache#close_popup()
+" Enterで補完確定、補完表示されてない場合は改行
+inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "<CR>"
+"inoremap <expr><CR> neocomplcache#close_popup()
 " ファイル名補完
 inoremap <expr><C-x><C-f> neocomplcache#manual_filename_complete()
 ""imap <C-k>     <Plug>(neocomplcache_snippets_expand)
@@ -240,7 +244,7 @@ inoremap <expr><C-x><C-f> neocomplcache#manual_filename_complete()
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 " <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
@@ -618,3 +622,9 @@ if exists('&ambiwidth')
 endif
 "test
 "}}}
+
+" antigen "{{{
+source ~/dotfiles/zsh/antigen/antigen.zsh
+" }}}
+
+source ~/.sample.vim
