@@ -329,6 +329,7 @@ function google () {
 }
 
 source $HOME/dotfiles/.zshrc.git
+source $HOME/dotfiles/zsh/antigen/antigen.zsh
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
