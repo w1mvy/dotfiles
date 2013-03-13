@@ -1,13 +1,14 @@
 " Vim Settings
 " Bundle Setting:"{{{
-" git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/neobundle.vim
+"git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 set nocompatible
 filetype plugin indent off
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
-  call neobundle#rc(expand('~/.vim/bundle'))
 endif
+
+call neobundle#rc(expand('~/.vim/bundle'))
 
 " original repos on github
 NeoBundle 't9md/vim-textmanip'
@@ -20,9 +21,9 @@ NeoBundle 'Shougo/vimproc', {
       \    },
       \ }
 NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'vim-scripts/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/unite.vim'
+NeoBundle 'vim-scripts/unite.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-help'
 NeoBundle 'Shougo/unite-ssh'
@@ -122,6 +123,8 @@ NeoBundle 'dante.vim'
 NeoBundle 'jellybeans.vim'
 NeoBundle 'vim-scripts/Lucius'
 filetype plugin indent on
+
+NeoBundleCheck
 "}}}
 
 " Plugins Setting:"{{{
@@ -149,10 +152,12 @@ nnoremap <silent> [unite]n :<C-u>UniteWithCurrentDir file_rec -buffer-name=files
 nnoremap <silent> [unite]t :<C-u>Unite file_rec<CR>
 "バッファ一覧
 nnoremap <silent> [unite]b :<C-u>Unite buffer -buffer-name=buffer_tab file/new<CR>
+nnoremap <silent> [unite]h :<C-u>Unite history/command history/search history/yank<CR>
 "uniteを開いている間のキーマッピング
 augroup vimrc
   autocmd FileType unite call s:unite_my_settings()
 augroup END
+"{{{ : 独自設定
 function! s:unite_my_settings()
   "入力モードのときjjでノーマルモードに移動
   imap <buffer> jj <Plug>(unite_insert_leave)
@@ -168,6 +173,17 @@ function! s:unite_my_settings()
   nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
   inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
 endfunction
+"}}}
+"{{{ : add shortcut
+let g:unite_source_menu_menus = {
+\   "shortcut" : {
+\       "description" : "sample unite-menu",
+\       "command_candidates" : [
+\       ],
+\   },
+\}
+"}}}
+
 "}}}
 
 
@@ -622,9 +638,3 @@ if exists('&ambiwidth')
 endif
 "test
 "}}}
-
-" antigen "{{{
-source ~/dotfiles/zsh/antigen/antigen.zsh
-" }}}
-
-source ~/.sample.vim
