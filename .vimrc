@@ -43,10 +43,9 @@ NeoBundle 'vim-scripts/Jinja'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'othree/eregex.vim'
-NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/urilib.vim'
-NeoBundle 'rwfitzge/vim-bclose'
+NeoBundle 'AutoClose'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
 NeoBundle 'kchmck/vim-coffee-script'
@@ -59,7 +58,7 @@ NeoBundle 'daisuzu/rainbowcyclone.vim'
 " NeoBundle 'h1mesuke/textobj-wiw'
 " JavaScript コーディング規約チェック
 " sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
-NeoBundle 'scrooloose/syntastic'
+"NeoBundle 'scrooloose/syntastic'
 " Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
 NeoBundle 'tpope/vim-speeddating'
 " <C+_><C+_>でコメントアウト
@@ -292,13 +291,6 @@ vmap gx <Plug>(openbrowser-smart-search)
 cnoremap gx<CR> :! iron %<CR>
 "}}}
 
-" nerdtree:"{{{
-" add nerdtreegrep git://gist.github.com/414375.git
-nnoremap <silent> nt  : <C-u>NERDTree<CR>
-nnoremap <silent> ntt : <C-u>NERDTreeToggle<CR>
-let NERDTreeShowHidden = 1
-"}}}
-
 " toggle.vim normal is + insert is Ctrl+T
 let g:toggle_pairs = { 'and': 'or', 'or': 'and'}
 
@@ -409,6 +401,10 @@ nmap cN <Plug>(rc_search_backward_with_last_pattern)
 nmap cc <Plug>(rc_highlight)
 "}}}
 
+"syntastic:{{{
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
+"}}}
 "}}}
 
 " AnySetting:"{{{
@@ -490,7 +486,8 @@ set wildmenu "補完候補表示
 set helplang=ja
 set title "タイトルを表示
 set backspace=2 "バックスペースでインデント、改行削除
-set clipboard+=unnamed,unnamedplus "ビジュアルモードで選択したテキストがクリップボードに入る
+set clipboard=unnamed,autoselect
+"set clipboard+=unnamed,unnamedplus,autoselect "ビジュアルモードで選択したテキストがクリップボードに入る
 set foldmethod=marker " 折りたたみ
 set wildignorecase " :e でファイル開くとき大文字小文字区別しないで候補を探sす
 " 選択した文字列を"*"で検索する
@@ -638,3 +635,5 @@ if exists('&ambiwidth')
 endif
 "test
 "}}}
+
+source ~/.vimrc.local
