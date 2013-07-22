@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<root>
+  <item>
+    <name>Useful Keybind Settings for w1mvy</name>
+    <item>
+      <name>Like 104</name>
+      <appendix>Use 109 keyboard as 104</appendix>
+      <identifier>remap.w1mvy_like104</identifier>
+      <!-- semicolon -->
+      <autogen>--KeyToKey-- KeyCode::SEMICOLON, ModifierFlag::SHIFT_L, KeyCode::JIS_COLON</autogen>
+      <!-- colon -->
+      <autogen>--KeyToKey-- KeyCode::JIS_COLON, ModifierFlag::CONTROL_L, KeyCode::JIS_ATMARK, ModifierFlag::SHIFT_L</autogen>
+    </item>
+    <item>
+      <name>Extend Binds</name>
+      <item>
+        <name>Move Keys not for human</name>
+        <appendix>Control+Slash to BackSlash</appendix>
+        <appendix>Shift+Space to Shift+Yen</appendix>
+        <appendix>Control+Eisuu to Hat</appendix>
+        <appendix>Shift+Eisuu to Shift+Hat</appendix>
+        <appendix>Control+Kana to Minus</appendix>
+        <appendix>Shift+Kana to Underscore</appendix>
+        <appendix>Control+RightCommand to Equal</appendix>
+        <appendix>Shift+RightCommand to Plus</appendix>
+        <identifier>remap.kmnk_extendbinds_notforhuman</identifier>
+        <!-- slash -->
+        <autogen>--KeyToKey-- KeyCode::SLASH, ModifierFlag::CONTROL_L, KeyCode::JIS_YEN</autogen>
+      </item>
+      <item>
+        <name>SemiColon</name>
+        <appendix>SemiColon to Return</appendix>
+        <appendix>Control+SemiColon to SemiColon</appendix>
+        <identifier>remap.kmnk_extendbinds_semicolon</identifier>
+        <autogen>--KeyToKey-- KeyCode::SEMICOLON, ModifierFlag::CONTROL_L, KeyCode::SEMICOLON</autogen>
+        <autogen>--KeyToKey-- KeyCode::SEMICOLON, KeyCode::RETURN</autogen>
+      </item>
+      <item>
+        <name>Cursor</name>
+        <appendix>LeftControl+LeftCommand+hjkl to cursor key</appendix>
+        <identifier>remap.kmnk_extendbinds_cursor</identifier>
+        <autogen>--KeyToKey-- KeyCode::H, ModifierFlag::CONTROL_L | ModifierFlag::COMMAND_L, KeyCode::CURSOR_LEFT</autogen>
+        <autogen>--KeyToKey-- KeyCode::J, ModifierFlag::CONTROL_L | ModifierFlag::COMMAND_L, KeyCode::CURSOR_DOWN</autogen>
+        <autogen>--KeyToKey-- KeyCode::K, ModifierFlag::CONTROL_L | ModifierFlag::COMMAND_L, KeyCode::CURSOR_UP</autogen>
+        <autogen>--KeyToKey-- KeyCode::L, ModifierFlag::CONTROL_L | ModifierFlag::COMMAND_L, KeyCode::CURSOR_RIGHT</autogen>
+      </item>
+    </item>
+    <item>
+      <name>OneShotModifier Setting</name>
+      <item>
+        <name>LeftControl</name>
+        <appendix>OneShot LeftControl send Escape</appendix>
+        <identifier>remap.kmnk_oneshotmodifier_control_l</identifier>
+        <autogen>--KeyOverlaidModifier-- KeyCode::CONTROL_L, KeyCode::CONTROL_L, KeyCode::ESCAPE</autogen>
+      </item>
+      <item>
+        <name>RightCommand</name>
+        <appendix>OneShot RightCommand send Option</appendix>
+        <identifier>remap.kmnk_oneshotmodifier_option</identifier>
+        <autogen>--KeyOverlaidModifier-- KeyCode::COMMAND_R, KeyCode::COMMAND_L, KeyCode::X, ModifierFlag::OPTION_L</autogen>
+      </item>
+    </item>
+  </item>
+</root>
+<!-- vim: set expandtab tabstop=2 softtabstop=2 shiftwidth=2 : --><?xml version="1.0"?>

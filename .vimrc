@@ -51,6 +51,9 @@ NeoBundle 'ujihisa/unite-font'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-ref'
+NeoBundle 'moznion/unite-git-conflict.vim' " Uniteでconflictファイル編集
+NeoBundle 'fuenor/qfixhowm'
+NeoBundle 'vim-scripts/csharp.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 " 検索後のハイライトを変更する
 NeoBundle 'daisuzu/rainbowcyclone.vim'
@@ -114,6 +117,7 @@ NeoBundle 'Source-Explorer-srcexpl.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'buftabs'
 NeoBundle 'JSON.vim'
+NeoBundle 'osyo-manga/unite-qfixhowm'
 
 " colorscheme
 NeoBundle 'Wombat'
@@ -439,7 +443,7 @@ autocmd BufWritePre * :%s/\s\+$//ge
 autocmd BufWritePre * :%s/\t/  /ge
 
 syntax on
-colorscheme desert
+colorscheme molokai
 highlight LineNr ctermfg=darkgrey
 " Ctrl+Pで連続ペースト
 vnoremap <silent> <C-p> "0p<CR>"

@@ -335,6 +335,5 @@ source $HOME/dotfiles/zsh/antigen/antigen.zsh
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-# for mac settings
-source $HOME/.zshrc.mac
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc ]]
+source $HOME/.zshrc.local
