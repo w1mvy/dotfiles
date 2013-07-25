@@ -14,7 +14,7 @@ alias vim=/usr/local/bin/vim
 alias vi='vim'
 alias ls='ls -FG'
 alias la='ls -lhAF --color=auto'
-alias ps='ps -fU$(whoami) --forest'
+#alias ps='ps -fU$(whoami) --forest'
 alias gh='history 0 | grep --color '
 alias l='less'
 alias g='grep --color'
@@ -337,3 +337,5 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc ]]
 source $HOME/.zshrc.local
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
