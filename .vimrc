@@ -84,6 +84,7 @@ NeoBundle 'lambdalisue/vim-python-virtualenv'
 " Python用構文チェック
 NeoBundle 'mitechie/pyflakes-pathogen'
 NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'plasticboy/vim-markdown'
 
 " リファクタ
 NeoBundle 'sontek/rope-vim'
