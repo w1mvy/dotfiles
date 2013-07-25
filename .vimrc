@@ -97,7 +97,7 @@ NeoBundle 'surround.vim'
 NeoBundle 'TwitVim'
 NeoBundle 'IndentAnything'
 NeoBundle 'grep.vim'
-NeoBundle 'YankRing.vim'
+"NeoBundle 'YankRing.vim'
 NeoBundle 'sudo.vim'
 NeoBundle 'renamer.vim'
 NeoBundle 'yaml.vim'
@@ -671,4 +671,6 @@ endif
 "test
 "}}}
 
-source ~/.vimrc.local
+if filereadable(expand('~/.vimrc.local'))
+  source ~/.vimrc.local
+endif
