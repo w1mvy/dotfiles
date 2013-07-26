@@ -608,7 +608,7 @@ autocmd BufReadPost *.py :call AddPyEncoding()
 " Ruby setting:"{{{
 autocmd FileType ruby setl autoindent
 autocmd FileType ruby setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd FileType ruby setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+autocmd FileType ruby setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 "}}}
 " ShellScript setting:"{{{
 autocmd FileType shell setl autoindent

@@ -365,4 +365,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # for mac settings
 source $HOME/.zshrc.mac
+[[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local ]]
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc ]]
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
