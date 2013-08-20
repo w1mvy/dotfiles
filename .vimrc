@@ -11,6 +11,12 @@ endif
 call neobundle#rc(expand('~/.vim/bundle'))
 
 " original repos on github
+
+" for syntax
+NeoBundle "thinca/vim-quickrun"
+NeoBundle "osyo-manga/shabadou.vim"
+NeoBundle "osyo-manga/vim-watchdogs"
+
 NeoBundle 't9md/vim-textmanip'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
@@ -40,7 +46,6 @@ NeoBundle 'motemen/git-vim'
 NeoBundle 'vim-scripts/python.vim'
 NeoBundle 'vim-scripts/pythoncomplete'
 NeoBundle 'vim-scripts/Jinja'
-NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'othree/eregex.vim'
 NeoBundle 'tyru/open-browser.vim'
@@ -125,6 +130,9 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'dante.vim'
 NeoBundle 'jellybeans.vim'
 NeoBundle 'vim-scripts/Lucius'
+NeoBundle 'bling/vim-airline'
+
+NeoBundle 'yomi322/vim-operator-suddendeath'
 filetype plugin indent on
 
 NeoBundleCheck
@@ -156,6 +164,9 @@ nnoremap <silent> [unite]t :<C-u>Unite file_rec<CR>
 "バッファ一覧
 nnoremap <silent> [unite]b :<C-u>Unite buffer -buffer-name=buffer_tab file/new<CR>
 nnoremap <silent> [unite]h :<C-u>Unite history/command history/search history/yank<CR>
+nnoremap <silent> [unite]q :<C-u>Unite qfixhowm<CR>
+call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
+
 "uniteを開いている間のキーマッピング
 augroup vimrc
   autocmd FileType unite call s:unite_my_settings()
@@ -355,33 +366,34 @@ nmap <silent> <Leader>p :Project<CR>
 " プロジェクト開いたときにフォールディングを展開した状態にする
 autocmd BufAdd .vimprojects silent! %foldopen!
 "}}}
-
 " smartchr:"{{{
 inoremap <expr> = smartchr#loop('=',' = ',' == ',' === ')
 inoremap <expr> , smartchr#loop(',', ', ')
 "}}}
-
 " indent-guides:"{{{
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_color_change_percent = 30
 let g:indent_guides_guide_size = 1
 "}}}
-
 " QFix Hown{{{
 set runtimepath+=~/.vim/plugin/qfixapp
 let QFixHowm_Key = 'g'
 let howm_dir='~/Dropbox/howm'
 let homm_fileencoding='utf-8'
 let hown_fileformat='unix'
+" ファイル拡張子をmkdにする
+let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.mkd'
+" ファイルタイプをmarkdownにする
+let QFixHowm_FileType = 'markdown'
+" タイトル記号
+let QFixHowm_Title = '#'
 "}}}
-
 "{{{ vim-python-virtualenv
 " Apply g:pythonworkon to statusline
 if exists('g:pythonworkon')
     let &statusline='%F%m%r%h%w [FORMAT=%{&ff}] [ENC=%{&fileencoding}] [TYPE=%Y] [ASCII=\%03.3b] [HEX=\%02.2B] [POS=%04l,%04v][%p%%] [LEN=%L] %= [WORKON=%{pythonworkon}]'
 endif
 "}}}
-
 "{{{ easymotion
 
 " ホームポジションに近いキーを使う
@@ -490,7 +502,6 @@ set helplang=ja
 set title "タイトルを表示
 set backspace=2 "バックスペースでインデント、改行削除
 set clipboard=unnamed,autoselect
-"set clipboard+=unnamed,unnamedplus,autoselect "ビジュアルモードで選択したテキストがクリップボードに入る
 set foldmethod=marker " 折りたたみ
 set wildignorecase " :e でファイル開くとき大文字小文字区別しないで候補を探sす
 " 選択した文字列を"*"で検索する
@@ -584,6 +595,20 @@ augroup vimrc-auto-mkdir
   endfunction
 augroup END
 "}}}
+
+" {{{ : function
+" {{{: formatjson
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+    if 0 == a:0
+        let l:arg = "."
+    else
+        let l:arg = a:1
+    endif
+    execute "%! jq \"" . l:arg . "\""
+endfunction
+" }}}
+" }}}
 
 " AnyLanguagesSetting:"{{{
 " HTML setting
