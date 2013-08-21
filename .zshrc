@@ -301,7 +301,7 @@ zaw-register-src -n dirstack zaw-src-dirstack
 #bindkey-advice-before "^[" afu+cancel
 #bindkey-advice-before "^J" afu+cancel afu+accept-line
 
-
+#{{{ : define any function
 # url: $1, delimiter: $2, prefix: $3, words: $4..
 function web_search {
   local url=$1       && shift
@@ -317,8 +317,11 @@ function web_search {
     fi
     shift
   done
-
-  iron "${url}${query}"
+  if [ `uname` = "Darwin" ]; then
+    open -a "/Applications/Google Chrome.app" ${url}${query}
+  elif [ `uname` = "Linux" ]; then
+    chrome ${url}${query}
+  fi
 }
 
 function qiita () {
@@ -329,13 +332,40 @@ function google () {
   web_search "https://www.google.co.jp/search?&q=" "+" "" $*
 }
 
+function zman() {
+    PAGER="less -g -s '+/^       "$1"'" man zshall
+}
+#}}}
+#{{{ : if press enter, ls and git status
+function do_enter() {
+    if [ -n "$BUFFER" ]; then
+        zle accept-line
+        return 0
+    fi
+    echo
+    ls
+    # ↓おすすめ
+    # ls_abbrev
+    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
+        echo
+        echo -e "\e[0;33m--- git status ---\e[0m"
+        gst
+    fi
+    zle reset-prompt
+    return 0
+}
+zle -N do_enter
+bindkey '^m' do_enter
+#}}}
+
 source $HOME/dotfiles/.zshrc.git
-source $HOME/dotfiles/zsh/antigen/antigen.zsh
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+# for mac settings
+source $HOME/.zshrc.mac
+[[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local ]]
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc ]]
-source $HOME/.zshrc.local
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"

@@ -11,6 +11,12 @@ endif
 call neobundle#rc(expand('~/.vim/bundle'))
 
 " original repos on github
+
+" for syntax
+NeoBundle "thinca/vim-quickrun"
+NeoBundle "osyo-manga/shabadou.vim"
+NeoBundle "osyo-manga/vim-watchdogs"
+
 NeoBundle 't9md/vim-textmanip'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
@@ -40,7 +46,6 @@ NeoBundle 'motemen/git-vim'
 NeoBundle 'vim-scripts/python.vim'
 NeoBundle 'vim-scripts/pythoncomplete'
 NeoBundle 'vim-scripts/Jinja'
-NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'othree/eregex.vim'
 NeoBundle 'tyru/open-browser.vim'
@@ -84,6 +89,7 @@ NeoBundle 'lambdalisue/vim-python-virtualenv'
 " Python用構文チェック
 NeoBundle 'mitechie/pyflakes-pathogen'
 NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'plasticboy/vim-markdown'
 
 " リファクタ
 NeoBundle 'sontek/rope-vim'
@@ -96,7 +102,7 @@ NeoBundle 'surround.vim'
 NeoBundle 'TwitVim'
 NeoBundle 'IndentAnything'
 NeoBundle 'grep.vim'
-NeoBundle 'YankRing.vim'
+"NeoBundle 'YankRing.vim'
 NeoBundle 'sudo.vim'
 NeoBundle 'renamer.vim'
 NeoBundle 'yaml.vim'
@@ -124,6 +130,9 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'dante.vim'
 NeoBundle 'jellybeans.vim'
 NeoBundle 'vim-scripts/Lucius'
+NeoBundle 'bling/vim-airline'
+
+NeoBundle 'yomi322/vim-operator-suddendeath'
 filetype plugin indent on
 
 NeoBundleCheck
@@ -155,6 +164,9 @@ nnoremap <silent> [unite]t :<C-u>Unite file_rec<CR>
 "バッファ一覧
 nnoremap <silent> [unite]b :<C-u>Unite buffer -buffer-name=buffer_tab file/new<CR>
 nnoremap <silent> [unite]h :<C-u>Unite history/command history/search history/yank<CR>
+nnoremap <silent> [unite]q :<C-u>Unite qfixhowm<CR>
+call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
+
 "uniteを開いている間のキーマッピング
 augroup vimrc
   autocmd FileType unite call s:unite_my_settings()
@@ -354,33 +366,34 @@ nmap <silent> <Leader>p :Project<CR>
 " プロジェクト開いたときにフォールディングを展開した状態にする
 autocmd BufAdd .vimprojects silent! %foldopen!
 "}}}
-
 " smartchr:"{{{
 inoremap <expr> = smartchr#loop('=',' = ',' == ',' === ')
 inoremap <expr> , smartchr#loop(',', ', ')
 "}}}
-
 " indent-guides:"{{{
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_color_change_percent = 30
 let g:indent_guides_guide_size = 1
 "}}}
-
 " QFix Hown{{{
 set runtimepath+=~/.vim/plugin/qfixapp
 let QFixHowm_Key = 'g'
 let howm_dir='~/Dropbox/howm'
 let homm_fileencoding='utf-8'
 let hown_fileformat='unix'
+" ファイル拡張子をmkdにする
+let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.mkd'
+" ファイルタイプをmarkdownにする
+let QFixHowm_FileType = 'markdown'
+" タイトル記号
+let QFixHowm_Title = '#'
 "}}}
-
 "{{{ vim-python-virtualenv
 " Apply g:pythonworkon to statusline
 if exists('g:pythonworkon')
     let &statusline='%F%m%r%h%w [FORMAT=%{&ff}] [ENC=%{&fileencoding}] [TYPE=%Y] [ASCII=\%03.3b] [HEX=\%02.2B] [POS=%04l,%04v][%p%%] [LEN=%L] %= [WORKON=%{pythonworkon}]'
 endif
 "}}}
-
 "{{{ easymotion
 
 " ホームポジションに近いキーを使う
@@ -458,7 +471,6 @@ nmap gl <C-w>l
 nmap gj <C-w>j
 nmap gk <C-w>k
 set autoread "ファイル変更されたら自動的に読み直す
-set showtabline=2 "タブを常に表示
 set guioptions-=e
 set noerrorbells "エラーベル利用しない
 set visualbell
@@ -490,7 +502,6 @@ set helplang=ja
 set title "タイトルを表示
 set backspace=2 "バックスペースでインデント、改行削除
 set clipboard=unnamed,autoselect
-"set clipboard+=unnamed,unnamedplus,autoselect "ビジュアルモードで選択したテキストがクリップボードに入る
 set foldmethod=marker " 折りたたみ
 set wildignorecase " :e でファイル開くとき大文字小文字区別しないで候補を探sす
 " 選択した文字列を"*"で検索する
@@ -516,6 +527,38 @@ endfunction
 " change StatusLineColor Insert and Normal:"{{{
 au InsertEnter * hi StatusLine guifg=DarkBlue guibg=DarkYellow gui=none ctermfg=Blue ctermbg=DarkRed cterm=none
 au InsertLeave * hi StatusLine guifg=DarkBlue guibg=DarkGray   gui=none ctermfg=Blue ctermbg=DarkGray cterm=none
+"}}}
+"{{{ : tab shortcut
+" Anywhere SID.
+function! s:SID_PREFIX()
+  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+endfunction
+
+" Set tabline.
+function! s:my_tabline()  "{{{
+  let s = ''
+  for i in range(1, tabpagenr('$'))
+    let bufnrs = tabpagebuflist(i)
+    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+    let no = i  " display 0-origin tabpagenr.
+    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
+    let title = fnamemodify(bufname(bufnr), ':t')
+    let title = '[' . title . ']'
+    let s .= '%'.i.'T'
+    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+    let s .= no . ':' . title
+    let s .= mod
+    let s .= '%#TabLineFill# '
+  endfor
+  let s .= '%#TabLineFill#%T%=%#TabLine#'
+  return s
+endfunction "}}}
+let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+set showtabline=2 " 常にタブラインを表示
+map <silent> [Tag]n :tablast <bar> tabnew<CR>
+" tc 新しいタブを一番右に作る
+map <silent> [Tag]x :tabclose<CR>
+" tx タブを閉じる
 "}}}
 
 "qqq: でコマンド履歴を開く
@@ -553,6 +596,20 @@ augroup vimrc-auto-mkdir
 augroup END
 "}}}
 
+" {{{ : function
+" {{{: formatjson
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+    if 0 == a:0
+        let l:arg = "."
+    else
+        let l:arg = a:1
+    endif
+    execute "%! jq \"" . l:arg . "\""
+endfunction
+" }}}
+" }}}
+
 " AnyLanguagesSetting:"{{{
 " HTML setting
 autocmd BufNewFile *.html 0r ~/.vim/template/template.html
@@ -576,7 +633,7 @@ autocmd BufReadPost *.py :call AddPyEncoding()
 " Ruby setting:"{{{
 autocmd FileType ruby setl autoindent
 autocmd FileType ruby setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd FileType ruby setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+autocmd FileType ruby setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 "}}}
 " ShellScript setting:"{{{
 autocmd FileType shell setl autoindent
@@ -639,4 +696,6 @@ endif
 "test
 "}}}
 
-source ~/.vimrc.local
+if filereadable(expand('~/.vimrc.local'))
+  source ~/.vimrc.local
+endif
