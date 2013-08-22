@@ -124,13 +124,20 @@ NeoBundle 'buftabs'
 NeoBundle 'JSON.vim'
 NeoBundle 'osyo-manga/unite-qfixhowm'
 
-" colorscheme
+" {{{ :colorscheme
 NeoBundle 'Wombat'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'dante.vim'
-NeoBundle 'jellybeans.vim'
-NeoBundle 'vim-scripts/Lucius'
+NeoBundle 'baskerville/bubblegum'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'vim-scripts/twilight'
+NeoBundle 'jonathanfilip/vim-lucius'
+" }}}
+" {{{ :statusline
 NeoBundle 'bling/vim-airline'
+" }}}
 
 NeoBundle 'yomi322/vim-operator-suddendeath'
 filetype plugin indent on
@@ -459,6 +466,18 @@ colorscheme molokai
 highlight LineNr ctermfg=darkgrey
 " Ctrl+Pで連続ペースト
 vnoremap <silent> <C-p> "0p<CR>"
+
+"{{{ :バッファ切り替え
+nnoremap 1, 1gt<CR>
+nnoremap 2, 2gt<CR>
+nnoremap 3, 3gt<CR>
+nnoremap 4, 4gt<CR>
+nnoremap 5, 5gt<CR>
+nnoremap 6, 6gt<CR>
+nnoremap 7, 7gt<CR>
+nnoremap 8, 8gt<CR>
+nnoremap 9, 9gt<CR>
+"}}}
 
 " 行の折り返し時
 nnoremap j gj
