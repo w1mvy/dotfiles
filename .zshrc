@@ -12,7 +12,7 @@ bindkey -v #vimlike
 ############################################################
 alias vim=/usr/local/bin/vim
 alias vi='vim'
-alias ls='ls -FG'
+alias ls='ls -lFG'
 alias la='ls -lhAF --color=auto'
 #alias ps='ps -fU$(whoami) --forest'
 alias gh='history 0 | grep --color '

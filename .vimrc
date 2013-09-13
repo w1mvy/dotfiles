@@ -3,21 +3,32 @@
 "git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 set nocompatible
 filetype plugin indent off
-
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-
 call neobundle#rc(expand('~/.vim/bundle'))
 
 " original repos on github
 
+" language : {{{
+" python : {{{
+NeoBundle 'vim-scripts/python.vim'
+NeoBundle 'vim-scripts/pythoncomplete'
+" }}}
+" }}}
+
+NeoBundle 'thinca/vim-scouter'
 " for syntax
 NeoBundle "thinca/vim-quickrun"
 NeoBundle "osyo-manga/shabadou.vim"
 NeoBundle "osyo-manga/vim-watchdogs"
 
 NeoBundle 't9md/vim-textmanip'
+
+NeoBundle 'vim-scripts/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+
+" unite : {{{
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
@@ -27,8 +38,6 @@ NeoBundle 'Shougo/vimproc', {
       \    },
       \ }
 NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'vim-scripts/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
 NeoBundle 'vim-scripts/unite.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-help'
@@ -41,21 +50,25 @@ NeoBundle 'kmnk/vim-unite-giti.git'
 NeoBundle 'Sixeight/unite-grep'
 NeoBundle 't9md/vim-unite-ack'
 NeoBundle 'taka84u9/unite-git'
+NeoBundle 'moznion/unite-git-conflict.vim' " Uniteでconflictファイル編集
+NeoBundle 'osyo-manga/unite-qfixhowm'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'ujihisa/unite-font'
+" }}}
+
+" textobj : {{{
+NeoBundle 'kana/vim-textobj-line'
+" }}}
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'motemen/git-vim'
-NeoBundle 'vim-scripts/python.vim'
-NeoBundle 'vim-scripts/pythoncomplete'
 NeoBundle 'vim-scripts/Jinja'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'othree/eregex.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/urilib.vim'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'ujihisa/unite-font'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'moznion/unite-git-conflict.vim' " Uniteでconflictファイル編集
 NeoBundle 'fuenor/qfixhowm'
 NeoBundle 'vim-scripts/csharp.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
@@ -122,9 +135,8 @@ NeoBundle 'Source-Explorer-srcexpl.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'buftabs'
 NeoBundle 'JSON.vim'
-NeoBundle 'osyo-manga/unite-qfixhowm'
 
-" {{{ :colorscheme
+" colorscheme : {{{
 NeoBundle 'Wombat'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'dante.vim'
@@ -135,13 +147,12 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'vim-scripts/twilight'
 NeoBundle 'jonathanfilip/vim-lucius'
 " }}}
-" {{{ :statusline
-NeoBundle 'bling/vim-airline'
+" statusline : {{{
+NeoBundle 'itchyny/lightline.vim'
 " }}}
-
-NeoBundle 'yomi322/vim-operator-suddendeath'
 filetype plugin indent on
 
+" if run vim, check plugins not installed
 NeoBundleCheck
 "}}}
 
@@ -215,8 +226,8 @@ let g:unite_source_menu_menus = {
 "xmap <Space>D <Plug>(textmanip-duplicate-up)
 "nmap <Space>D <Plug>(textmanip-duplicate-up)
 " 選択したテキストの移動
-xmap <C-j> <Plug>(textmanip-move-down)
 xmap <C-k> <Plug>(textmanip-move-up)
+xmap <C-j> <Plug>(textmanip-move-down)
 xmap <C-h> <Plug>(textmanip-move-left)
 xmap <C-l> <Plug>(textmanip-move-right)
 "}}}
@@ -428,6 +439,11 @@ nmap cc <Plug>(rc_highlight)
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=2
 "}}}
+" lightline.vim : {{{
+let g:lightline = {
+    \ 'colorscheme':'jellybeans'
+    \}
+"}}}
 "}}}
 
 " AnySetting:"{{{
@@ -462,7 +478,7 @@ autocmd BufWritePre * :%s/\s\+$//ge
 autocmd BufWritePre * :%s/\t/  /ge
 
 syntax on
-colorscheme molokai
+colorscheme jellybeans
 highlight LineNr ctermfg=darkgrey
 " Ctrl+Pで連続ペースト
 vnoremap <silent> <C-p> "0p<CR>"
@@ -479,16 +495,28 @@ nnoremap 8, 8gt<CR>
 nnoremap 9, 9gt<CR>
 "}}}
 
+" 単語移動 : {{{
+nnoremap <C-h> b
+nnoremap <C-l> w
+nnoremap <S-h> ge
+nnoremap <S-l> e
+nnoremap <C-j> *
+nnoremap <C-k> #
+"}}}
+
 " 行の折り返し時
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-" ウィンドウの移動
+
+" ウィンドウの移動 : {{{
 nmap gh <C-w>h
 nmap gl <C-w>l
 nmap gj <C-w>j
 nmap gk <C-w>k
+"}}}
+
 set autoread "ファイル変更されたら自動的に読み直す
 set guioptions-=e
 set noerrorbells "エラーベル利用しない
@@ -679,10 +707,12 @@ au BufReadPost,BufNewFile *.ctp :setl filetype=php
 autocmd FileType php setl autoindent
 autocmd FileType php setl tabstop=4 shiftwidth=4 softtabstop=4 cindent expandtab
 " }}}
-" Java setting
+" Java setting {{{
+au BufReadPost,BufNewFile *.bsh :setl filetype=java
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType java setlocal completefunc=javacomplete#CompleteParamsInfo
 autocmd FileType java setl tabstop=8 expandtab shiftwidth=4 tabstop softtabstop=4 smarttab nosmartindent cindent textwidth=80 colorcolumn=80 autoindent
+" }}}
 autocmd FileType xml  setl tabstop=8 expandtab shiftwidth=4 tabstop softtabstop=4 smarttab nosmartindent cindent textwidth=80 colorcolumn=80 autoindent
 " Vim setting
 autocmd FileType vim setlocal expandtab shiftwidth=2
