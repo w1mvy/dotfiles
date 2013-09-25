@@ -12,9 +12,13 @@ alias gcob='git checkout -b'
 alias gc='git commit'
 alias gcm='git commit -m'
 alias gd='git diff'
+alias gdm='git diff master'
+alias gds='git diff --staged'
+alias gd1='git diff HEAD~'
 alias gdhh='git diff HEAD^ HEAD'
 alias ga='git add'
 alias gall='git add --all'
+alias gbsort='(for i in `git branch | colrm 1 2` ; do echo `git log --date=iso8601 -n 1 --pretty="format:[%ai] %h" $i` $i ; done) | sort -r'
 export PATH=$HOME/dotfiles/zsh/git:$PATH
 
 # Show branch name in Zsh's right prompt
