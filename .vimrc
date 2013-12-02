@@ -136,6 +136,11 @@ NeoBundle 'taglist.vim'
 NeoBundle 'buftabs'
 NeoBundle 'JSON.vim'
 
+" ruby
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'basyura/unite-rails'
+NeoBundle 'tpope/vim-endwise'
+
 " colorscheme : {{{
 NeoBundle 'Wombat'
 NeoBundle 'tomasr/molokai'
@@ -165,7 +170,7 @@ let g:unite_enable_start_insert=1
 let g:unite_split_rule="botright"
 let g:unite_enable_split_vertically = 0
 nnoremap [unite] <Nop>
-nmap f [unite]
+nmap <Space>u [unite]
 " 通常使用
 nnoremap <silent> [unite]u :<C-u>Unite -profile-name=files buffer_tab file_mru file file/new<CR>
 " show all buffers
@@ -250,9 +255,6 @@ let g:buftabs_only_basename=1
 let g:buftabs_active_highlight_group="Visual"
 " ステータスライン
 set statusline=%=\ [%{(&fenc!=''?&fenc:&enc)}/%{&ff}]\[%Y]\[%04l,%04v][%p%%]
-" Space,Ctrl+Spaceでバッファ切り替え
-nmap <Space> :bnext<CR>
-nmap <Nul> :bprev<CR>
 "}}}
 
 " neocomplcache:"{{{
