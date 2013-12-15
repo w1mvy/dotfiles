@@ -223,6 +223,9 @@ let g:unite_source_menu_menus = {
 
 "}}}
 
+" gitv {{{
+autocmd FileType git :setlocal foldlevel=99
+" }}}
 
 " textmanip.vim:"{{{
 " 行の複製
