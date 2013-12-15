@@ -46,24 +46,22 @@ NeoBundle 'Shougo/unite-ssh'
 NeoBundle 'osyo-manga/unite-fold'
 NeoBundle 'thinca/vim-unite-history'
 " :Unite grep:target:options:pattern
-NeoBundle 'kmnk/vim-unite-giti.git'
 NeoBundle 'Sixeight/unite-grep'
 NeoBundle 't9md/vim-unite-ack'
-NeoBundle 'taka84u9/unite-git'
-NeoBundle 'moznion/unite-git-conflict.vim' " Uniteでconflictファイル編集
 NeoBundle 'osyo-manga/unite-qfixhowm'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
 
 " git関連
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'gregsexton/gitv'
 " }}}
 
 " textobj : {{{
 NeoBundle 'kana/vim-textobj-line'
 " }}}
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'motemen/git-vim'
 NeoBundle 'vim-scripts/Jinja'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'othree/eregex.vim'
@@ -413,7 +411,7 @@ let QFixHowm_Title = '#'
 "{{{ vim-python-virtualenv
 " Apply g:pythonworkon to statusline
 if exists('g:pythonworkon')
-    let &statusline='%F%m%r%h%w [FORMAT=%{&ff}] [ENC=%{&fileencoding}] [TYPE=%Y] [ASCII=\%03.3b] [HEX=\%02.2B] [POS=%04l,%04v][%p%%] [LEN=%L] %= [WORKON=%{pythonworkon}]'
+    let &statusline='%F%m%r%h%w [FORMAT=%{&ff}][ENC=%{&fileencoding}][TYPE=%Y] [ASCII=\%03.3b] [HEX=\%02.2B] [POS=%04l,%04v][%p%%] [LEN=%L] %= [WORKON=%{pythonworkon}][Git=%{fugitive#statusline()}]'
 endif
 "}}}
 "{{{ easymotion
