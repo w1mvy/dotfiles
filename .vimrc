@@ -54,6 +54,9 @@ NeoBundle 'moznion/unite-git-conflict.vim' " Uniteでconflictファイル編集
 NeoBundle 'osyo-manga/unite-qfixhowm'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
+
+" git関連
+NeoBundle 'airblade/vim-gitgutter'
 " }}}
 
 " textobj : {{{
@@ -139,7 +142,6 @@ NeoBundle 'JSON.vim'
 " ruby
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'basyura/unite-rails'
-NeoBundle 'tpope/vim-endwise'
 
 " colorscheme : {{{
 NeoBundle 'Wombat'
