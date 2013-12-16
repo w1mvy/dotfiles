@@ -17,17 +17,15 @@ alias la='ls -lhAF --color=auto'
 #alias ps='ps -fU$(whoami) --forest'
 alias gh='history 0 | grep --color '
 alias l='less'
-#alias g='grep --color'
 alias -g G='| grep --color'
 alias -g L='| less'
-alias where='command -v'
 alias du='du -h'
 alias df='df -h'
-alias vz='vim ~/.zshrc && . ~/.zshrc'
-alias vv='vim ~/.vimrc'
-alias vs='vim ~/.screenrc'
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
+alias ..='cd ../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
 
 ## ファイル操作の確認
 alias cp="cp -i"
@@ -160,9 +158,6 @@ setopt HUP
 setopt NO_BEEP # ビープを鳴らさない
 # jobsでプロセスIDも出力する
 setopt long_list_jobs
-
-# オレオレzshrc
-[ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
 
 ls_abbrev() {
     # -a : Do not ignore entries starting with ..
@@ -364,8 +359,8 @@ source $HOME/dotfiles/.zshrc.git
 export PATH="/usr/local/heroku/bin:$PATH"
 
 # for mac settings
-source $HOME/.zshrc.mac
 [[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local ]]
+[[ -s $HOME/dotfiles/.zshrc.antigen ]] && source $HOME/dotfiles/.zshrc.antigen ]]
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc ]]
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
