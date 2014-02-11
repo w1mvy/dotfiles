@@ -1,10 +1,22 @@
-source ~/dotfiles/zsh/antigen/antigen.zsh
+if [[ -f $HOME/dotfiles/zsh/antigen/antigen.zsh ]]; then
+    source $HOME/dotfiles/zsh/antigen/antigen.zsh
 
-antigen-bundle autojump
-antigen-bundle encode64
-antigen-bundle git
-antigen-bundle git-extras
-antigen-bundle github
-antigen-bundle jira
-antigen-bundle vi-mode
-antigen-apply
+    antigen-bundle autojump
+    antigen-bundle encode64
+    antigen-bundle git
+    antigen-bundle git-extras # brew install git-extras
+    antigen-bundle github
+    antigen-bundle jira
+    antigen-bundle vi-mode
+    antigen-bundle bundler
+    antigen-bundle compleat
+    antigen-bundle encode64
+    antigen-bundle fasd
+    antigen-bundle gas
+    antigen-bundle knife
+    antigen-bundle ssh-agent
+    antigen-bundle vagrant
+    antigen-bundle web-search
+
+    antigen-apply
+fi
