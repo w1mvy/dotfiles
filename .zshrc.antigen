@@ -3,7 +3,6 @@ source ~/dotfiles/zsh/antigen/antigen.zsh
 antigen-bundle autojump
 antigen-bundle encode64
 antigen-bundle git
-antigen-bundle gitfast
 antigen-bundle git-extras
 antigen-bundle github
 antigen-bundle jira
