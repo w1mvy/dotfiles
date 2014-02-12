@@ -1,6 +1,7 @@
 #
 # zsh用git設定
 #
+alias g='git'
 alias gst='git status -s -b'
 alias gch='git cherry -v'
 alias gl='git log'

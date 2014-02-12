@@ -38,7 +38,7 @@ NeoBundle 'Shougo/vimproc', {
       \    },
       \ }
 NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'vim-scripts/unite.vim'
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-help'
 NeoBundle 'Shougo/unite-ssh'
@@ -151,6 +151,7 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'vim-scripts/twilight'
 NeoBundle 'jonathanfilip/vim-lucius'
+NeoBundle 'sjl/badwolf'
 " }}}
 " statusline : {{{
 NeoBundle 'itchyny/lightline.vim'
