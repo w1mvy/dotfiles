@@ -140,6 +140,8 @@ NeoBundle 'JSON.vim'
 " ruby
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'basyura/unite-rails'
+NeoBundle 'alpaca-tc/alpaca_tags'
+NeoBundle 'ngmy/vim-rubocop'
 
 " colorscheme : {{{
 NeoBundle 'Wombat'
@@ -373,6 +375,21 @@ let g:quickrun_config = {}
 let g:quickrun_config['coffee'] = {'command' : 'coffee', 'exec' : ['%c -cbp %s']}
 let g:quickrun_config['markdown'] = {
     \'outputter':'browser'}
+
+" alpaca_tags
+let g:alpaca_update_tags_config = {
+      \ '_' : '-R --sort=yes --languages=-js,html,css',
+      \ 'ruby': '--languages=+Ruby',
+      \ }
+let g:alpaca_tags_ctags_bin = '/usr/local/bin/ctags'
+augroup AlpacaTags
+  autocmd!
+  if exists(':Tags')
+    autocmd BufWritePost * TagsUpdate ruby
+    autocmd BufWritePost Gemfile TagsBundle
+    autocmd BufEnter * TagsSet
+  endif
+augroup END
 
 " project.vim:"{{{
 " カレントディレクトリに管理ファイルがあったら読み込む

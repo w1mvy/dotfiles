@@ -296,5 +296,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 [[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local ]]
 [[ -s $HOME/dotfiles/.zshrc.antigen ]] && source $HOME/dotfiles/.zshrc.antigen ]]
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc ]]
+eval "$(fasd --init auto)"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
