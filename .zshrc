@@ -299,3 +299,8 @@ export PATH="/usr/local/heroku/bin:$PATH"
 eval "$(fasd --init auto)"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+#brew install coreutils
+eval $(gdircolors $HOME/dotfiles/dircolors-solarized/dircolors.ansi-universal)
+if [ -n "$LS_COLORS" ]; then
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
