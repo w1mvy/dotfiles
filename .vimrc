@@ -39,6 +39,7 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-help'
 NeoBundle 'Shougo/unite-ssh'
@@ -142,6 +143,9 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'basyura/unite-rails'
 NeoBundle 'alpaca-tc/alpaca_tags'
 NeoBundle 'ngmy/vim-rubocop'
+
+NeoBundle 'rhysd/unite-codic.vim'
+NeoBundle 'koron/codic-vim'
 
 " colorscheme : {{{
 NeoBundle 'Wombat'
