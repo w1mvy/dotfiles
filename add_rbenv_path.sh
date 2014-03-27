@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+# description : add export rbenv path
+# usage       : curl https://raw.githubusercontent.com/w1mvy/dotfiles/master/add_rbenv_path.sh | sh
 
 default_shell=`echo $SHELL | sed -e "s/.*\///"`
 
