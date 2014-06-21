@@ -10,7 +10,15 @@ bindkey -v #vimlike
 ############################################################
 # エイリアス
 ############################################################
-alias vim=/usr/local/bin/vim
+
+case ${OSTYPE} in
+    darwin*)
+        alias vim="/usr/bin/vim"
+        ;;
+    linux*)
+        alias vim="/usr/local/bin/vim"
+        ;;
+esac
 alias vi='vim'
 alias ls='ls -lFG'
 alias la='ls -lhAF --color=auto'
@@ -26,6 +34,7 @@ alias zmv='noglob zmv -W'
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
+eval "$(hub alias -s)"
 
 ## ファイル操作の確認
 alias cp="cp -i"
@@ -288,6 +297,48 @@ bindkey '^m' do_enter
 #}}}
 
 source $HOME/dotfiles/.zshrc.git
+
+#################################
+# {{{  養成ギブス
+#################################
+
+net_tools_deprecated_message () {
+  echo -n 'net-tools コマンドはもう非推奨ですよ？おじさんなんじゃないですか？ '
+}
+
+case ${OSTYPE} in
+    linux*) # not found command ip & ss in os x
+        arp () {
+          net_tools_deprecated_message
+          echo 'Use `ip n`'
+        }
+        ifconfig () {
+          net_tools_deprecated_message
+          echo 'Use `ip a`, `ip link`, `ip -s link`'
+        }
+        iptunnel () {
+          net_tools_deprecated_message
+          echo 'Use `ip tunnel`'
+        }
+        iwconfig () {
+          echo -n 'iwconfig コマンドはもう非推奨ですよ？おじさんなんじゃないですか？ '
+          echo 'Use `iw`'
+        }
+        nameif () {
+          net_tools_deprecated_message
+          echo 'Use `ip link`, `ifrename`'
+        }
+        netstat () {
+          net_tools_deprecated_message
+          echo 'Use `ss`, `ip route` (for netstat -r), `ip -s link` (for netstat -i), `ip maddr` (for netstat -g)'
+        }
+        route () {
+          net_tools_deprecated_message
+          echo 'Use `ip r`'
+        }
+    ;;
+esac
+# }}}
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
