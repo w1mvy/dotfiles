@@ -2,15 +2,10 @@
 # キーバインド
 ############################################################
 bindkey -v #vimlike
-# tmux起動
-#if [ $SHLVL = 1 ];then
-#    tmux
-#fi
 
 ############################################################
 # エイリアス
 ############################################################
-
 case ${OSTYPE} in
     darwin*)
         alias vim="/usr/bin/vim"
@@ -22,7 +17,6 @@ esac
 alias vi='vim'
 alias ls='ls -lFG'
 alias la='ls -lhAF --color=auto'
-#alias ps='ps -fU$(whoami) --forest'
 alias gh='history 0 | grep --color '
 alias l='less'
 alias -g G='| grep --color'
@@ -34,25 +28,19 @@ alias zmv='noglob zmv -W'
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
-eval "$(hub alias -s)"
 
 ## ファイル操作の確認
 alias cp="cp -i"
 alias mv="mv -i"
 
-# 拡張子にコマンドを対応付ける
-alias -s zip=zipinfo
-alias -s tgz=gzcat
-alias -s sh=vim
-alias -s py=vim
-alias -s js=vim
-alias -s xml=lv
-alias -s html=iron
-alias -s xhtml=iron
-alias -s gif=display
-alias -s jpg=display
-alias -s png=display
-alias -s bmp=display
+if builtin command -v hub > /dev/null; then
+  eval "$(hub alias -s)"
+fi
+
+############################################################
+# Util methods
+############################################################
+function load-if-exists() { test -e "$1" && source "$1" }
 
 ############################################################
 # プロンプト、色関係
@@ -78,16 +66,9 @@ setopt hist_reduce_blanks # 余分な空白を削除して記録
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-zstyle ':chpwd:*' recent-dirs-max 5000
-zstyle ':chpwd:*' recent-dirs-default yes
-zstyle ':completion:*' recent-dirs-insert both
-
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
-bindkey "^R" history-incremental-pattern-search-backward
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
+bindkey "^r" history-incremental-pattern-search-backward
 
 ############################################################
 # 補完関係
@@ -168,6 +149,12 @@ setopt NO_BEEP # ビープを鳴らさない
 # jobsでプロセスIDも出力する
 setopt long_list_jobs
 
+
+############################################################
+# ls hook
+############################################################
+typeset -ga chpwd_functions
+
 ls_abbrev() {
     # -a : Do not ignore entries starting with ..
     # -C : Force multi-column output.
@@ -181,63 +168,49 @@ ls_abbrev() {
                 cmd_ls='gls'
             else
                 # -G : Enable colorized output.
-                opt_ls=('-aCFG')
+                opt_ls=('-lFG')
             fi
             ;;
     esac
 
     local ls_result
-    ls_result=$(CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
+    ls_result=$(CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]}) #| sed $'/^\e\[[0-9;]*m$/d')
 
     local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
 
-    if [ $ls_lines -gt 10 ]; then
-        echo "$ls_result" | head -n 5
+    if [ $ls_lines -gt 20 ]; then
+        echo "$ls_result" | head -n 10
         echo '...'
-        echo "$ls_result" | tail -n 5
+        echo "$ls_result" | tail -n 10
         echo "$(command ls -1 -A | wc -l | tr -d ' ') files exist"
     else
         echo "$ls_result"
     fi
 }
+chpwd_functions+=ls_abbrev
+
 
 ############################################################
-# zshライブラリ的な
+# zsh library
 ############################################################
 # z.sh
+autoload -Uz is-at-least
 _Z_CMD=j
-source ~/dotfiles/zsh/z/z.sh
-precmd() {
-    _z --add "$(pwd -P)"
-}
-
-# cdd 他のウィンドウのディレクトリに移動できる
-autoload -Uz compinit
-compinit
-. $HOME/dotfiles/zsh/cdd/cdd
-
-# ディレクトリ変更した際呼ぶ関数
-chpwd() {
-    _cdd_chpwd
-    ls_abbrev
-    _reg_pwd_screennum
-}
+_Z_DATA=~/dotfiles/zsh/.z
+if is-at-least 4.3.9; then
+  load-if-exists $HOME/dotfiles/zsh/z/z.sh
+else
+  _Z_NO_PROMPT_COMMAND=1
+  load-if-exists $HOME/dotfiles/zsh/z/z.sh && {
+    function precmd_z() {
+      _z --add "$(pwd -P)"
+    }
+    precmd_functions+=precmd_z
+  }
+fi
+test $? || unset _Z_CMD _Z_DATA _Z_NO_PROMPT_COMMAND
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'
-
-# zaw.zsh
-# insert modeで Ctrl+x ; プレフィックスキー
-source $HOME/dotfiles/zsh/zaw/zaw.zsh
-zstyle ':filter-select' case-insensitive yes # 絞り込みをcase-insensitiveに
-bindkey '^@' zaw-cdr # zaw-cdrをbindkey
-# zaw.zshでディレクトリスタック絞り込み
-zmodload zsh/parameter
-function zaw-src-dirstack() {
-    : ${(A)candidates::=$dirstack}
-    actions=("zaw-callback-execute" "zaw-callback-replace-buffer" "zaw-callback-append-to-buffer")
-    act_descriptions=("execute" "replace edit buffer" "append to edit buffer")
-}
-zaw-register-src -n dirstack zaw-src-dirstack
 
 #{{{ : define any function
 # url: $1, delimiter: $2, prefix: $3, words: $4..
@@ -255,19 +228,16 @@ function web_search {
     fi
     shift
   done
-  if [ `uname` = "Darwin" ]; then
-    open -a "/Applications/Google Chrome.app" ${url}${query}
-  elif [ `uname` = "Linux" ]; then
-    chrome ${url}${query}
-  fi
+
+  open "${url}${query}"
 }
 
 function qiita () {
-  web_search "http://qiita.com/search?utf8=✓&q=" "+" "" $*
+  web_search "http://qiita.com/search?utf8=✓&q=" "+" "" $@
 }
 
 function google () {
-  web_search "https://www.google.co.jp/search?&q=" "+" "" $*
+  web_search "https://www.google.co.jp/search?&q=" "+" "" $@
 }
 
 function zman() {
@@ -338,6 +308,27 @@ case ${OSTYPE} in
         }
     ;;
 esac
+# }}}
+
+## peco settings
+# {{{
+
+
+#function exists { which $1 &> /dev/null }
+#
+#if exists peco; then
+#    function peco_select_history() {
+#        local tac
+#        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+#        BUFFER=$(fc -l -n 1 | eval $tac | peco --query "$LBUFFER")
+#        CURSOR=$#BUFFER         # move cursor
+#        zle -R -c               # refresh
+#    }
+#
+#    zle -N peco_select_history
+#    bindkey '^R' peco_select_history
+#fi
+
 # }}}
 
 ### Added by the Heroku Toolbelt
