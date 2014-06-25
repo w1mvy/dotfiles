@@ -15,11 +15,12 @@ case ${OSTYPE} in
         ;;
 esac
 alias vi='vim'
-alias ls='ls -lFG'
-alias la='ls -lhAF --color=auto'
-alias gh='history 0 | grep --color '
+alias ls='ls -lFGh'
+alias la='ls -lFGha'
+alias grep='grep --color'
+alias hgrep='history 0 | grep '
 alias l='less'
-alias -g G='| grep --color'
+alias -g G='| grep '
 alias -g L='| less'
 alias du='du -h'
 alias df='df -h'
@@ -84,7 +85,7 @@ setopt correct # 間違ったコマンドを修正
 setopt list_packed # 補完候補をまとめて表示
 setopt list_rows_first #補完の表示を水平方向に
 setopt nolistbeep # 補完時ビープなし
-setopt complete_aliases # aliasも補完に含める
+#setopt complete_aliases # aliasも補完に含める
 setopt complete_in_word # 語の途中でもカーソル位置で補完
 setopt always_last_prompt #補完のときプロンプトの位置を変えない
 setopt list_types # 補完候補の表示を親切に
@@ -266,7 +267,6 @@ zle -N do_enter
 bindkey '^m' do_enter
 #}}}
 
-source $HOME/dotfiles/.zshrc.git
 
 #################################
 # {{{  養成ギブス
@@ -333,11 +333,11 @@ esac
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+load-if-exists $HOME/dotfiles/.zshrc.git
+load-if-exists $HOME/dotfiles/.zshrc.antigen
+load-if-exists $HOME/.pythonbrew/etc/bashrc
+load-if-exists $HOME/.zshrc.local
 
-# for mac settings
-[[ -s $HOME/.zshrc.local ]] && source $HOME/.zshrc.local ]]
-[[ -s $HOME/dotfiles/.zshrc.antigen ]] && source $HOME/dotfiles/.zshrc.antigen ]]
-[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc ]]
 eval "$(fasd --init auto)"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
