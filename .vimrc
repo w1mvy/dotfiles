@@ -17,6 +17,7 @@ NeoBundle 'vim-scripts/pythoncomplete'
 " }}}
 " }}}
 
+NeoBundle 'tybenz/vimdeck'
 NeoBundle 'thinca/vim-scouter'
 " for syntax
 NeoBundle "thinca/vim-quickrun"
@@ -143,6 +144,16 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'basyura/unite-rails'
 NeoBundle 'alpaca-tc/alpaca_tags'
 NeoBundle 'ngmy/vim-rubocop'
+NeoBundle 'AndrewRadev/switch.vim'
+"NeoBundle 'spllr/vim-padrino'
+"NeoBundle 'tpope/vim-bundler.git'
+"NeoBundle 'tpope/vim-rails.git'
+
+"swift
+NeoBundle 'toyamarinyon/vim-swift'
+
+NeoBundle 'vim-scripts/progressbar-widget'
+nnoremap - :Switch<cr>
 
 NeoBundle 'rhysd/unite-codic.vim'
 NeoBundle 'koron/codic-vim'
@@ -578,10 +589,6 @@ set backspace=2 "バックスペースでインデント、改行削除
 set clipboard=unnamed,autoselect
 set foldmethod=marker " 折りたたみ
 set wildignorecase " :e でファイル開くとき大文字小文字区別しないで候補を探sす
-" 選択した文字列を"*"で検索する
-vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
-nnoremap y "+y
-vnoremap y "+y
 " 日本語入力:"{{{
 let IM_CtrlMode = 1
 inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
@@ -703,6 +710,7 @@ function! AddPyEncoding()
 endfunction
 autocmd BufReadPost *.py :call AddPyEncoding()
 
+autocmd Filetype cs setl dictionary=~/.vim/dict/unity.dict
 "}}}
 " Ruby setting:"{{{
 autocmd FileType ruby setl autoindent
