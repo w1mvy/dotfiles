@@ -210,5 +210,20 @@ function _update_vcs_info_msg() {
 add-zsh-hook precmd _update_vcs_info_msg
 zle -N _update_vcs_info_msg
 
-# ln -n $HOME/dotfiles/zsh/git/src/git/contrib/completion/git-completion.zsh ~/.git-completion.sh
-zstyle ':completion:*:*:git:*' script ~/.git-completion.sh
+
+case ${OSTYPE} in
+    darwin*)
+        fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+        autoload -U compinit
+        compinit -u
+        ;;
+    linux*)
+        # ln -n $HOME/dotfiles/zsh/git/src/git/contrib/completion/git-completion.zsh ~/.git-completion.sh
+        if ! test -e "$HOME/.git-completion.sh" && test -e "$HOME/dotfiles/zsh/git/src/git/contrib/completion/git-completion.zsh" ; then
+          ln -n $HOME/dotfiles/zsh/git/src/git/contrib/completion/git-completion.zsh ~/.git-completion.sh
+        fi
+        if test -e "$HOME/.git-completion.sh" ; then
+          zstyle ':completion:*:*:git:*' script ~/.git-completion.sh
+        fi
+        ;;
+esac

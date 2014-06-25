@@ -4,7 +4,7 @@ if [[ -f $HOME/dotfiles/zsh/antigen/antigen.zsh ]]; then
     antigen-bundle autojump
     antigen-bundle encode64
     antigen-bundle git-extras # brew install git-extras
-    antigen-bundle github
+    #antigen-bundle github
     antigen-bundle jira
     antigen-bundle vi-mode
     antigen-bundle bundler
