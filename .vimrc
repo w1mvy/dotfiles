@@ -7,7 +7,8 @@ if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 call neobundle#rc(expand('~/.vim/bundle'))
-
+NeoBundle 'tpope/vim-pathogen'
+execute pathogen#infect()
 " original repos on github
 
 " language : {{{
@@ -81,7 +82,14 @@ NeoBundle 'daisuzu/rainbowcyclone.vim'
 " NeoBundle 'h1mesuke/textobj-wiw'
 " JavaScript コーディング規約チェック
 " sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
-"NeoBundle 'scrooloose/syntastic'
+NeoBundle 'scrooloose/syntastic'
+"syntastic:{{{
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
+let g:syntastic_mode_map = { 'mode': 'active',
+            \ 'active_filetypes': ['ruby'] }
+"let g:syntastic_ruby_checkers = ['rubocop']
+"}}}
 " Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
 NeoBundle 'tpope/vim-speeddating'
 " <C+_><C+_>でコメントアウト
@@ -143,7 +151,7 @@ NeoBundle 'JSON.vim'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'basyura/unite-rails'
 NeoBundle 'alpaca-tc/alpaca_tags'
-NeoBundle 'ngmy/vim-rubocop'
+"NeoBundle 'ngmy/vim-rubocop'
 NeoBundle 'AndrewRadev/switch.vim'
 "NeoBundle 'spllr/vim-padrino'
 "NeoBundle 'tpope/vim-bundler.git'
@@ -473,10 +481,6 @@ nmap cN <Plug>(rc_search_backward_with_last_pattern)
 nmap cc <Plug>(rc_highlight)
 "}}}
 
-"syntastic:{{{
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
-"}}}
 " lightline.vim : {{{
 let g:lightline = {
     \ 'colorscheme':'jellybeans'
