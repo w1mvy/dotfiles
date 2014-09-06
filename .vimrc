@@ -118,7 +118,7 @@ NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'plasticboy/vim-markdown'
 
 " リファクタ
-NeoBundle 'sontek/rope-vim'
+NeoBundle 'python-rope/ropevim'
 NeoBundle 'mitechie/pyflakes-pathogen'
 NeoBundle 'pekepeke/titanium-vim'
 NeoBundle 'PHP-correct-Indenting'
@@ -154,6 +154,7 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'basyura/unite-rails'
 NeoBundle 'alpaca-tc/alpaca_tags'
 
+NeoBundle 'Keithbsmiley/rspec.vim'
 NeoBundle 'AndrewRadev/switch.vim'
 nnoremap - :Switch<cr>
 autocmd FileType eruby let b:switch_custom_definitions =
@@ -402,7 +403,7 @@ imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
             \ "\<Plug>(neosnippet_expand_or_jump)"
             \: "\<TAB>"
-
+let g:neosnippet#snippets_directory="~/dotfiles/.vim/snippet"
 " For snippet_complete marker.
 if has('conceal')
     set conceallevel=2 concealcursor=i

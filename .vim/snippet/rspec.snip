@@ -1,0 +1,25 @@
+snippet desc
+abbr    describe end
+prev_word '^'
+    describe "${1:name}" do
+        ${2}
+    end
+
+
+snippet bef
+    before do
+        ${1}
+    end
+alias bef before
+
+
+snippet con
+    context "${1}" do
+        ${2}
+    end
+alias con context
+
+snippet it
+    it "${1}" do
+        ${2}
+    end
