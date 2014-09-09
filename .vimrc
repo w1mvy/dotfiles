@@ -24,8 +24,15 @@ NeoBundle 'thinca/vim-scouter'
 NeoBundle "thinca/vim-quickrun"
 NeoBundle "osyo-manga/shabadou.vim"
 NeoBundle "osyo-manga/vim-watchdogs"
+let g:quickrun_config = {
+\   "ruby/watchdogs_checker" : {
+\       "type" : "watchdogs_checker/rubocop"
+\   }
+\}
 
 NeoBundle 't9md/vim-textmanip'
+
+NeoBundle 'AnsiEsc.vim'
 
 " check lua option
 NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
@@ -84,12 +91,12 @@ NeoBundle 'daisuzu/rainbowcyclone.vim'
 " NeoBundle 'h1mesuke/textobj-wiw'
 " JavaScript コーディング規約チェック
 " sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
-NeoBundle 'scrooloose/syntastic'
-"syntastic:{{{
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
-let g:syntastic_mode_map = { 'mode': 'active',
-            \ 'active_filetypes': ['ruby'] }
+"NeoBundle 'scrooloose/syntastic'
+""syntastic:{{{
+"let g:syntastic_enable_signs=1
+"let g:syntastic_auto_loc_list=2
+"let g:syntastic_mode_map = { 'mode': 'active',
+"            \ 'active_filetypes': ['ruby'] }
 "let g:syntastic_ruby_checkers = ['rubocop']
 "}}}
 " Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
@@ -469,10 +476,28 @@ map <Leader>ml  :MemoList<CR>
 map <Leader>mg  :MemoGrep<CR>
 
 " quickrun
+" quickrunの出力結果にAnsiEscを実行して色付けする
+autocmd FileType quickrun AnsiEsc
 let g:quickrun_config = {}
-let g:quickrun_config['coffee'] = {'command' : 'coffee', 'exec' : ['%c -cbp %s']}
 let g:quickrun_config['markdown'] = {
     \'outputter':'browser'}
+let g:quickrun_config._ = {'runner' : 'vimproc'}
+let g:quickrun_config['rspec/bundle'] = {'type': 'rspec/bundle', 'command': 'rspec', 'exec': 'bundle exec %c %o %s', 'cmdopt': '-cfd', 'args': 'RACK_ENV=test'}
+
+"augroup QRunRSpec
+"  autocmd!
+"  autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=rspec/bundle
+"augroup END
+
+nnoremap [quickrun] <Nop>
+nmap <Space>k [quickrun]
+
+function! RSpecQuickrun()
+  let b:quickrun_config = {'type' : 'rspec/bundle'}
+  let $RACK_ENV = 'test'
+  nnoremap <expr><silent> [quickrun]r "<Esc>:QuickRun -cmdopt \"-cl " . line(".") . "\"<CR>"
+endfunction
+autocmd BufReadPost *_spec.rb call RSpecQuickrun()
 
 " alpaca_tags
 let g:alpaca_update_tags_config = {
