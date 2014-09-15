@@ -310,24 +310,25 @@ case ${OSTYPE} in
 esac
 # }}}
 
-## peco settings
-# {{{
-
-
-#function exists { which $1 &> /dev/null }
-#
-#if exists peco; then
-#    function peco_select_history() {
-#        local tac
-#        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
-#        BUFFER=$(fc -l -n 1 | eval $tac | peco --query "$LBUFFER")
-#        CURSOR=$#BUFFER         # move cursor
-#        zle -R -c               # refresh
-#    }
-#
-#    zle -N peco_select_history
-#    bindkey '^R' peco_select_history
-#fi
+# {{{ peco setting
+function exists { which $1 &> /dev/null }
+if exists peco; then
+    function peco-select-history() {
+        local tac
+        if which tac > /dev/null; then
+            tac="tac"
+        else
+            tac="tail -r"
+        fi
+        BUFFER=$(history -n 1 | \
+            eval $tac | \
+            peco --query "$LBUFFER")
+        CURSOR=$#BUFFER
+        zle clear-screen
+    }
+    zle -N peco-select-history
+    bindkey '^r' peco-select-history
+fi
 
 # }}}
 
