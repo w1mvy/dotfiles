@@ -68,6 +68,7 @@ NeoBundle 'ujihisa/unite-font'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
+NeoBundle 'rhysd/committia.vim'
 " }}}
 
 " textobj : {{{
@@ -106,6 +107,8 @@ NeoBundle 'tomtom/tcomment_vim'
 " 単語へのカーソル移動
 NeoBundle 'Lokaltog/vim-easymotion'
 " インデント量の違いをハイライト表示
+" NeoBundle 'Yggdroot/indentLine'
+" let g:indentLine_char = '|'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 " 括弧の自動補完
 "NeoBundle 'vim-scripts/AutoClose--Alves'
