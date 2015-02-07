@@ -1,11 +1,22 @@
 " Vim Settings
 " Bundle Setting:"{{{
 "git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
+
+set nocompatible
 filetype plugin indent off
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+ if &compatible
+   set nocompatible               " Be iMproved
+ endif
+ set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-call neobundle#rc(expand('~/.vim/bundle'))
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
 NeoBundle 'tpope/vim-pathogen'
 execute pathogen#infect()
 " original repos on github
@@ -219,7 +230,9 @@ NeoBundle 'sjl/badwolf'
 " statusline : {{{
 NeoBundle 'itchyny/lightline.vim'
 " }}}
+call neobundle#end()
 filetype plugin indent on
+
 
 " if run vim, check plugins not installed
 NeoBundleCheck
