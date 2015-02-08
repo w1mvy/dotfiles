@@ -341,9 +341,17 @@ load-if-exists $HOME/.zshrc.local
 
 eval "$(fasd --init auto)"
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if exists rbenv; then
+  eval "$(rbenv init -)"
+else
+  echo "not install rbenv"
+fi
 #brew install coreutils
-eval $(gdircolors $HOME/dotfiles/dircolors-solarized/dircolors.ansi-universal)
+if exists gdircolors; then
+  eval $(gdircolors $HOME/dotfiles/dircolors-solarized/dircolors.ansi-universal)
+else
+  echo "not install gdircolors, `brew install coreutils`"
+fi
 if [ -n "$LS_COLORS" ]; then
   zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
