@@ -97,13 +97,24 @@ NeoBundle 'daisuzu/rainbowcyclone.vim'
 " NeoBundle 'h1mesuke/textobj-wiw'
 " JavaScript コーディング規約チェック
 " sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
-"NeoBundle 'scrooloose/syntastic'
+NeoBundle 'scrooloose/syntastic'
 ""syntastic:{{{
-"let g:syntastic_enable_signs=1
-"let g:syntastic_auto_loc_list=2
-"let g:syntastic_mode_map = { 'mode': 'active',
-"            \ 'active_filetypes': ['ruby'] }
-"let g:syntastic_ruby_checkers = ['rubocop']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list            = 1
+let g:syntastic_check_on_open            = 1
+let g:syntastic_check_on_wq              = 0
+" set variable, or make path to rubocop
+" let g:syntastic_ruby_rubocop_exec = $RUBOCOP_PATH
+let g:syntastic_quiet_messages              = { "level": "warnings" }
+let g:syntastic_ruby_rubocop_quiet_messages = { "level": [] }
+let g:syntastic_mode_map = {
+    \ "mode": "active",
+    \"active_filetypes": ["ruby"],
+    \"passive_filetypes": [] }
+let g:syntastic_ruby_checkers = ["rubocop"]
 "}}}
 " Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
 NeoBundle 'tpope/vim-speeddating'
