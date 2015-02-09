@@ -17,10 +17,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'tpope/vim-pathogen'
-execute pathogen#infect()
-" original repos on github
-
 " language : {{{
 " python : {{{
 NeoBundle 'vim-scripts/python.vim'
@@ -137,16 +133,16 @@ NeoBundle 'mattn/benchvimrc-vim'
 NeoBundle 'petdance/vim-perl'
 NeoBundle 'hotchpotch/perldoc-vim'
 " vim用w3m
-NeoBundle 'yuratomo/w3m.vim'
+" NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'lambdalisue/vim-python-virtualenv'
 " Python用構文チェック
-NeoBundle 'mitechie/pyflakes-pathogen'
+" NeoBundle 'mitechie/pyflakes-pathogen'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'plasticboy/vim-markdown'
 
 " リファクタ
-NeoBundle 'python-rope/ropevim'
-NeoBundle 'mitechie/pyflakes-pathogen'
+" NeoBundle 'python-rope/ropevim'
+" NeoBundle 'mitechie/pyflakes-pathogen'
 NeoBundle 'pekepeke/titanium-vim'
 NeoBundle 'PHP-correct-Indenting'
 
