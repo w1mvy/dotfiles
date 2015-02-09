@@ -102,9 +102,10 @@ NeoBundle 'scrooloose/syntastic'
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list            = 1
-let g:syntastic_check_on_open            = 1
+" fileopen時のcheck
+let g:syntastic_check_on_open            = 0
 let g:syntastic_check_on_wq              = 0
 " set variable, or make path to rubocop
 " let g:syntastic_ruby_rubocop_exec = $RUBOCOP_PATH
