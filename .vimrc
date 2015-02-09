@@ -213,11 +213,15 @@ NeoBundle 'sjl/badwolf'
 NeoBundle 'itchyny/lightline.vim'
 " }}}
 
+NeoBundle "osyo-manga/unite-quickfix"
 NeoBundle "jceb/vim-hier"
 NeoBundle "osyo-manga/vim-watchdogs"
 let g:quickrun_config = {
 \   "ruby/watchdogs_checker" : {
 \       "type" : "watchdogs_checker/rubocop"
+\   },
+\   "watchdogs_checker/rubocop" : {
+\       "cmdopt" : "--emacs"
 \   }
 \}
 let g:watchdogs_check_BufWritePost_enables = {
