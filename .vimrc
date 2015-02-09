@@ -33,12 +33,6 @@ NeoBundle 'thinca/vim-scouter'
 " for syntax
 NeoBundle "thinca/vim-quickrun"
 NeoBundle "osyo-manga/shabadou.vim"
-NeoBundle "osyo-manga/vim-watchdogs"
-let g:quickrun_config = {
-\   "ruby/watchdogs_checker" : {
-\       "type" : "watchdogs_checker/rubocop"
-\   }
-\}
 
 NeoBundle 't9md/vim-textmanip'
 
