@@ -93,26 +93,6 @@ NeoBundle 'daisuzu/rainbowcyclone.vim'
 " NeoBundle 'h1mesuke/textobj-wiw'
 " JavaScript コーディング規約チェック
 " sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
-NeoBundle 'scrooloose/syntastic'
-""syntastic:{{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list            = 1
-" fileopen時のcheck
-let g:syntastic_check_on_open            = 0
-let g:syntastic_check_on_wq              = 0
-" set variable, or make path to rubocop
-" let g:syntastic_ruby_rubocop_exec = $RUBOCOP_PATH
-let g:syntastic_quiet_messages              = { "level": "warnings" }
-let g:syntastic_ruby_rubocop_quiet_messages = { "level": [] }
-let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \"active_filetypes": ["ruby"],
-    \"passive_filetypes": [] }
-let g:syntastic_ruby_checkers = ["rubocop"]
-"}}}
 " Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
 NeoBundle 'tpope/vim-speeddating'
 " <C+_><C+_>でコメントアウト
@@ -232,6 +212,18 @@ NeoBundle 'sjl/badwolf'
 " statusline : {{{
 NeoBundle 'itchyny/lightline.vim'
 " }}}
+
+NeoBundle "jceb/vim-hier"
+NeoBundle "osyo-manga/vim-watchdogs"
+let g:quickrun_config = {
+\   "ruby/watchdogs_checker" : {
+\       "type" : "watchdogs_checker/rubocop"
+\   }
+\}
+let g:watchdogs_check_BufWritePost_enables = {
+\   "ruby"     : 1,
+\}
+
 call neobundle#end()
 filetype plugin indent on
 
@@ -496,7 +488,7 @@ map <Leader>mg  :MemoGrep<CR>
 " quickrun
 " quickrunの出力結果にAnsiEscを実行して色付けする
 autocmd FileType quickrun AnsiEsc
-let g:quickrun_config = {}
+" let g:quickrun_config = {}
 let g:quickrun_config['markdown'] = {
     \'outputter':'browser'}
 let g:quickrun_config._ = {'runner' : 'vimproc'}
