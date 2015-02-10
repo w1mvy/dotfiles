@@ -221,7 +221,12 @@ let g:quickrun_config = {
 \       "type" : "watchdogs_checker/rubocop"
 \   },
 \   "watchdogs_checker/rubocop" : {
-\       "cmdopt" : "--emacs"
+\       "cmdopt" : "--format emacs"
+\   },
+\   "watchdogs_checker/_" : {
+\       "outputter/quickfix/open_cmd": "",
+\       "hook/echo/enable" : 1,
+\       "hook/echo/output_success": "> No Errors Found."
 \   }
 \}
 let g:watchdogs_check_BufWritePost_enables = {
