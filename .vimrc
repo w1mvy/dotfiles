@@ -217,6 +217,9 @@ NeoBundle "osyo-manga/unite-quickfix"
 NeoBundle "jceb/vim-hier"
 NeoBundle "osyo-manga/vim-watchdogs"
 let g:quickrun_config = {
+\   "ruby.rspec/watchdogs_checker" : {
+\       "type" : "watchdogs_checker/rubocop"
+\   },
 \   "ruby/watchdogs_checker" : {
 \       "type" : "watchdogs_checker/rubocop"
 \   },
