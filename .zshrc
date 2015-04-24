@@ -312,6 +312,11 @@ esac
 
 # {{{ peco setting
 function exists { which $1 &> /dev/null }
+if exists go; then
+    export GOROOT=/usr/local/go
+    export GOPATH=$HOME/go
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
 if exists peco; then
     function peco-select-history() {
         local tac
@@ -350,7 +355,9 @@ fi
 if exists gdircolors; then
   eval $(gdircolors $HOME/dotfiles/dircolors-solarized/dircolors.ansi-universal)
 else
-  echo "not install gdircolors, `brew install coreutils`"
+  if ! exists dircolors; then
+    echo "not install gdircolors, 'brew install coreutils'"
+  fi
 fi
 if [ -n "$LS_COLORS" ]; then
   zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
