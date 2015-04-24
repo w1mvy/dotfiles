@@ -220,6 +220,9 @@ let g:quickrun_config = {
 \   "ruby.rspec/watchdogs_checker" : {
 \       "type" : "watchdogs_checker/rubocop"
 \   },
+\   "rspec/watchdogs_checker" : {
+\       "type" : "watchdogs_checker/rubocop"
+\   },
 \   "ruby/watchdogs_checker" : {
 \       "type" : "watchdogs_checker/rubocop"
 \   },
@@ -234,6 +237,9 @@ let g:quickrun_config = {
 \}
 let g:watchdogs_check_BufWritePost_enables = {
 \   "ruby"     : 1,
+\   "rspec"     : 1,
+\   "ruby.rspec"     : 1,
+\   "rspec.ruby"     : 1
 \}
 
 call neobundle#end()
@@ -822,7 +828,7 @@ autocmd BufReadPost *.py :call AddPyEncoding()
 autocmd Filetype cs setl dictionary=~/.vim/dict/unity.dict
 "}}}
 " Ruby setting:"{{{
-autocmd BufReadPost,BufNewFile *_spec.rb set filetype=rspec
+autocmd BufReadPost,BufNewFile *_spec.rb set filetype=rspec.ruby
 autocmd FileType ruby setl autoindent
 autocmd FileType ruby setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType ruby setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
