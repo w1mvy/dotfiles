@@ -30,6 +30,12 @@ alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
 
+if [[ -x `which colordiff` ]]; then
+  alias diff='colordiff -u'
+else
+  alias diff='diff -u'
+fi
+
 ## ファイル操作の確認
 alias cp="cp -i"
 alias mv="mv -i"
