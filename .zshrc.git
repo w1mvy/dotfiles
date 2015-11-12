@@ -23,7 +23,7 @@ alias gdhh='git diff HEAD^ HEAD'
 alias ga='git add'
 alias gall='git add --all'
 alias gbsort='(for i in `git branch | colrm 1 2` ; do echo `git log --date=iso8601 -n 1 --pretty="format:[%ai] %h" $i` $i ; done) | sort -r'
-alias gcop='gco `git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
+alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 export PATH=$HOME/dotfiles/zsh/git:$PATH
 
 # Show branch name in Zsh's right prompt
