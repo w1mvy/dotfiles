@@ -156,6 +156,10 @@ NeoBundle 'JSON.vim'
 " ruby
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'basyura/unite-rails'
+NeoBundle 'pocke/dicts'
+let g:neocomplete#sources#dictionary#dictionaries = {
+\   'ruby': $HOME . '.vim/bundle/dicts/ruby.dict',
+\ }
 
 NeoBundle 'Keithbsmiley/rspec.vim'
 NeoBundle 'AndrewRadev/switch.vim'
