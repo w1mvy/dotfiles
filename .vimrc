@@ -156,6 +156,10 @@ NeoBundle 'JSON.vim'
 " ruby
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'basyura/unite-rails'
+NeoBundle 'pocke/dicts'
+let g:neocomplete#sources#dictionary#dictionaries = {
+\   'ruby': $HOME . '.vim/bundle/dicts/ruby.dict',
+\ }
 
 NeoBundle 'Keithbsmiley/rspec.vim'
 NeoBundle 'AndrewRadev/switch.vim'
@@ -213,6 +217,7 @@ NeoBundle 'sjl/badwolf'
 NeoBundle 'itchyny/lightline.vim'
 " }}}
 
+NeoBundle "bkad/vim-terraform"
 NeoBundle "tsukkee/unite-tag"
 NeoBundle "osyo-manga/unite-quickfix"
 NeoBundle "jceb/vim-hier"
@@ -242,6 +247,8 @@ let g:watchdogs_check_BufWritePost_enables = {
 \   "ruby.rspec"     : 1,
 \   "rspec.ruby"     : 1
 \}
+
+NeoBundle 'glidenote/serverspec-snippets'
 
 call neobundle#end()
 filetype plugin indent on
@@ -284,6 +291,12 @@ call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', '
 augroup vimrc
   autocmd FileType unite call s:unite_my_settings()
 augroup END
+" unite grep に ag(The Silver Searcher) を使う
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 "{{{ : 独自設定
 function! s:unite_my_settings()
   "入力モードのときjjでノーマルモードに移動
@@ -830,10 +843,16 @@ autocmd Filetype cs setl dictionary=~/.vim/dict/unity.dict
 "}}}
 " Ruby setting:"{{{
 autocmd BufReadPost,BufNewFile *_spec.rb set filetype=rspec.ruby
+autocmd BufReadPost,BufNewFile .pryrc set filetype=ruby
 autocmd FileType ruby setl autoindent
 autocmd FileType ruby setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType ruby setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 "}}}
+" Terraform setting: "{{{
+autocmd BufReadPost,BufNewFile *.tf set filetype=terraform
+autocmd FileType terraform setl autoindent
+autocmd FileType terraform setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
+" }}}
 " ShellScript setting:"{{{
 autocmd FileType shell setl autoindent
 autocmd FileType shell setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
@@ -841,7 +860,8 @@ autocmd BufNewFile *.sh 0r ~/.vim/template/template.sh
 "}}}
 " JavaScript setting:"{{{
 autocmd FileType javascript setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
-autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
 "}}}
 " Perl setting{{{
 autocmd BufNewFile *.pl 0r ~/.vim/template/template.pl
@@ -871,6 +891,8 @@ autocmd FileType vim setlocal expandtab shiftwidth=2
 " Markdown setting
 autocmd BufRead,BufNewFile *.mkd setfiletype mkd
 autocmd BufRead,BufNewFile *.md setfiletype mkd
+autocmd BufNewFile,BufRead *.yml,*.yaml setfiletype yaml
+autocmd FileType yaml setlocal expandtab shiftwidth=2
 
 "{{{: JSON setting use JSON.vim
 au! BufRead,BufNewFile *.json set filetype=json
