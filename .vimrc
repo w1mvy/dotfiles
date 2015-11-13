@@ -213,6 +213,7 @@ NeoBundle 'sjl/badwolf'
 NeoBundle 'itchyny/lightline.vim'
 " }}}
 
+NeoBundle "bkad/vim-terraform"
 NeoBundle "tsukkee/unite-tag"
 NeoBundle "osyo-manga/unite-quickfix"
 NeoBundle "jceb/vim-hier"
@@ -242,6 +243,8 @@ let g:watchdogs_check_BufWritePost_enables = {
 \   "ruby.rspec"     : 1,
 \   "rspec.ruby"     : 1
 \}
+
+NeoBundle 'glidenote/serverspec-snippets'
 
 call neobundle#end()
 filetype plugin indent on
