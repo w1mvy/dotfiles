@@ -843,10 +843,16 @@ autocmd Filetype cs setl dictionary=~/.vim/dict/unity.dict
 "}}}
 " Ruby setting:"{{{
 autocmd BufReadPost,BufNewFile *_spec.rb set filetype=rspec.ruby
+autocmd BufReadPost,BufNewFile .pryrc set filetype=ruby
 autocmd FileType ruby setl autoindent
 autocmd FileType ruby setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType ruby setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 "}}}
+" Terraform setting: "{{{
+autocmd BufReadPost,BufNewFile *.tf set filetype=terraform
+autocmd FileType terraform setl autoindent
+autocmd FileType terraform setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
+" }}}
 " ShellScript setting:"{{{
 autocmd FileType shell setl autoindent
 autocmd FileType shell setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
@@ -854,7 +860,8 @@ autocmd BufNewFile *.sh 0r ~/.vim/template/template.sh
 "}}}
 " JavaScript setting:"{{{
 autocmd FileType javascript setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
-autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
 "}}}
 " Perl setting{{{
 autocmd BufNewFile *.pl 0r ~/.vim/template/template.pl
@@ -884,6 +891,8 @@ autocmd FileType vim setlocal expandtab shiftwidth=2
 " Markdown setting
 autocmd BufRead,BufNewFile *.mkd setfiletype mkd
 autocmd BufRead,BufNewFile *.md setfiletype mkd
+autocmd BufNewFile,BufRead *.yml,*.yaml setfiletype yaml
+autocmd FileType yaml setlocal expandtab shiftwidth=2
 
 "{{{: JSON setting use JSON.vim
 au! BufRead,BufNewFile *.json set filetype=json
