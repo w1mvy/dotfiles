@@ -1,168 +1,158 @@
 " Vim Settings
-" Bundle Setting:"{{{
-"git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-" Note: Skip initialization for vim-tiny or vim-small.
-if !1 | finish | endif
-
-set nocompatible
-filetype plugin indent off
-if has('vim_starting')
- if &compatible
-   set nocompatible               " Be iMproved
- endif
- set runtimepath+=~/.vim/bundle/neobundle.vim/
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
 endif
-call neobundle#begin(expand('~/.vim/bundle/'))
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
+" Required:
+set runtimepath^=$HOME/dotfiles/repos/github.com/Shougo/dein.vim
 
-" language : {{{
-" python : {{{
-NeoBundle 'vim-scripts/python.vim'
-NeoBundle 'vim-scripts/pythoncomplete'
-" }}}
-" }}}
+" Required:
+call dein#begin(expand('~/.cache/dein'))
 
-NeoBundle 'tybenz/vimdeck'
-NeoBundle 'thinca/vim-scouter'
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
+
+
 " for syntax
-NeoBundle "thinca/vim-quickrun"
-NeoBundle "osyo-manga/shabadou.vim"
+call dein#add('thinca/vim-quickrun')
+call dein#add('osyo-manga/shabadou.vim')
 
-NeoBundle 't9md/vim-textmanip'
+call dein#add('t9md/vim-textmanip')
 
-NeoBundle 'AnsiEsc.vim'
+call dein#add('AnsiEsc.vim')
 
-" check lua option
-NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
+call dein#add('Shougo/neocomplete')
+call dein#add('Shougo/neosnippet')
+call dein#add('Shougo/neosnippet-snippets')
 
 " unite : {{{
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
-NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'Shougo/unite-help'
-NeoBundle 'Shougo/unite-ssh'
+
+call dein#add('Shougo/vimproc.vim', {
+    \ 'build': {
+    \     'windows': 'tools\\update-dll-mingw',
+    \     'cygwin': 'make -f make_cygwin.mak',
+    \     'mac': 'make -f make_mac.mak',
+    \     'linux': 'make',
+    \     'unix': 'gmake',
+    \    },
+    \ })
+
+call dein#add('Shougo/neobundle.vim')
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/neomru.vim')
+call dein#add('h1mesuke/unite-outline')
+call dein#add('Shougo/unite-help')
+call dein#add('Shougo/unite-ssh')
 " 折りたたみ
-NeoBundle 'osyo-manga/unite-fold'
-NeoBundle 'thinca/vim-unite-history'
+call dein#add('osyo-manga/unite-fold')
+call dein#add('thinca/vim-unite-history')
 " :Unite grep:target:options:pattern
-NeoBundle 'Sixeight/unite-grep'
-NeoBundle 't9md/vim-unite-ack'
-NeoBundle 'osyo-manga/unite-qfixhowm'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'ujihisa/unite-font'
+call dein#add('Sixeight/unite-grep')
+call dein#add('t9md/vim-unite-ack')
+call dein#add('osyo-manga/unite-qfixhowm')
+call dein#add('ujihisa/unite-colorscheme')
+call dein#add('ujihisa/unite-font')
 
 " git関連
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'rhysd/committia.vim'
-NeoBundle 'idanarye/vim-merginal'
+call dein#add('airblade/vim-gitgutter')
+call dein#add('tpope/vim-fugitive')
+call dein#add('gregsexton/gitv')
+call dein#add('rhysd/committia.vim')
+call dein#add('idanarye/vim-merginal')
 " }}}
 
 " textobj : {{{
-NeoBundle 'kana/vim-textobj-line'
+call dein#add('kana/vim-textobj-line')
 " }}}
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'vim-scripts/Jinja'
-NeoBundle 'mattn/zencoding-vim'
-NeoBundle 'othree/eregex.vim'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'tyru/urilib.vim'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'thinca/vim-localrc'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'vim-scripts/csharp.vim'
-NeoBundle 'hail2u/vim-css3-syntax'
+call dein#add('Shougo/vimfiler')
+call dein#add('vim-scripts/Jinja')
+call dein#add('mattn/zencoding-vim')
+call dein#add('othree/eregex.vim')
+call dein#add('tyru/open-browser.vim')
+call dein#add('tyru/urilib.vim')
+call dein#add('kchmck/vim-coffee-script')
+call dein#add('thinca/vim-localrc')
+call dein#add('thinca/vim-ref')
+call dein#add('fuenor/qfixhowm')
+call dein#add('vim-scripts/csharp.vim')
+call dein#add('hail2u/vim-css3-syntax')
 " 検索後のハイライトを変更する
-NeoBundle 'daisuzu/rainbowcyclone.vim'
+call dein#add('daisuzu/rainbowcyclone.vim')
 " underscore,camelcase文字列をテキストオブジェ化
-" NeoBundle 'h1mesuke/textobj-wiw'
+" call dein#add('h1mesuke/textobj-wiw')
 " JavaScript コーディング規約チェック
 " sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
 " Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
-NeoBundle 'tpope/vim-speeddating'
+call dein#add('tpope/vim-speeddating')
 " <C+_><C+_>でコメントアウト
-NeoBundle 'tomtom/tcomment_vim'
+call dein#add('tomtom/tcomment_vim')
 " 単語へのカーソル移動
-NeoBundle 'Lokaltog/vim-easymotion'
+call dein#add('Lokaltog/vim-easymotion')
 " インデント量の違いをハイライト表示
- NeoBundle 'Yggdroot/indentLine'
+ call dein#add('Yggdroot/indentLine')
 let g:indentLine_char = '|'
-"NeoBundle 'nathanaelkane/vim-indent-guides'
+"call dein#add('nathanaelkane/vim-indent-guides')
 " 括弧の自動補完
-"NeoBundle 'vim-scripts/AutoClose--Alves'
-NeoBundle 'Townk/vim-autoclose'
-NeoBundle 'taku-o/vim-toggle'
-NeoBundle 'nvie/vim-pep8'
-NeoBundle 'h1mesuke/vim-alignta'
-NeoBundle 'mattn/benchvimrc-vim'
-NeoBundle 'petdance/vim-perl'
-NeoBundle 'hotchpotch/perldoc-vim'
+"call dein#add('vim-scripts/AutoClose--Alves')
+call dein#add('Townk/vim-autoclose')
+call dein#add('taku-o/vim-toggle')
+call dein#add('nvie/vim-pep8')
+call dein#add('h1mesuke/vim-alignta')
+call dein#add('mattn/benchvimrc-vim')
+call dein#add('petdance/vim-perl')
+call dein#add('hotchpotch/perldoc-vim')
 " vim用w3m
-" NeoBundle 'yuratomo/w3m.vim'
-NeoBundle 'lambdalisue/vim-python-virtualenv'
+" call dein#add('yuratomo/w3m.vim')
+call dein#add('lambdalisue/vim-python-virtualenv')
 " Python用構文チェック
-" NeoBundle 'mitechie/pyflakes-pathogen'
-NeoBundle 'glidenote/memolist.vim'
-NeoBundle 'plasticboy/vim-markdown'
+" call dein#add('mitechie/pyflakes-pathogen')
+call dein#add('glidenote/memolist.vim')
+call dein#add('plasticboy/vim-markdown')
 
 " リファクタ
-" NeoBundle 'python-rope/ropevim'
-" NeoBundle 'mitechie/pyflakes-pathogen'
-NeoBundle 'pekepeke/titanium-vim'
-NeoBundle 'PHP-correct-Indenting'
+" call dein#add('python-rope/ropevim')
+" call dein#add('mitechie/pyflakes-pathogen')
+call dein#add('pekepeke/titanium-vim')
+call dein#add('PHP-correct-Indenting')
 
 " original repos on vim-scripts
-NeoBundle 'surround.vim'
-NeoBundle 'TwitVim'
-NeoBundle 'IndentAnything'
-NeoBundle 'grep.vim'
-"NeoBundle 'YankRing.vim'
-NeoBundle 'sudo.vim'
-NeoBundle 'renamer.vim'
-NeoBundle 'yaml.vim'
-NeoBundle 'mru.vim'
-NeoBundle 'xmledit'
+call dein#add('surround.vim')
+call dein#add('TwitVim')
+call dein#add('IndentAnything')
+call dein#add('grep.vim')
+"call dein#add('YankRing.vim')
+call dein#add('sudo.vim')
+call dein#add('renamer.vim')
+call dein#add('yaml.vim')
+call dein#add('mru.vim')
+call dein#add('xmledit')
 " '%' で対応する括弧に飛ぶ機能を強化
-NeoBundle 'matchit.zip'
+call dein#add('matchit.zip')
 " 「,w」,「,b」でキャメルケース、アンスコの変数を単語毎に移動できる
-NeoBundle 'camelcasemotion'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'Better-Javascript-Indentation'
-NeoBundle 'project.tar.gz'
-NeoBundle 'javacomplete'
-NeoBundle 'smartchr'
+call dein#add('camelcasemotion')
+call dein#add('othree/html5.vim')
+call dein#add('Better-Javascript-Indentation')
+call dein#add('project.tar.gz')
+call dein#add('javacomplete')
+call dein#add('smartchr')
 " taglist, Source-Explorer-srcexpl, ctags用プラグイン
-NeoBundle 'Source-Explorer-srcexpl.vim'
-NeoBundle 'taglist.vim'
-NeoBundle 'buftabs'
-NeoBundle 'JSON.vim'
+call dein#add('Source-Explorer-srcexpl.vim')
+call dein#add('taglist.vim')
+call dein#add('buftabs')
+call dein#add('JSON.vim')
 
 " ruby
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'basyura/unite-rails'
-NeoBundle 'pocke/dicts'
+call dein#add('vim-ruby/vim-ruby')
+call dein#add('basyura/unite-rails')
+call dein#add('pocke/dicts')
 let g:neocomplete#sources#dictionary#dictionaries = {
 \   'ruby': $HOME . '.vim/bundle/dicts/ruby.dict',
 \ }
 
-NeoBundle 'Keithbsmiley/rspec.vim'
-NeoBundle 'AndrewRadev/switch.vim'
+call dein#add('Keithbsmiley/rspec.vim')
+call dein#add('AndrewRadev/switch.vim')
 nnoremap - :Switch<cr>
 autocmd FileType eruby let b:switch_custom_definitions =
     \ [
@@ -194,34 +184,34 @@ autocmd FileType rspec let b:switch_custom_definitions =
 "}}}
 
 "swift
-NeoBundle 'toyamarinyon/vim-swift'
+call dein#add('toyamarinyon/vim-swift')
 
-NeoBundle 'vim-scripts/progressbar-widget'
+call dein#add('vim-scripts/progressbar-widget')
 
-NeoBundle 'rhysd/unite-codic.vim'
-NeoBundle 'koron/codic-vim'
+call dein#add('rhysd/unite-codic.vim')
+call dein#add('koron/codic-vim')
 
 " colorscheme : {{{
-NeoBundle 'Wombat'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'dante.vim'
-NeoBundle 'baskerville/bubblegum'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'vim-scripts/twilight'
-NeoBundle 'jonathanfilip/vim-lucius'
-NeoBundle 'sjl/badwolf'
+call dein#add('Wombat')
+call dein#add('tomasr/molokai')
+call dein#add('dante.vim')
+call dein#add('baskerville/bubblegum')
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('nanotech/jellybeans.vim')
+call dein#add('w0ng/vim-hybrid')
+call dein#add('vim-scripts/twilight')
+call dein#add('jonathanfilip/vim-lucius')
+call dein#add('sjl/badwolf')
 " }}}
 " statusline : {{{
-NeoBundle 'itchyny/lightline.vim'
+call dein#add('itchyny/lightline.vim')
 " }}}
 
-NeoBundle "bkad/vim-terraform"
-NeoBundle "tsukkee/unite-tag"
-NeoBundle "osyo-manga/unite-quickfix"
-NeoBundle "jceb/vim-hier"
-NeoBundle "osyo-manga/vim-watchdogs"
+call dein#add("bkad/vim-terraform")
+call dein#add("tsukkee/unite-tag")
+call dein#add("osyo-manga/unite-quickfix")
+call dein#add("jceb/vim-hier")
+call dein#add("osyo-manga/vim-watchdogs")
 let g:quickrun_config = {
 \   "ruby.rspec/watchdogs_checker" : {
 \       "type" : "watchdogs_checker/rubocop"
@@ -248,14 +238,11 @@ let g:watchdogs_check_BufWritePost_enables = {
 \   "rspec.ruby"     : 1
 \}
 
-NeoBundle 'glidenote/serverspec-snippets'
+call dein#add('glidenote/serverspec-snippets')
 
-call neobundle#end()
+call dein#end()
+
 filetype plugin indent on
-
-
-" if run vim, check plugins not installed
-NeoBundleCheck
 "}}}
 
 " Plugins Setting:"{{{
