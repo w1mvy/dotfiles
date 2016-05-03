@@ -251,28 +251,6 @@ function zman() {
     PAGER="less -g -s '+/^       "$1"'" man zshall
 }
 #}}}
-#{{{ : if press enter, ls and git status
-function do_enter() {
-    if [ -n "$BUFFER" ]; then
-        zle accept-line
-        return 0
-    fi
-    echo
-    ls
-    # ↓おすすめ
-    # ls_abbrev
-    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
-        echo
-        echo -e "\e[0;33m--- git status ---\e[0m"
-        gst
-    fi
-    zle reset-prompt
-    return 0
-}
-zle -N do_enter
-bindkey '^m' do_enter
-#}}}
-
 
 #################################
 # {{{  養成ギブス
@@ -380,9 +358,20 @@ fi
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 load-if-exists $HOME/dotfiles/.zshrc.git
-load-if-exists $HOME/dotfiles/.zshrc.antigen
 load-if-exists $HOME/.pythonbrew/etc/bashrc
 load-if-exists $HOME/.zshrc.local
+
+echo  $(date +"%T")
+export ZPLUG_HOME=$HOME/.zplug
+load-if-exists $HOME/.zplug/zplug
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+zplug load --verbose
+echo  $(date +"%T")
 
 eval "$(fasd --init auto)"
 export PATH="$HOME/.rbenv/bin:$PATH"
