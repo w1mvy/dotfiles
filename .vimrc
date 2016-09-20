@@ -547,7 +547,7 @@ let g:indent_guides_guide_size = 1
 " QFix Hown{{{
 set runtimepath+=~/.vim/plugin/qfixapp
 let QFixHowm_Key = 'g'
-let howm_dir='~/howm'
+let howm_dir='~/Dropbox/howm'
 let homm_fileencoding='utf-8'
 let hown_fileformat='unix'
 " ファイル拡張子をmkdにする
