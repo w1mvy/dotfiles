@@ -48,7 +48,7 @@ call dein#add('ujihisa/unite-colorscheme')
 call dein#add('ujihisa/unite-font')
 
 " git関連
-call dein#add('airblade/vim-gitgutter')
+"call dein#add('airblade/vim-gitgutter')
 call dein#add('tpope/vim-fugitive')
 call dein#add('gregsexton/gitv')
 call dein#add('rhysd/committia.vim')
@@ -117,7 +117,7 @@ call dein#add('grep.vim')
 "call dein#add('YankRing.vim')
 call dein#add('sudo.vim')
 call dein#add('renamer.vim')
-call dein#add('yaml.vim')
+"call dein#add('yaml.vim')
 call dein#add('mru.vim')
 call dein#add('xmledit')
 " '%' で対応する括弧に飛ぶ機能を強化
@@ -136,7 +136,7 @@ call dein#add('buftabs')
 call dein#add('JSON.vim')
 
 " ruby
-call dein#add('vim-ruby/vim-ruby')
+"call dein#add('vim-ruby/vim-ruby')
 call dein#add('basyura/unite-rails')
 call dein#add('pocke/dicts')
 let g:neocomplete#sources#dictionary#dictionaries = {
@@ -182,6 +182,7 @@ call dein#add('vim-scripts/progressbar-widget')
 
 call dein#add('rhysd/unite-codic.vim')
 call dein#add('koron/codic-vim')
+call dein#add('aereal/vim-colors-japanesque')
 
 " colorscheme : {{{
 call dein#add('Wombat')
@@ -546,7 +547,7 @@ let g:indent_guides_guide_size = 1
 " QFix Hown{{{
 set runtimepath+=~/.vim/plugin/qfixapp
 let QFixHowm_Key = 'g'
-let howm_dir='~/Dropbox/howm'
+let howm_dir='~/howm'
 let homm_fileencoding='utf-8'
 let hown_fileformat='unix'
 " ファイル拡張子をmkdにする

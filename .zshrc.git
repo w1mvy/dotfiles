@@ -25,6 +25,7 @@ alias gall='git add --all'
 alias gbsort='(for i in `git branch | colrm 1 2` ; do echo `git log --date=iso8601 -n 1 --pretty="format:[%ai] %h" $i` $i ; done) | sort -r'
 alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 export PATH=$HOME/dotfiles/zsh/git:$PATH
+export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 
 # Show branch name in Zsh's right prompt
 #
