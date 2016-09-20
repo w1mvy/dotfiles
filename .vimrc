@@ -5,7 +5,7 @@ if &compatible
 endif
 
 " Required:
-set runtimepath^=$HOME/dotfiles/repos/github.com/Shougo/dein.vim
+set runtimepath^=$HOME/.vim/bundle/repos/github.com/Shougo/dein.vim
 
 " Required:
 call dein#begin(expand('~/.cache/dein'))
@@ -29,15 +29,7 @@ call dein#add('Shougo/neosnippet-snippets')
 
 " unite : {{{
 
-call dein#add('Shougo/vimproc.vim', {
-    \ 'build': {
-    \     'windows': 'tools\\update-dll-mingw',
-    \     'cygwin': 'make -f make_cygwin.mak',
-    \     'mac': 'make -f make_mac.mak',
-    \     'linux': 'make',
-    \     'unix': 'gmake',
-    \    },
-    \ })
+call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
 call dein#add('Shougo/neobundle.vim')
 call dein#add('Shougo/unite.vim')
