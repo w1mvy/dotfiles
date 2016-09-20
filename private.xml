@@ -8,6 +8,14 @@
     <productname>THINKPAD_KEYBOARD</productname>
     <productid>0x6009</productid>
   </deviceproductdef>
+  <devicevenderdef>
+      <vendername>KINESIS</vendername>
+      <venderid>0x05f3</venderid>
+  </devicevenderdef>
+  <deviceproductdef>
+      <productname>KINESIS</productname>
+      <productid>0x0007</productid>
+  </deviceproductdef>
 <list>
   <item>
     <name>Move Keys not for human</name>
@@ -50,6 +58,21 @@
     <autogen>--KeyToKey-- KeyCode::J, ModifierFlag::CONTROL_L | ModifierFlag::COMMAND_L, KeyCode::CURSOR_DOWN</autogen>
     <autogen>--KeyToKey-- KeyCode::K, ModifierFlag::CONTROL_L | ModifierFlag::COMMAND_L, KeyCode::CURSOR_UP</autogen>
     <autogen>--KeyToKey-- KeyCode::L, ModifierFlag::CONTROL_L | ModifierFlag::COMMAND_L, KeyCode::CURSOR_RIGHT</autogen>
+  </item>
+  <item>
+      <name>for KINESIS</name>
+      <item>
+          <name>PageUp to KANA</name>
+          <identifier>private.swap_pageup_to_kana</identifier>
+          <deviceonly>DeviceVender::KINESIS, DeviceProduct::KINESIS</deviceonly>
+          <autogen>__KeyToKey__ KeyCode::PAGEUP, KeyCode::JIS_KANA</autogen>
+      </item>
+      <item>
+          <name>PageDown to EISUU</name>
+          <identifier>private.swap_pagedown_to_eisuu</identifier>
+          <deviceonly>DeviceVender::KINESIS, DeviceProduct::KINESIS</deviceonly>
+          <autogen>__KeyToKey__ KeyCode::PAGEDOWN, KeyCode::JIS_EISUU</autogen>
+      </item>
   </item>
 </list>
 </root>

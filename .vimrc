@@ -66,7 +66,7 @@ NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
 
 " git関連
-NeoBundle 'airblade/vim-gitgutter'
+" NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'rhysd/committia.vim'
@@ -135,7 +135,8 @@ NeoBundle 'grep.vim'
 "NeoBundle 'YankRing.vim'
 NeoBundle 'sudo.vim'
 NeoBundle 'renamer.vim'
-NeoBundle 'yaml.vim'
+" NeoBundle 'yaml.vim'
+NeoBundle 'chase/vim-ansible-yaml'
 NeoBundle 'mru.vim'
 NeoBundle 'xmledit'
 " '%' で対応する括弧に飛ぶ機能を強化
@@ -154,7 +155,7 @@ NeoBundle 'buftabs'
 NeoBundle 'JSON.vim'
 
 " ruby
-NeoBundle 'vim-ruby/vim-ruby'
+"NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'basyura/unite-rails'
 NeoBundle 'pocke/dicts'
 let g:neocomplete#sources#dictionary#dictionaries = {
@@ -200,7 +201,7 @@ NeoBundle 'vim-scripts/progressbar-widget'
 
 NeoBundle 'rhysd/unite-codic.vim'
 NeoBundle 'koron/codic-vim'
-
+NeoBundle 'aereal/vim-colors-japanesque'
 " colorscheme : {{{
 NeoBundle 'Wombat'
 NeoBundle 'tomasr/molokai'
@@ -567,7 +568,7 @@ let g:indent_guides_guide_size = 1
 " QFix Hown{{{
 set runtimepath+=~/.vim/plugin/qfixapp
 let QFixHowm_Key = 'g'
-let howm_dir='~/Dropbox/howm'
+let howm_dir='~/howm'
 let homm_fileencoding='utf-8'
 let hown_fileformat='unix'
 " ファイル拡張子をmkdにする

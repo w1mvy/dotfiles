@@ -6,14 +6,14 @@ bindkey -v #vimlike
 ############################################################
 # エイリアス
 ############################################################
-case ${OSTYPE} in
-    darwin*)
-        alias vim="/usr/bin/vim"
-        ;;
-    linux*)
-        alias vim="/usr/local/bin/vim"
-        ;;
-esac
+#case ${OSTYPE} in
+#    darwin*)
+#        alias vim="/usr/bin/vim"
+#        ;;
+#    linux*)
+#        alias vim="/usr/local/bin/vim"
+#        ;;
+#esac
 alias vi='vim'
 alias ls='ls -lFGh'
 alias la='ls -lFGha'
@@ -319,8 +319,8 @@ esac
 # {{{ peco setting
 function exists { which $1 &> /dev/null }
 if exists go; then
-    export GOROOT=/usr/local/go
     export GOPATH=$HOME/go
+    export GOROOT=/usr/local/opt/go/libexec
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 if exists peco; then
@@ -340,18 +340,16 @@ if exists peco; then
     zle -N peco-select-history
     bindkey '^r' peco-select-history
 
-    if exists ghq; then
-      function peco-src () {
-          local selected_dir=$(ghq list --full-path | peco --query "$LBUFFER")
-          if [ -n "$selected_dir" ]; then
-              BUFFER="cd ${selected_dir}"
-              zle accept-line
-          fi
-          zle clear-screen
-      }
-      zle -N peco-src
-      bindkey '^s' peco-src
-    fi
+    function peco-src () {
+        local selected_dir=$(ghq list --full-path | peco --query "$LBUFFER")
+        if [ -n "$selected_dir" ]; then
+            BUFFER="cd ${selected_dir}"
+            zle accept-line
+        fi
+        zle clear-screen
+    }
+    zle -N peco-src
+    bindkey '^a' peco-src
 fi
 
 # }}}
@@ -363,7 +361,7 @@ load-if-exists $HOME/dotfiles/.zshrc.antigen
 load-if-exists $HOME/.pythonbrew/etc/bashrc
 load-if-exists $HOME/.zshrc.local
 
-eval "$(fasd --init auto)"
+# eval "$(fasd --init auto)"
 export PATH="$HOME/.rbenv/bin:$PATH"
 if exists rbenv; then
   eval "$(rbenv init -)"
