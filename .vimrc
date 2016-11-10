@@ -621,8 +621,6 @@ nmap <ESC><ESC> :nohlsearch<CR><ESC>
 
 "保存時に行末の空白を除去
 autocmd BufWritePre * :%s/\s\+$//ge
-"保存時にtabをスペースに変換する
-autocmd BufWritePre * :%s/\t/  /ge
 
 syntax on
 colorscheme jellybeans
@@ -821,6 +819,9 @@ autocmd BufReadPost *.py :call AddPyEncoding()
 
 autocmd Filetype cs setl dictionary=~/.vim/dict/unity.dict
 "}}}
+" Go setting:"{{{
+autocmd FileType go setl tabstop=8 expandtab shiftwidth=8
+" }}}
 " Ruby setting:"{{{
 autocmd BufReadPost,BufNewFile *_spec.rb set filetype=rspec.ruby
 autocmd BufReadPost,BufNewFile .pryrc set filetype=ruby
