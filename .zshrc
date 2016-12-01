@@ -15,6 +15,8 @@ bindkey -v #vimlike
 #        ;;
 #esac
 alias vi='vim'
+# vim no plugin mode
+alias suvim='vim -u NORC'
 alias ls='ls -lFGh'
 alias la='ls -lFGha'
 alias grep='grep --color'
