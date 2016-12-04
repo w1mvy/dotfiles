@@ -1,0 +1,10 @@
+item "mysettings for normal japanese keyboard" do
+  # Change about semicolon
+  remap "JIS_COLON", to: "Shift+;"
+  remap "Shift+JIS_COLON", to: "Shift+JIS_COLON"
+  remap "Ctrl+;", to: ";"
+  remap "Shift+;", to: "JIS_COLON"
+  remap ";", to: "RETURN"
+  # Change about slash
+  remap "Ctrl+/", to: "JIS_YEN"
+end
