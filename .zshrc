@@ -362,12 +362,24 @@ load-if-exists $HOME/dotfiles/.zshrc.git
 load-if-exists $HOME/.pythonbrew/etc/bashrc
 load-if-exists $HOME/.zshrc.local
 
-export ZPLUG_HOME=$HOME/.zplug
-load-if-exists $HOME/.zplug/zplug
+# Check if zplug is installed
+if [[ ! -d ~/.zplug ]]; then
+  git clone https://github.com/zplug/zplug ~/.zplug
+  source ~/.zplug/init.zsh && zplug update --self
+fi
+
+# Essential
+source ~/.zplug/init.zsh
+
+# from:gh-r
+zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
+# Install packages that have not been installed yet
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
         echo; zplug install
+    else
+        echo
     fi
 fi
 zplug load --verbose
