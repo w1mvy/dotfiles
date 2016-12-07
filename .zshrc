@@ -373,6 +373,7 @@ source ~/.zplug/init.zsh
 
 # from:gh-r
 zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
+zplug "zsh-users/zsh-syntax-highlighting", nice:10
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
