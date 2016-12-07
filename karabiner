@@ -7,4 +7,9 @@ item "mysettings for normal japanese keyboard" do
   remap ";", to: "RETURN"
   # Change about slash
   remap "Ctrl+/", to: "JIS_YEN"
+  # Like vim remap
+  remap "Ctrl+Cmd+h", to: "Left"
+  remap "Ctrl+Cmd+j", to: "Down"
+  remap "Ctrl+Cmd+k", to: "Up"
+  remap "Ctrl+Cmd+l", to: "Right"
 end
