@@ -6,14 +6,6 @@ bindkey -v #vimlike
 ############################################################
 # エイリアス
 ############################################################
-#case ${OSTYPE} in
-#    darwin*)
-#        alias vim="/usr/bin/vim"
-#        ;;
-#    linux*)
-#        alias vim="/usr/local/bin/vim"
-#        ;;
-#esac
 alias vi='vim'
 # vim no plugin mode
 alias suvim='vim -u NORC'
