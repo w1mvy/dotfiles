@@ -221,39 +221,6 @@ test $? || unset _Z_CMD _Z_DATA _Z_NO_PROMPT_COMMAND
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'
 
-#{{{ : define any function
-# url: $1, delimiter: $2, prefix: $3, words: $4..
-function web_search {
-  local url=$1       && shift
-  local delimiter=$1 && shift
-  local prefix=$1    && shift
-  local query
-
-  while [ -n "$1" ]; do
-    if [ -n "$query" ]; then
-      query="${query}${delimiter}${prefix}$1"
-    else
-      query="${prefix}$1"
-    fi
-    shift
-  done
-
-  open "${url}${query}"
-}
-
-function qiita () {
-  web_search "http://qiita.com/search?utf8=✓&q=" "+" "" $@
-}
-
-function google () {
-  web_search "https://www.google.co.jp/search?&q=" "+" "" $@
-}
-
-function zman() {
-    PAGER="less -g -s '+/^       "$1"'" man zshall
-}
-#}}}
-
 #################################
 # {{{  養成ギブス
 #################################
