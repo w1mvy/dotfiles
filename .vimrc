@@ -70,6 +70,7 @@ call dein#add('thinca/vim-ref')
 call dein#add('fuenor/qfixhowm')
 call dein#add('vim-scripts/csharp.vim')
 call dein#add('hail2u/vim-css3-syntax')
+call dein#add('sorah/unite-ghq')
 " 検索後のハイライトを変更する
 call dein#add('daisuzu/rainbowcyclone.vim')
 " underscore,camelcase文字列をテキストオブジェ化
