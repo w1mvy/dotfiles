@@ -176,6 +176,9 @@ autocmd FileType rspec let b:switch_custom_definitions =
     \ ]
 "}}}
 
+"go
+call dein#add('fatih/vim-go')
+
 "swift
 call dein#add('toyamarinyon/vim-swift')
 
@@ -822,6 +825,9 @@ autocmd Filetype cs setl dictionary=~/.vim/dict/unity.dict
 "}}}
 " Go setting:"{{{
 autocmd FileType go setl tabstop=8 expandtab shiftwidth=8
+let g:go_highlight_functions = 1
+let g:go_highlight_methods   = 1
+let g:go_highlight_structs   = 1
 " }}}
 " Ruby setting:"{{{
 autocmd BufReadPost,BufNewFile *_spec.rb set filetype=rspec.ruby
