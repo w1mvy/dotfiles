@@ -16,240 +16,227 @@ if dein#load_state('~/.cache/dein')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
+  " for syntax
+  call dein#add('thinca/vim-quickrun')
+  call dein#add('osyo-manga/shabadou.vim')
 
+  call dein#add('t9md/vim-textmanip')
 
-" Required:
-" set runtimepath^=$HOME/.vim/bundle/repos/github.com/Shougo/dein.vim
-"
-" " Required:
-" call dein#begin(expand('~/.cache/dein'))
-"
-" " Let dein manage dein
-" " Required:
-" call dein#add('Shougo/dein.vim')
+  call dein#add('AnsiEsc.vim')
 
+  call dein#add('Shougo/neocomplete')
+  call dein#add('Shougo/neosnippet')
+  call dein#add('Shougo/neosnippet-snippets')
 
-" for syntax
-call dein#add('thinca/vim-quickrun')
-call dein#add('osyo-manga/shabadou.vim')
+  " unite : {{{
 
-call dein#add('t9md/vim-textmanip')
+  call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
-call dein#add('AnsiEsc.vim')
+  call dein#add('Shougo/neobundle.vim')
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/neomru.vim')
+  call dein#add('h1mesuke/unite-outline')
+  call dein#add('Shougo/unite-help')
+  call dein#add('Shougo/unite-ssh')
+  " 折りたたみ
+  call dein#add('osyo-manga/unite-fold')
+  call dein#add('thinca/vim-unite-history')
+  " :Unite grep:target:options:pattern
+  call dein#add('Sixeight/unite-grep')
+  call dein#add('t9md/vim-unite-ack')
+  call dein#add('osyo-manga/unite-qfixhowm')
+  call dein#add('ujihisa/unite-colorscheme')
+  call dein#add('ujihisa/unite-font')
 
-call dein#add('Shougo/neocomplete')
-call dein#add('Shougo/neosnippet')
-call dein#add('Shougo/neosnippet-snippets')
+  " git関連
+  "call dein#add('airblade/vim-gitgutter')
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('gregsexton/gitv')
+  call dein#add('rhysd/committia.vim')
+  call dein#add('idanarye/vim-merginal')
+  " }}}
 
-" unite : {{{
+  " textobj : {{{
+  call dein#add('kana/vim-textobj-line')
+  " }}}
+  call dein#add('Shougo/vimfiler')
+  call dein#add('vim-scripts/Jinja')
+  call dein#add('mattn/zencoding-vim')
+  call dein#add('othree/eregex.vim')
+  call dein#add('tyru/open-browser.vim')
+  call dein#add('tyru/urilib.vim')
+  call dein#add('kchmck/vim-coffee-script')
+  call dein#add('thinca/vim-localrc')
+  call dein#add('thinca/vim-ref')
+  call dein#add('fuenor/qfixhowm')
+  call dein#add('vim-scripts/csharp.vim')
+  call dein#add('hail2u/vim-css3-syntax')
+  call dein#add('sorah/unite-ghq')
+  " 検索後のハイライトを変更する
+  call dein#add('daisuzu/rainbowcyclone.vim')
+  " underscore,camelcase文字列をテキストオブジェ化
+  " call dein#add('h1mesuke/textobj-wiw')
+  " JavaScript コーディング規約チェック
+  " sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
+  " Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
+  call dein#add('tpope/vim-speeddating')
+  " <C+_><C+_>でコメントアウト
+  call dein#add('tomtom/tcomment_vim')
+  " 単語へのカーソル移動
+  call dein#add('Lokaltog/vim-easymotion')
+  " インデント量の違いをハイライト表示
+   call dein#add('Yggdroot/indentLine')
+  let g:indentLine_char = '|'
+  "call dein#add('nathanaelkane/vim-indent-guides')
+  " 括弧の自動補完
+  "call dein#add('vim-scripts/AutoClose--Alves')
+  call dein#add('Townk/vim-autoclose')
+  call dein#add('taku-o/vim-toggle')
+  call dein#add('nvie/vim-pep8')
+  call dein#add('h1mesuke/vim-alignta')
+  call dein#add('mattn/benchvimrc-vim')
+  call dein#add('petdance/vim-perl')
+  call dein#add('hotchpotch/perldoc-vim')
+  " vim用w3m
+  " call dein#add('yuratomo/w3m.vim')
+  call dein#add('lambdalisue/vim-python-virtualenv')
+  " Python用構文チェック
+  " call dein#add('mitechie/pyflakes-pathogen')
+  call dein#add('glidenote/memolist.vim')
+  call dein#add('plasticboy/vim-markdown')
 
-call dein#add('Shougo/vimproc.vim', {'build': 'make'})
+  " リファクタ
+  " call dein#add('python-rope/ropevim')
+  " call dein#add('mitechie/pyflakes-pathogen')
+  call dein#add('pekepeke/titanium-vim')
+  call dein#add('PHP-correct-Indenting')
 
-call dein#add('Shougo/neobundle.vim')
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/neomru.vim')
-call dein#add('h1mesuke/unite-outline')
-call dein#add('Shougo/unite-help')
-call dein#add('Shougo/unite-ssh')
-" 折りたたみ
-call dein#add('osyo-manga/unite-fold')
-call dein#add('thinca/vim-unite-history')
-" :Unite grep:target:options:pattern
-call dein#add('Sixeight/unite-grep')
-call dein#add('t9md/vim-unite-ack')
-call dein#add('osyo-manga/unite-qfixhowm')
-call dein#add('ujihisa/unite-colorscheme')
-call dein#add('ujihisa/unite-font')
+  " original repos on vim-scripts
+  call dein#add('surround.vim')
+  call dein#add('TwitVim')
+  call dein#add('IndentAnything')
+  call dein#add('grep.vim')
+  "call dein#add('YankRing.vim')
+  call dein#add('sudo.vim')
+  call dein#add('renamer.vim')
+  "call dein#add('yaml.vim')
+  call dein#add('mru.vim')
+  call dein#add('xmledit')
+  " '%' で対応する括弧に飛ぶ機能を強化
+  call dein#add('matchit.zip')
+  " 「,w」,「,b」でキャメルケース、アンスコの変数を単語毎に移動できる
+  call dein#add('camelcasemotion')
+  call dein#add('othree/html5.vim')
+  call dein#add('Better-Javascript-Indentation')
+  call dein#add('project.tar.gz')
+  call dein#add('javacomplete')
+  call dein#add('smartchr')
+  " taglist, Source-Explorer-srcexpl, ctags用プラグイン
+  call dein#add('Source-Explorer-srcexpl.vim')
+  call dein#add('taglist.vim')
+  call dein#add('buftabs')
+  call dein#add('JSON.vim')
 
-" git関連
-"call dein#add('airblade/vim-gitgutter')
-call dein#add('tpope/vim-fugitive')
-call dein#add('gregsexton/gitv')
-call dein#add('rhysd/committia.vim')
-call dein#add('idanarye/vim-merginal')
-" }}}
+  " ruby
+  "call dein#add('vim-ruby/vim-ruby')
+  call dein#add('basyura/unite-rails')
+  call dein#add('pocke/dicts')
+  let g:neocomplete#sources#dictionary#dictionaries = {
+  \   'ruby': $HOME . '.vim/bundle/dicts/ruby.dict',
+  \ }
 
-" textobj : {{{
-call dein#add('kana/vim-textobj-line')
-" }}}
-call dein#add('Shougo/vimfiler')
-call dein#add('vim-scripts/Jinja')
-call dein#add('mattn/zencoding-vim')
-call dein#add('othree/eregex.vim')
-call dein#add('tyru/open-browser.vim')
-call dein#add('tyru/urilib.vim')
-call dein#add('kchmck/vim-coffee-script')
-call dein#add('thinca/vim-localrc')
-call dein#add('thinca/vim-ref')
-call dein#add('fuenor/qfixhowm')
-call dein#add('vim-scripts/csharp.vim')
-call dein#add('hail2u/vim-css3-syntax')
-call dein#add('sorah/unite-ghq')
-" 検索後のハイライトを変更する
-call dein#add('daisuzu/rainbowcyclone.vim')
-" underscore,camelcase文字列をテキストオブジェ化
-" call dein#add('h1mesuke/textobj-wiw')
-" JavaScript コーディング規約チェック
-" sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
-" Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
-call dein#add('tpope/vim-speeddating')
-" <C+_><C+_>でコメントアウト
-call dein#add('tomtom/tcomment_vim')
-" 単語へのカーソル移動
-call dein#add('Lokaltog/vim-easymotion')
-" インデント量の違いをハイライト表示
- call dein#add('Yggdroot/indentLine')
-let g:indentLine_char = '|'
-"call dein#add('nathanaelkane/vim-indent-guides')
-" 括弧の自動補完
-"call dein#add('vim-scripts/AutoClose--Alves')
-call dein#add('Townk/vim-autoclose')
-call dein#add('taku-o/vim-toggle')
-call dein#add('nvie/vim-pep8')
-call dein#add('h1mesuke/vim-alignta')
-call dein#add('mattn/benchvimrc-vim')
-call dein#add('petdance/vim-perl')
-call dein#add('hotchpotch/perldoc-vim')
-" vim用w3m
-" call dein#add('yuratomo/w3m.vim')
-call dein#add('lambdalisue/vim-python-virtualenv')
-" Python用構文チェック
-" call dein#add('mitechie/pyflakes-pathogen')
-call dein#add('glidenote/memolist.vim')
-call dein#add('plasticboy/vim-markdown')
+  call dein#add('Keithbsmiley/rspec.vim')
+  call dein#add('AndrewRadev/switch.vim')
+  nnoremap - :Switch<cr>
+  autocmd FileType eruby let b:switch_custom_definitions =
+      \ [
+      \   ['if', 'unless'],
+      \   ['while', 'until'],
+      \   ['.blank?', '.present?'],
+      \   ['include', 'extend'],
+      \   ['class', 'module'],
+      \   ['.inject', '.delete_if'],
+      \   ['.map', '.map!'],
+      \   ['attr_accessor', 'attr_reader', 'attr_writer'],
+      \   [
+      \     {
+      \       ':\(\k\+\)\s\+=>': '\1:',
+      \       '\<\(\k\+\):':     ':\1 =>',
+      \     }
+      \   ]
+      \ ]
+  autocmd FileType rspec let b:switch_custom_definitions =
+      \ [
+      \   ['describe', 'context', 'it'],
+      \   ['before', 'after'],
+      \   ['get', 'post', 'put', 'delete'],
+      \   ['\.to_not', '\.to'],
+      \   ['==', 'eql', 'equal'],
+      \   { '\([^. ]\+\)\.should\(_not\|\)': 'expect(\1)\.to\2' },
+      \   { 'expect(\([^. ]\+\))\.to\(_not\|\)': '\1.should\2' },
+      \ ]
+  "}}}
 
-" リファクタ
-" call dein#add('python-rope/ropevim')
-" call dein#add('mitechie/pyflakes-pathogen')
-call dein#add('pekepeke/titanium-vim')
-call dein#add('PHP-correct-Indenting')
+  "go
+  call dein#add('fatih/vim-go')
 
-" original repos on vim-scripts
-call dein#add('surround.vim')
-call dein#add('TwitVim')
-call dein#add('IndentAnything')
-call dein#add('grep.vim')
-"call dein#add('YankRing.vim')
-call dein#add('sudo.vim')
-call dein#add('renamer.vim')
-"call dein#add('yaml.vim')
-call dein#add('mru.vim')
-call dein#add('xmledit')
-" '%' で対応する括弧に飛ぶ機能を強化
-call dein#add('matchit.zip')
-" 「,w」,「,b」でキャメルケース、アンスコの変数を単語毎に移動できる
-call dein#add('camelcasemotion')
-call dein#add('othree/html5.vim')
-call dein#add('Better-Javascript-Indentation')
-call dein#add('project.tar.gz')
-call dein#add('javacomplete')
-call dein#add('smartchr')
-" taglist, Source-Explorer-srcexpl, ctags用プラグイン
-call dein#add('Source-Explorer-srcexpl.vim')
-call dein#add('taglist.vim')
-call dein#add('buftabs')
-call dein#add('JSON.vim')
+  "swift
+  call dein#add('toyamarinyon/vim-swift')
 
-" ruby
-"call dein#add('vim-ruby/vim-ruby')
-call dein#add('basyura/unite-rails')
-call dein#add('pocke/dicts')
-let g:neocomplete#sources#dictionary#dictionaries = {
-\   'ruby': $HOME . '.vim/bundle/dicts/ruby.dict',
-\ }
+  call dein#add('vim-scripts/progressbar-widget')
 
-call dein#add('Keithbsmiley/rspec.vim')
-call dein#add('AndrewRadev/switch.vim')
-nnoremap - :Switch<cr>
-autocmd FileType eruby let b:switch_custom_definitions =
-    \ [
-    \   ['if', 'unless'],
-    \   ['while', 'until'],
-    \   ['.blank?', '.present?'],
-    \   ['include', 'extend'],
-    \   ['class', 'module'],
-    \   ['.inject', '.delete_if'],
-    \   ['.map', '.map!'],
-    \   ['attr_accessor', 'attr_reader', 'attr_writer'],
-    \   [
-    \     {
-    \       ':\(\k\+\)\s\+=>': '\1:',
-    \       '\<\(\k\+\):':     ':\1 =>',
-    \     }
-    \   ]
-    \ ]
-autocmd FileType rspec let b:switch_custom_definitions =
-    \ [
-    \   ['describe', 'context', 'it'],
-    \   ['before', 'after'],
-    \   ['get', 'post', 'put', 'delete'],
-    \   ['\.to_not', '\.to'],
-    \   ['==', 'eql', 'equal'],
-    \   { '\([^. ]\+\)\.should\(_not\|\)': 'expect(\1)\.to\2' },
-    \   { 'expect(\([^. ]\+\))\.to\(_not\|\)': '\1.should\2' },
-    \ ]
-"}}}
+  call dein#add('rhysd/unite-codic.vim')
+  call dein#add('koron/codic-vim')
+  call dein#add('aereal/vim-colors-japanesque')
 
-"go
-call dein#add('fatih/vim-go')
+  " colorscheme : {{{
+  call dein#add('Wombat')
+  call dein#add('tomasr/molokai')
+  call dein#add('dante.vim')
+  call dein#add('baskerville/bubblegum')
+  call dein#add('altercation/vim-colors-solarized')
+  call dein#add('nanotech/jellybeans.vim')
+  call dein#add('w0ng/vim-hybrid')
+  call dein#add('vim-scripts/twilight')
+  call dein#add('jonathanfilip/vim-lucius')
+  call dein#add('sjl/badwolf')
+  " }}}
+  " statusline : {{{
+  call dein#add('itchyny/lightline.vim')
+  " }}}
 
-"swift
-call dein#add('toyamarinyon/vim-swift')
+  call dein#add("bkad/vim-terraform")
+  call dein#add("tsukkee/unite-tag")
+  call dein#add("osyo-manga/unite-quickfix")
+  call dein#add("jceb/vim-hier")
+  call dein#add("osyo-manga/vim-watchdogs")
+  let g:quickrun_config = {
+  \   "ruby.rspec/watchdogs_checker" : {
+  \       "type" : "watchdogs_checker/rubocop"
+  \   },
+  \   "rspec/watchdogs_checker" : {
+  \       "type" : "watchdogs_checker/rubocop"
+  \   },
+  \   "ruby/watchdogs_checker" : {
+  \       "type" : "watchdogs_checker/rubocop"
+  \   },
+  \   "watchdogs_checker/rubocop" : {
+  \       "cmdopt" : "--format emacs"
+  \   },
+  \   "watchdogs_checker/_" : {
+  \       "outputter/quickfix/open_cmd": "",
+  \       "hook/echo/enable" : 1,
+  \       "hook/echo/output_success": "> No Errors Found."
+  \   }
+  \}
+  let g:watchdogs_check_BufWritePost_enables = {
+  \   "ruby"     : 1,
+  \   "rspec"     : 1,
+  \   "ruby.rspec"     : 1,
+  \   "rspec.ruby"     : 1
+  \}
 
-call dein#add('vim-scripts/progressbar-widget')
-
-call dein#add('rhysd/unite-codic.vim')
-call dein#add('koron/codic-vim')
-call dein#add('aereal/vim-colors-japanesque')
-
-" colorscheme : {{{
-call dein#add('Wombat')
-call dein#add('tomasr/molokai')
-call dein#add('dante.vim')
-call dein#add('baskerville/bubblegum')
-call dein#add('altercation/vim-colors-solarized')
-call dein#add('nanotech/jellybeans.vim')
-call dein#add('w0ng/vim-hybrid')
-call dein#add('vim-scripts/twilight')
-call dein#add('jonathanfilip/vim-lucius')
-call dein#add('sjl/badwolf')
-" }}}
-" statusline : {{{
-call dein#add('itchyny/lightline.vim')
-" }}}
-
-call dein#add("bkad/vim-terraform")
-call dein#add("tsukkee/unite-tag")
-call dein#add("osyo-manga/unite-quickfix")
-call dein#add("jceb/vim-hier")
-call dein#add("osyo-manga/vim-watchdogs")
-let g:quickrun_config = {
-\   "ruby.rspec/watchdogs_checker" : {
-\       "type" : "watchdogs_checker/rubocop"
-\   },
-\   "rspec/watchdogs_checker" : {
-\       "type" : "watchdogs_checker/rubocop"
-\   },
-\   "ruby/watchdogs_checker" : {
-\       "type" : "watchdogs_checker/rubocop"
-\   },
-\   "watchdogs_checker/rubocop" : {
-\       "cmdopt" : "--format emacs"
-\   },
-\   "watchdogs_checker/_" : {
-\       "outputter/quickfix/open_cmd": "",
-\       "hook/echo/enable" : 1,
-\       "hook/echo/output_success": "> No Errors Found."
-\   }
-\}
-let g:watchdogs_check_BufWritePost_enables = {
-\   "ruby"     : 1,
-\   "rspec"     : 1,
-\   "ruby.rspec"     : 1,
-\   "rspec.ruby"     : 1
-\}
-
-call dein#add('glidenote/serverspec-snippets')
+  call dein#add('glidenote/serverspec-snippets')
 
   call dein#end()
   call dein#save_state()
