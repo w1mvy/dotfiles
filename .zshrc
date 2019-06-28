@@ -6,7 +6,12 @@ bindkey -v #vimlike
 ############################################################
 # エイリアス
 ############################################################
-alias vi='vim'
+if exists nvim; then
+  alias vi='nvim'
+  alias vim='nvim'
+else
+  alias vi='vim'
+fi
 # vim no plugin mode
 alias suvim='vim -u NORC'
 alias ls='ls -lFGh'
