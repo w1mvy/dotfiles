@@ -26,9 +26,6 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('t9md/vim-textmanip')
 
-  call dein#add('vim-scripts/AnsiEsc.vim')
-
-  call dein#add('Shougo/neocomplete')
   call dein#add('Shougo/neosnippet')
   call dein#add('Shougo/neosnippet-snippets')
 
@@ -353,84 +350,6 @@ let g:buftabs_active_highlight_group="Visual"
 " ステータスライン
 set statusline=%=\ [%{(&fenc!=''?&fenc:&enc)}/%{&ff}]\[%Y]\[%04l,%04v][%p%%]
 "}}}
-
-" neocomplcache:"{{{
-
-
-if neobundle#is_installed('neocomplete')
-    " neocomplete用設定
-    let g:neocomplete#enable_at_startup                 = 1
-    let g:neocomplete#enable_ignore_case                = 1
-    let g:neocomplete#enable_smart_case                 = 1
-    " set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 4
-    " define dict
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default'    : '',
-        \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
-        \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-        \ 'vimshell'   : $HOME.'/.vim/dict/vim.dict',
-        \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
-        \ 'ruby'       : $HOME.'/.vim/dict/ruby.dict'
-        \}
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-
-elseif neobundle#is_installed('neocomplcache')
-    " neocomplcache用設定
-    let g:neocomplcache_enable_at_startup = 1
-    let g:neocomplcache_enable_ignore_case = 1
-    let g:neocomplcache_enable_smart_case = 1
-    if !exists('g:neocomplcache_keyword_patterns')
-        let g:neocomplcache_keyword_patterns = {}
-    endif
-    let g:neocomplcache_keyword_patterns._ = '\h\w*'
-    let g:neocomplcache_enable_camel_case_completion = 1
-    let g:neocomplcache_enable_underbar_completion = 1
-    " check neocomplete
-    let g:neocomplcache_min_syntax_length = 4
-    " define dict
-    let g:neocomplcache_dictionary_filetype_lists = {
-        \ 'default'    : '',
-        \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
-        \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-        \ 'vimshell'   : $HOME.'/.vim/dict/vim.dict',
-        \ 'perl'       : $HOME.'/.vim/dict/perl.dict'
-        \}
-    " 前回行われた補完のキャンセル
-    inoremap <expr><C-g> neocomplcache#undo_completion()
-    " 補完候補から共通部分を補完
-    inoremap <expr><C-l> neocomplcache#complete_common_string()
-    " Enterで補完確定、補完表示されてない場合は改行
-    inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "<CR>"
-    "inoremap <expr><CR> neocomplcache#close_popup()
-    " ファイル名補完
-    inoremap <expr><C-x><C-f> neocomplcache#manual_filename_complete()
-    inoremap <expr><C-g>     neocomplcache#undo_completion()
-    inoremap <expr><C-l>     neocomplcache#complete_common_string()
-    " <CR>: close popup and save indent.
-    "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    ""inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplcache#close_popup()
-    if !exists('g:neocomplcache_keyword_patterns')
-        let g:neocomplcache_keyword_patterns = {}
-    endif
-    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-endif
 
 " neosnippet
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
