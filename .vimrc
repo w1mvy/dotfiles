@@ -16,6 +16,10 @@ if dein#load_state('~/.cache/dein')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
+  if !has('python3')
+    echo "you require to install pynvim. `pip3 install --user pynvim`"
+  endif
+  let g:deoplete#enable_at_startup = 1
   " for syntax
   call dein#add('thinca/vim-quickrun')
   call dein#add('osyo-manga/shabadou.vim')
