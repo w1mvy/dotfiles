@@ -6,6 +6,7 @@ bindkey -v #vimlike
 ############################################################
 # エイリアス
 ############################################################
+function exists { which $1 &> /dev/null }
 if exists nvim; then
   alias vi='nvim'
   alias vim='nvim'
