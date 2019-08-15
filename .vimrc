@@ -35,35 +35,7 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('Shougo/neobundle.vim')
   call dein#add('Shougo/denite.nvim')
-  autocmd FileType denite call s:denite_my_settings()
-  function! s:denite_my_settings() abort
-    nnoremap <silent><buffer><expr> <CR>
-    \ denite#do_map('do_action')
-    nnoremap <silent><buffer><expr> d
-    \ denite#do_map('do_action', 'delete')
-    nnoremap <silent><buffer><expr> p
-    \ denite#do_map('do_action', 'preview')
-    nnoremap <silent><buffer><expr> q
-    \ denite#do_map('quit')
-    nnoremap <silent><buffer><expr> i
-    \ denite#do_map('open_filter_buffer')
-    nnoremap <silent><buffer><expr> <Space>
-    \ denite#do_map('toggle_select').'j'
-  endfunction
-
   call dein#add('Shougo/neomru.vim')
-  call dein#add('h1mesuke/unite-outline')
-  call dein#add('Shougo/unite-help')
-  call dein#add('Shougo/unite-ssh')
-  " 折りたたみ
-  call dein#add('osyo-manga/unite-fold')
-  call dein#add('thinca/vim-unite-history')
-  " :Unite grep:target:options:pattern
-  call dein#add('Sixeight/unite-grep')
-  call dein#add('t9md/vim-unite-ack')
-  call dein#add('osyo-manga/unite-qfixhowm')
-  call dein#add('ujihisa/unite-colorscheme')
-  call dein#add('ujihisa/unite-font')
 
   " git関連
   "call dein#add('airblade/vim-gitgutter')
@@ -88,7 +60,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('fuenor/qfixhowm')
   call dein#add('vim-scripts/csharp.vim')
   call dein#add('hail2u/vim-css3-syntax')
-  call dein#add('sorah/unite-ghq')
   " 検索後のハイライトを変更する
   call dein#add('daisuzu/rainbowcyclone.vim')
   " underscore,camelcase文字列をテキストオブジェ化
@@ -156,7 +127,6 @@ if dein#load_state('~/.cache/dein')
 
   " ruby
   "call dein#add('vim-ruby/vim-ruby')
-  call dein#add('basyura/unite-rails')
   call dein#add('pocke/dicts')
   let g:neocomplete#sources#dictionary#dictionaries = {
   \   'ruby': $HOME . '.vim/bundle/dicts/ruby.dict',
@@ -202,7 +172,6 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('vim-scripts/progressbar-widget')
 
-  call dein#add('rhysd/unite-codic.vim')
   call dein#add('koron/codic-vim')
   call dein#add('aereal/vim-colors-japanesque')
 
@@ -223,8 +192,6 @@ if dein#load_state('~/.cache/dein')
   " }}}
 
   call dein#add("bkad/vim-terraform")
-  call dein#add("tsukkee/unite-tag")
-  call dein#add("osyo-manga/unite-quickfix")
   call dein#add("jceb/vim-hier")
   call dein#add("osyo-manga/vim-watchdogs")
   let g:quickrun_config = {
@@ -264,70 +231,95 @@ filetype plugin indent on
 
 " Plugins Setting:"{{{
 
+" denite {{{
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> <TAB>
+  \ denite#do_map('do_action', 'tabopen')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+autocmd FileType denite-filter call s:denite_filter_my_settings()
+function! s:denite_filter_my_settings() abort
+  imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+endfunction
+nnoremap <silent> <C-t><C-t> :<C-u>Denite buffer:no-current<CR>
+" }}}
+
 " unite.vim:"{{{
 " unite start settings
-let g:vimfiler_as_default_explorer=1
-let g:unite_enable_start_insert=1
-let g:unite_split_rule="botright"
-let g:unite_enable_split_vertically = 0
-nnoremap [unite] <Nop>
-nmap <Space>u [unite]
-" 通常使用
-nnoremap <silent> [unite]u :<C-u>Unite -profile-name=files buffer_tab file_mru file file/new<CR>
-" show all buffers
-nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-" show all tabs
-nnoremap <silent> <C-t><C-t> :<C-u>Unite tab:no-current<CR>
-" 最近使ったファイル
-nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
-" ファイル一覧
-nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file -buffer-name=files file/new<CR>
-" ファイル一覧
-nnoremap <silent> [unite]n :<C-u>UniteWithCurrentDir file_rec -buffer-name=files file/new<CR>
-nnoremap <silent> [unite]t :<C-u>Unite file_rec<CR>
-"バッファ一覧
-nnoremap <silent> [unite]b :<C-u>Unite buffer -buffer-name=buffer_tab file/new<CR>
-nnoremap <silent> [unite]h :<C-u>Unite history/command history/search history/yank<CR>
-nnoremap <silent> [unite]q :<C-u>Unite qfixhowm<CR>
-call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
-
-"uniteを開いている間のキーマッピング
-augroup vimrc
-  autocmd FileType unite call s:unite_my_settings()
-augroup END
-" unite grep に ag(The Silver Searcher) を使う
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-"{{{ : 独自設定
-function! s:unite_my_settings()
-  "入力モードのときjjでノーマルモードに移動
-  imap <buffer> jj <Plug>(unite_insert_leave)
-  "入力モードのときctrl+wでバックスラッシュも削除
-  imap <buffer> <C-j> <Plug>(unite_delete_backward_path)
-  "sでsplit
-  nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-  inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-  "vでvsplit
-  nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-  inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-  "fでvimfiler
-  nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
-  inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
-endfunction
-"}}}
-"{{{ : add shortcut
-let g:unite_source_menu_menus = {
-\   "shortcut" : {
-\       "description" : "sample unite-menu",
-\       "command_candidates" : [
-\       ],
-\   },
-\}
-"}}}
-
+" let g:vimfiler_as_default_explorer=1
+" let g:unite_enable_start_insert=1
+" let g:unite_split_rule="botright"
+" let g:unite_enable_split_vertically = 0
+" nnoremap [unite] <Nop>
+" nmap <Space>u [unite]
+" " 通常使用
+" nnoremap <silent> [unite]u :<C-u>Unite -profile-name=files buffer_tab file_mru file file/new<CR>
+" " show all buffers
+" nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+" " show all tabs
+" nnoremap <silent> <C-t><C-t> :<C-u>Unite tab:no-current<CR>
+" " 最近使ったファイル
+" nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+" " ファイル一覧
+" nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file -buffer-name=files file/new<CR>
+" " ファイル一覧
+" nnoremap <silent> [unite]n :<C-u>UniteWithCurrentDir file_rec -buffer-name=files file/new<CR>
+" nnoremap <silent> [unite]t :<C-u>Unite file_rec<CR>
+" "バッファ一覧
+" nnoremap <silent> [unite]b :<C-u>Unite buffer -buffer-name=buffer_tab file/new<CR>
+" nnoremap <silent> [unite]h :<C-u>Unite history/command history/search history/yank<CR>
+" nnoremap <silent> [unite]q :<C-u>Unite qfixhowm<CR>
+" call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
+"
+" "uniteを開いている間のキーマッピング
+" augroup vimrc
+"   autocmd FileType unite call s:unite_my_settings()
+" augroup END
+" " unite grep に ag(The Silver Searcher) を使う
+" if executable('ag')
+"   let g:unite_source_grep_command = 'ag'
+"   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+"   let g:unite_source_grep_recursive_opt = ''
+" endif
+" "{{{ : 独自設定
+" function! s:unite_my_settings()
+"   "入力モードのときjjでノーマルモードに移動
+"   imap <buffer> jj <Plug>(unite_insert_leave)
+"   "入力モードのときctrl+wでバックスラッシュも削除
+"   imap <buffer> <C-j> <Plug>(unite_delete_backward_path)
+"   "sでsplit
+"   nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
+"   inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
+"   "vでvsplit
+"   nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
+"   inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
+"   "fでvimfiler
+"   nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
+"   inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
+" endfunction
+" "}}}
+" "{{{ : add shortcut
+" let g:unite_source_menu_menus = {
+" \   "shortcut" : {
+" \       "description" : "sample unite-menu",
+" \       "command_candidates" : [
+" \       ],
+" \   },
+" \}
+" "}}}
+"
 "}}}
 
 " gitv {{{
