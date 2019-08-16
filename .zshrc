@@ -8,8 +8,7 @@ else
 fi
 # vim no plugin mode
 alias suvim='vim -u NORC'
-alias ls='ls -lFGh'
-alias la='ls -lFGha'
+alias ls='ls -lFGha'
 alias grep='grep --color'
 alias hgrep='history 0 | grep '
 alias l='less'
