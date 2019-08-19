@@ -57,9 +57,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('idanarye/vim-merginal')
   " }}}
 
-  " textobj : {{{
-  " call dein#add('kana/vim-textobj-line')
-  " }}}
   call dein#add('Shougo/vimfiler')
   call dein#add('vim-scripts/Jinja')
   call dein#add('mattn/zencoding-vim')
@@ -429,11 +426,13 @@ map <Leader>mg  :MemoGrep<CR>
 
 " quickrun
 " quickrunの出力結果にAnsiEscを実行して色付けする
-" autocmd FileType quickrun AnsiEsc
-" let g:quickrun_config['markdown'] = {
-"     \'outputter':'browser'}
-" let g:quickrun_config._ = {'runner' : 'vimproc', "runner/vimproc/updatetime" : 10}
-" let g:quickrun_config['ruby.rspec'] = {'command': 'rspec', 'exec': 'bundle exec %c', 'cmdopt': '-cfd' }
+autocmd FileType quickrun AnsiEsc
+let g:quickrun_config.markdown = {
+\ 'type': 'markdown',
+\ 'outputter': 'browser'
+\ }
+let g:quickrun_config._ = {'runner' : 'vimproc', "runner/vimproc/updatetime" : 10}
+let g:quickrun_config['ruby.rspec'] = {'command': 'rspec', 'exec': 'bundle exec %c', 'cmdopt': '-cfd' }
 
 augroup QRunRSpec
   autocmd!
@@ -604,7 +603,12 @@ set cmdheight=1
 set showmatch "対応する括弧を表示
 set hlsearch "検索結果をハイライト
 set expandtab "タブをスペースに置き換える
-"set antialias
+if !has('nvim')
+  set antialias
+  set clipboard=unnamed,autoselect
+else
+  set clipboard+=unnamed
+endif
 set autoindent "オートインデント
 set textwidth=0 " 勝手な改行をふせぐ
 set list listchars=tab:>-,trail:_ " 不可視文字の表示
@@ -623,7 +627,6 @@ set wildmenu "補完候補表示
 set helplang=ja
 set title "タイトルを表示
 set backspace=2 "バックスペースでインデント、改行削除
-"set clipboard=unnamed,autoselect
 set foldmethod=marker " 折りたたみ
 set wildignorecase " :e でファイル開くとき大文字小文字区別しないで候補を探sす
 " 日本語入力:"{{{
