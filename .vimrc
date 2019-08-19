@@ -58,7 +58,7 @@ if dein#load_state('~/.cache/dein')
   " }}}
 
   " textobj : {{{
-  call dein#add('kana/vim-textobj-line')
+  " call dein#add('kana/vim-textobj-line')
   " }}}
   call dein#add('Shougo/vimfiler')
   call dein#add('vim-scripts/Jinja')
@@ -250,68 +250,68 @@ filetype plugin indent on
 
 " unite.vim:"{{{
 " unite start settings
-let g:vimfiler_as_default_explorer=1
-let g:unite_enable_start_insert=1
-let g:unite_split_rule="botright"
-let g:unite_enable_split_vertically = 0
-nnoremap [unite] <Nop>
-nmap <Space>u [unite]
-" 通常使用
-nnoremap <silent> [unite]u :<C-u>Unite -profile-name=files buffer_tab file_mru file file/new<CR>
-" show all buffers
-nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-" show all tabs
-nnoremap <silent> <C-t><C-t> :<C-u>Unite tab:no-current<CR>
-" 最近使ったファイル
-nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
-" ファイル一覧
-nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file -buffer-name=files file/new<CR>
-" ファイル一覧
-nnoremap <silent> [unite]n :<C-u>UniteWithCurrentDir file_rec -buffer-name=files file/new<CR>
-nnoremap <silent> [unite]t :<C-u>Unite file_rec<CR>
-"バッファ一覧
-nnoremap <silent> [unite]b :<C-u>Unite buffer -buffer-name=buffer_tab file/new<CR>
-nnoremap <silent> [unite]h :<C-u>Unite history/command history/search history/yank<CR>
-nnoremap <silent> [unite]q :<C-u>Unite qfixhowm<CR>
-call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
-
-"uniteを開いている間のキーマッピング
-augroup vimrc
-  autocmd FileType unite call s:unite_my_settings()
-augroup END
-" unite grep に ag(The Silver Searcher) を使う
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-"{{{ : 独自設定
-function! s:unite_my_settings()
-  "入力モードのときjjでノーマルモードに移動
-  imap <buffer> jj <Plug>(unite_insert_leave)
-  "入力モードのときctrl+wでバックスラッシュも削除
-  imap <buffer> <C-j> <Plug>(unite_delete_backward_path)
-  "sでsplit
-  nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-  inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-  "vでvsplit
-  nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-  inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-  "fでvimfiler
-  nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
-  inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
-endfunction
-"}}}
-"{{{ : add shortcut
-let g:unite_source_menu_menus = {
-\   "shortcut" : {
-\       "description" : "sample unite-menu",
-\       "command_candidates" : [
-\       ],
-\   },
-\}
-"}}}
-
+" let g:vimfiler_as_default_explorer=1
+" let g:unite_enable_start_insert=1
+" let g:unite_split_rule="botright"
+" let g:unite_enable_split_vertically = 0
+" nnoremap [unite] <Nop>
+" nmap <Space>u [unite]
+" " 通常使用
+" nnoremap <silent> [unite]u :<C-u>Unite -profile-name=files buffer_tab file_mru file file/new<CR>
+" " show all buffers
+" nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+" " show all tabs
+" nnoremap <silent> <C-t><C-t> :<C-u>Unite tab:no-current<CR>
+" " 最近使ったファイル
+" nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+" " ファイル一覧
+" nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file -buffer-name=files file/new<CR>
+" " ファイル一覧
+" nnoremap <silent> [unite]n :<C-u>UniteWithCurrentDir file_rec -buffer-name=files file/new<CR>
+" nnoremap <silent> [unite]t :<C-u>Unite file_rec<CR>
+" "バッファ一覧
+" nnoremap <silent> [unite]b :<C-u>Unite buffer -buffer-name=buffer_tab file/new<CR>
+" nnoremap <silent> [unite]h :<C-u>Unite history/command history/search history/yank<CR>
+" nnoremap <silent> [unite]q :<C-u>Unite qfixhowm<CR>
+" call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
+"
+" "uniteを開いている間のキーマッピング
+" augroup vimrc
+"   autocmd FileType unite call s:unite_my_settings()
+" augroup END
+" " unite grep に ag(The Silver Searcher) を使う
+" if executable('ag')
+"   let g:unite_source_grep_command = 'ag'
+"   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+"   let g:unite_source_grep_recursive_opt = ''
+" endif
+" "{{{ : 独自設定
+" function! s:unite_my_settings()
+"   "入力モードのときjjでノーマルモードに移動
+"   imap <buffer> jj <Plug>(unite_insert_leave)
+"   "入力モードのときctrl+wでバックスラッシュも削除
+"   imap <buffer> <C-j> <Plug>(unite_delete_backward_path)
+"   "sでsplit
+"   nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
+"   inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
+"   "vでvsplit
+"   nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
+"   inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
+"   "fでvimfiler
+"   nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
+"   inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
+" endfunction
+" "}}}
+" "{{{ : add shortcut
+" let g:unite_source_menu_menus = {
+" \   "shortcut" : {
+" \       "description" : "sample unite-menu",
+" \       "command_candidates" : [
+" \       ],
+" \   },
+" \}
+" "}}}
+"
 "}}}
 
 " gitv {{{
@@ -429,11 +429,11 @@ map <Leader>mg  :MemoGrep<CR>
 
 " quickrun
 " quickrunの出力結果にAnsiEscを実行して色付けする
-autocmd FileType quickrun AnsiEsc
-let g:quickrun_config['markdown'] = {
-    \'outputter':'browser'}
-let g:quickrun_config._ = {'runner' : 'vimproc', "runner/vimproc/updatetime" : 10}
-let g:quickrun_config['ruby.rspec'] = {'command': 'rspec', 'exec': 'bundle exec %c', 'cmdopt': '-cfd' }
+" autocmd FileType quickrun AnsiEsc
+" let g:quickrun_config['markdown'] = {
+"     \'outputter':'browser'}
+" let g:quickrun_config._ = {'runner' : 'vimproc', "runner/vimproc/updatetime" : 10}
+" let g:quickrun_config['ruby.rspec'] = {'command': 'rspec', 'exec': 'bundle exec %c', 'cmdopt': '-cfd' }
 
 augroup QRunRSpec
   autocmd!
@@ -553,7 +553,7 @@ nmap <ESC><ESC> :nohlsearch<CR><ESC>
 autocmd BufWritePre * :%s/\s\+$//ge
 
 syntax on
-colorscheme jellybeans
+" colorscheme jellybeans
 highlight LineNr ctermfg=darkgrey
 " Ctrl+Pで連続ペースト
 vnoremap <silent> <C-p> "0p<CR>"
@@ -604,7 +604,7 @@ set cmdheight=1
 set showmatch "対応する括弧を表示
 set hlsearch "検索結果をハイライト
 set expandtab "タブをスペースに置き換える
-set antialias
+"set antialias
 set autoindent "オートインデント
 set textwidth=0 " 勝手な改行をふせぐ
 set list listchars=tab:>-,trail:_ " 不可視文字の表示
@@ -623,7 +623,7 @@ set wildmenu "補完候補表示
 set helplang=ja
 set title "タイトルを表示
 set backspace=2 "バックスペースでインデント、改行削除
-set clipboard=unnamed,autoselect
+"set clipboard=unnamed,autoselect
 set foldmethod=marker " 折りたたみ
 set wildignorecase " :e でファイル開くとき大文字小文字区別しないで候補を探sす
 " 日本語入力:"{{{
