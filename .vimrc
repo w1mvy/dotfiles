@@ -29,13 +29,12 @@ if dein#load_state('~/.cache/dein')
   call dein#add('Shougo/neosnippet')
   call dein#add('Shougo/neosnippet-snippets')
 
-  " unite : {{{
-
   call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
   call dein#add('Shougo/neobundle.vim')
   call dein#add('Shougo/denite.nvim')
   call dein#add('Shougo/neomru.vim')
+  call dein#add('w1mvy/vim-denite-tab')
 
   " git関連
   "call dein#add('airblade/vim-gitgutter')
@@ -254,73 +253,11 @@ function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
 endfunction
 nnoremap <silent> <C-t><C-t> :<C-u>Denite buffer:no-current<CR>
+if executable('ag')
+  call denite#custom#var('file/rec', 'command',
+  \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+endif
 " }}}
-
-" unite.vim:"{{{
-" unite start settings
-" let g:vimfiler_as_default_explorer=1
-" let g:unite_enable_start_insert=1
-" let g:unite_split_rule="botright"
-" let g:unite_enable_split_vertically = 0
-" nnoremap [unite] <Nop>
-" nmap <Space>u [unite]
-" " 通常使用
-" nnoremap <silent> [unite]u :<C-u>Unite -profile-name=files buffer_tab file_mru file file/new<CR>
-" " show all buffers
-" nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-" " show all tabs
-" nnoremap <silent> <C-t><C-t> :<C-u>Unite tab:no-current<CR>
-" " 最近使ったファイル
-" nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
-" " ファイル一覧
-" nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file -buffer-name=files file/new<CR>
-" " ファイル一覧
-" nnoremap <silent> [unite]n :<C-u>UniteWithCurrentDir file_rec -buffer-name=files file/new<CR>
-" nnoremap <silent> [unite]t :<C-u>Unite file_rec<CR>
-" "バッファ一覧
-" nnoremap <silent> [unite]b :<C-u>Unite buffer -buffer-name=buffer_tab file/new<CR>
-" nnoremap <silent> [unite]h :<C-u>Unite history/command history/search history/yank<CR>
-" nnoremap <silent> [unite]q :<C-u>Unite qfixhowm<CR>
-" call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
-"
-" "uniteを開いている間のキーマッピング
-" augroup vimrc
-"   autocmd FileType unite call s:unite_my_settings()
-" augroup END
-" " unite grep に ag(The Silver Searcher) を使う
-" if executable('ag')
-"   let g:unite_source_grep_command = 'ag'
-"   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-"   let g:unite_source_grep_recursive_opt = ''
-" endif
-" "{{{ : 独自設定
-" function! s:unite_my_settings()
-"   "入力モードのときjjでノーマルモードに移動
-"   imap <buffer> jj <Plug>(unite_insert_leave)
-"   "入力モードのときctrl+wでバックスラッシュも削除
-"   imap <buffer> <C-j> <Plug>(unite_delete_backward_path)
-"   "sでsplit
-"   nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-"   inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-"   "vでvsplit
-"   nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-"   inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-"   "fでvimfiler
-"   nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
-"   inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
-" endfunction
-" "}}}
-" "{{{ : add shortcut
-" let g:unite_source_menu_menus = {
-" \   "shortcut" : {
-" \       "description" : "sample unite-menu",
-" \       "command_candidates" : [
-" \       ],
-" \   },
-" \}
-" "}}}
-"
-"}}}
 
 " gitv {{{
 autocmd FileType git :setlocal foldlevel=99
@@ -676,12 +613,6 @@ vnoremap < <gv
 vnoremap > >gv
 "ESCキーを2回押すと終了する
 "パス単位で削除,ESC2回で終了
-"autocmd FileType unite call s:unite_my_settings()
-"function! s:unite_my_settings()
-"        imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-"        nmap <silent><buffer> <ESC><ESC> q
-"        imap <silent><buffer> <ESC><ESC> <ESC>q
-"endfunction
 " create dir auto
 augroup vimrc-auto-mkdir
   autocmd!
