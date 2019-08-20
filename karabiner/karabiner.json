@@ -222,6 +222,10 @@
                                             {
                                                 "product_id": 635,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 657,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -251,6 +255,10 @@
                                         "identifiers": [
                                             {
                                                 "product_id": 635,
+                                                "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 657,
                                                 "vendor_id": 1452
                                             }
                                         ],
@@ -282,6 +290,10 @@
                                             {
                                                 "product_id": 635,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 657,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -303,6 +315,10 @@
                                         "identifiers": [
                                             {
                                                 "product_id": 635,
+                                                "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 657,
                                                 "vendor_id": 1452
                                             }
                                         ],
