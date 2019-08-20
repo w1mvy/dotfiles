@@ -5,7 +5,7 @@
   ui = auto
 [core]
   pager = lv -c
-  editor = vim
+  editor = nvim
 [tig "bind"]
     generic = g move-first-line
     generic = G move-first-line

@@ -57,9 +57,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('idanarye/vim-merginal')
   " }}}
 
-  " textobj : {{{
-  " call dein#add('kana/vim-textobj-line')
-  " }}}
   call dein#add('Shougo/vimfiler')
   call dein#add('vim-scripts/Jinja')
   call dein#add('mattn/zencoding-vim')
@@ -211,31 +208,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add("osyo-manga/unite-quickfix")
   call dein#add("jceb/vim-hier")
   call dein#add("osyo-manga/vim-watchdogs")
-  let g:quickrun_config = {
-  \   "ruby.rspec/watchdogs_checker" : {
-  \       "type" : "watchdogs_checker/rubocop"
-  \   },
-  \   "rspec/watchdogs_checker" : {
-  \       "type" : "watchdogs_checker/rubocop"
-  \   },
-  \   "ruby/watchdogs_checker" : {
-  \       "type" : "watchdogs_checker/rubocop"
-  \   },
-  \   "watchdogs_checker/rubocop" : {
-  \       "cmdopt" : "--format emacs"
-  \   },
-  \   "watchdogs_checker/_" : {
-  \       "outputter/quickfix/open_cmd": "",
-  \       "hook/echo/enable" : 1,
-  \       "hook/echo/output_success": "> No Errors Found."
-  \   }
-  \}
-  let g:watchdogs_check_BufWritePost_enables = {
-  \   "ruby"     : 1,
-  \   "rspec"     : 1,
-  \   "ruby.rspec"     : 1,
-  \   "rspec.ruby"     : 1
-  \}
 
   call dein#add('glidenote/serverspec-snippets')
 
@@ -427,13 +399,41 @@ map <Leader>mn  :MemoNew<CR>
 map <Leader>ml  :MemoList<CR>
 map <Leader>mg  :MemoGrep<CR>
 
-" quickrun
-" quickrunの出力結果にAnsiEscを実行して色付けする
-" autocmd FileType quickrun AnsiEsc
-" let g:quickrun_config['markdown'] = {
-"     \'outputter':'browser'}
-" let g:quickrun_config._ = {'runner' : 'vimproc', "runner/vimproc/updatetime" : 10}
-" let g:quickrun_config['ruby.rspec'] = {'command': 'rspec', 'exec': 'bundle exec %c', 'cmdopt': '-cfd' }
+autocmd FileType quickrun AnsiEsc
+let g:quickrun_config = {
+\  "ruby.rspec/watchdogs_checker" : {
+\      "type" : "watchdogs_checker/rubocop"
+\  },
+\  "rspec/watchdogs_checker" : {
+\      "type" : "watchdogs_checker/rubocop"
+\  },
+\  "ruby/watchdogs_checker" : {
+\      "type" : "watchdogs_checker/rubocop"
+\  },
+\  "watchdogs_checker/rubocop" : {
+\      "cmdopt" : "--format emacs"
+\  },
+\  "watchdogs_checker/_" : {
+\      "outputter/quickfix/open_cmd": "",
+\      "hook/echo/enable" : 1,
+\      "hook/echo/output_success": "> No Errors Found."
+\  },
+\  "runner/vimproc/updatetime": 10,
+\  "ruby.rspec": {
+\    "command": "rspec",
+\    "exec": "bundle exec %c",
+\    "cmdopt": "-cfd"
+\  },
+\  "markdown": {
+\    "outputter": "browser"
+\  }
+\}
+let g:watchdogs_check_BufWritePost_enables = {
+\  "ruby"     : 1,
+\  "rspec"     : 1,
+\  "ruby.rspec"     : 1,
+\  "rspec.ruby"     : 1
+\}
 
 augroup QRunRSpec
   autocmd!
@@ -553,7 +553,7 @@ nmap <ESC><ESC> :nohlsearch<CR><ESC>
 autocmd BufWritePre * :%s/\s\+$//ge
 
 syntax on
-" colorscheme jellybeans
+colorscheme jellybeans
 highlight LineNr ctermfg=darkgrey
 " Ctrl+Pで連続ペースト
 vnoremap <silent> <C-p> "0p<CR>"
@@ -604,7 +604,12 @@ set cmdheight=1
 set showmatch "対応する括弧を表示
 set hlsearch "検索結果をハイライト
 set expandtab "タブをスペースに置き換える
-"set antialias
+if !has('nvim')
+  set antialias
+  set clipboard=unnamed,autoselect
+else
+  set clipboard+=unnamed
+endif
 set autoindent "オートインデント
 set textwidth=0 " 勝手な改行をふせぐ
 set list listchars=tab:>-,trail:_ " 不可視文字の表示
@@ -623,7 +628,6 @@ set wildmenu "補完候補表示
 set helplang=ja
 set title "タイトルを表示
 set backspace=2 "バックスペースでインデント、改行削除
-"set clipboard=unnamed,autoselect
 set foldmethod=marker " 折りたたみ
 set wildignorecase " :e でファイル開くとき大文字小文字区別しないで候補を探sす
 " 日本語入力:"{{{
