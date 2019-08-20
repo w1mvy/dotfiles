@@ -172,16 +172,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('aereal/vim-colors-japanesque')
 
   " colorscheme : {{{
-  call dein#add('vim-scripts/Wombat')
-  call dein#add('tomasr/molokai')
-  call dein#add('vim-scripts/dante.vim')
-  call dein#add('baskerville/bubblegum')
-  call dein#add('altercation/vim-colors-solarized')
   call dein#add('nanotech/jellybeans.vim')
-  call dein#add('w0ng/vim-hybrid')
-  call dein#add('vim-scripts/twilight')
-  call dein#add('jonathanfilip/vim-lucius')
-  call dein#add('sjl/badwolf')
   " }}}
   " statusline : {{{
   call dein#add('itchyny/lightline.vim')
@@ -461,13 +452,6 @@ nmap cN <Plug>(rc_search_backward_with_last_pattern)
 nmap cc <Plug>(rc_highlight)
 "}}}
 
-" lightline.vim : {{{
-let g:lightline = {
-    \ 'colorscheme':'jellybeans'
-    \}
-"}}}
-"}}}
-
 " AnySetting:"{{{
 " バックアップ
 set backup
@@ -499,6 +483,9 @@ autocmd BufWritePre * :%s/\s\+$//ge
 
 syntax on
 colorscheme jellybeans
+let g:lightline = {
+\  'colorscheme':'jellybeans'
+\  }
 highlight LineNr ctermfg=darkgrey
 " Ctrl+Pで連続ペースト
 vnoremap <silent> <C-p> "0p<CR>"
