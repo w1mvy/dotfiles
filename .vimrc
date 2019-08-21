@@ -86,20 +86,15 @@ if dein#load_state('~/.cache/dein')
   call dein#add('lambdalisue/vim-python-virtualenv')
   " Python用構文チェック
   " call dein#add('mitechie/pyflakes-pathogen')
-  call dein#add('glidenote/memolist.vim')
   call dein#add('plasticboy/vim-markdown')
 
   " リファクタ
   " call dein#add('python-rope/ropevim')
-  " call dein#add('mitechie/pyflakes-pathogen')
-  call dein#add('pekepeke/titanium-vim')
   call dein#add('vim-scripts/PHP-correct-Indenting')
 
   " original repos on vim-scripts
   call dein#add('vim-scripts/surround.vim')
-  call dein#add('vim-scripts/TwitVim')
   call dein#add('vim-scripts/IndentAnything')
-  call dein#add('vim-scripts/grep.vim')
   "call dein#add('YankRing.vim')
   call dein#add('vim-scripts/sudo.vim')
   call dein#add('vim-scripts/renamer.vim')
@@ -112,7 +107,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('vim-scripts/camelcasemotion')
   call dein#add('othree/html5.vim')
   call dein#add('vim-scripts/Better-Javascript-Indentation')
-  call dein#add('vim-scripts/project.tar.gz')
   call dein#add('vim-scripts/javacomplete')
   call dein#add('vim-scripts/smartchr')
   " taglist, Source-Explorer-srcexpl, ctags用プラグイン
@@ -171,10 +165,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('koron/codic-vim')
   call dein#add('aereal/vim-colors-japanesque')
 
-  " colorscheme : {{{
+  " colorscheme/statusline : {{{
   call dein#add('nanotech/jellybeans.vim')
-  " }}}
-  " statusline : {{{
   call dein#add('itchyny/lightline.vim')
   " }}}
 
@@ -329,11 +321,6 @@ let g:user_zen_settings = {
 \  },
 \}
 "}}}
-
-" memolist
-map <Leader>mn  :MemoNew<CR>
-map <Leader>ml  :MemoList<CR>
-map <Leader>mg  :MemoGrep<CR>
 
 autocmd FileType quickrun AnsiEsc
 let g:quickrun_config = {
