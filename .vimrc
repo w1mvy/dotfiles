@@ -215,7 +215,10 @@ autocmd FileType denite-filter call s:denite_filter_my_settings()
 function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
 endfunction
-nnoremap <silent> <C-t><C-t> :<C-u>Denite buffer:no-current<CR>
+nnoremap [denite] <Nop>
+nmap <C-t> [denite]
+nnoremap <silent> [denite]b :<C-u>Denite buffer:no-current<CR>
+nnoremap <silent> [denite]t :<C-u>Denite tab<CR>
 if executable('ag')
   call denite#custom#var('file/rec', 'command',
   \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
