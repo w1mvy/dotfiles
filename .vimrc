@@ -44,9 +44,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('idanarye/vim-merginal')
   " }}}
 
-  call dein#add('Shougo/vimfiler')
-  call dein#add('vim-scripts/Jinja')
-  call dein#add('mattn/zencoding-vim')
+  call dein#add('mattn/emmet-vim')
   call dein#add('othree/eregex.vim')
   call dein#add('tyru/open-browser.vim')
   call dein#add('tyru/urilib.vim')
@@ -54,56 +52,27 @@ if dein#load_state('~/.cache/dein')
   call dein#add('thinca/vim-localrc')
   call dein#add('thinca/vim-ref')
   call dein#add('fuenor/qfixhowm')
-  call dein#add('vim-scripts/csharp.vim')
   call dein#add('hail2u/vim-css3-syntax')
-  " 検索後のハイライトを変更する
-  call dein#add('daisuzu/rainbowcyclone.vim')
   " underscore,camelcase文字列をテキストオブジェ化
   " call dein#add('h1mesuke/textobj-wiw')
-  " JavaScript コーディング規約チェック
-  " sudo pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
-  " Ctrl+A,Ctrl+Xで数値、日付のインクリメントデクリメント
   call dein#add('tpope/vim-speeddating')
   " <C+_><C+_>でコメントアウト
   call dein#add('tomtom/tcomment_vim')
   " 単語へのカーソル移動
   call dein#add('Lokaltog/vim-easymotion')
-  " インデント量の違いをハイライト表示
    call dein#add('Yggdroot/indentLine')
   let g:indentLine_char = '|'
   "call dein#add('nathanaelkane/vim-indent-guides')
   " 括弧の自動補完
   "call dein#add('vim-scripts/AutoClose--Alves')
   call dein#add('Townk/vim-autoclose')
-  call dein#add('taku-o/vim-toggle')
-  call dein#add('nvie/vim-pep8')
   call dein#add('h1mesuke/vim-alignta')
-  call dein#add('mattn/benchvimrc-vim')
-  call dein#add('petdance/vim-perl')
-  call dein#add('hotchpotch/perldoc-vim')
-  " vim用w3m
-  " call dein#add('yuratomo/w3m.vim')
-  call dein#add('lambdalisue/vim-python-virtualenv')
-  " Python用構文チェック
-  " call dein#add('mitechie/pyflakes-pathogen')
-  call dein#add('glidenote/memolist.vim')
   call dein#add('plasticboy/vim-markdown')
-
-  " リファクタ
-  " call dein#add('python-rope/ropevim')
-  " call dein#add('mitechie/pyflakes-pathogen')
-  call dein#add('pekepeke/titanium-vim')
-  call dein#add('vim-scripts/PHP-correct-Indenting')
-
-  " original repos on vim-scripts
   call dein#add('vim-scripts/surround.vim')
-  call dein#add('vim-scripts/TwitVim')
   call dein#add('vim-scripts/IndentAnything')
   call dein#add('vim-scripts/grep.vim')
-  "call dein#add('YankRing.vim')
   call dein#add('vim-scripts/sudo.vim')
   call dein#add('vim-scripts/renamer.vim')
-  "call dein#add('yaml.vim')
   call dein#add('vim-scripts/mru.vim')
   call dein#add('vim-scripts/xmledit')
   " '%' で対応する括弧に飛ぶ機能を強化
@@ -112,7 +81,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('vim-scripts/camelcasemotion')
   call dein#add('othree/html5.vim')
   call dein#add('vim-scripts/Better-Javascript-Indentation')
-  call dein#add('vim-scripts/project.tar.gz')
   call dein#add('vim-scripts/javacomplete')
   call dein#add('vim-scripts/smartchr')
   " taglist, Source-Explorer-srcexpl, ctags用プラグイン
@@ -299,9 +267,6 @@ vmap gx <Plug>(openbrowser-smart-search)
 " 別途開いてるHTMLファイルをブラウザで開く
 cnoremap gx<CR> :! iron %<CR>
 "}}}
-
-" toggle.vim normal is + insert is Ctrl+T
-let g:toggle_pairs = { 'and': 'or', 'or': 'and'}
 
 " zen-coding:"{{{
 let g:user_zen_expandabbr_key = '<c-e>'
