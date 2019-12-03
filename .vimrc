@@ -1,4 +1,4 @@
-" Vim Settings
+"" Vim Settings
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
@@ -7,87 +7,17 @@ endif
 " Add the dein installation directory into runtimepath
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
+let s:plugin_toml = '~/dotfiles/plugin.toml'
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
   if !has('python3')
     echo "you require to install pynvim. `pip3 install --user pynvim`"
   endif
   let g:deoplete#enable_at_startup = 1
   " for syntax
-  call dein#add('thinca/vim-quickrun')
-  call dein#add('osyo-manga/shabadou.vim')
-
-  call dein#add('t9md/vim-textmanip')
-
-  call dein#add('Shougo/neosnippet')
-  call dein#add('Shougo/neosnippet-snippets')
-
-  call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-
-  call dein#add('Shougo/neobundle.vim')
-  call dein#add('Shougo/denite.nvim')
-  call dein#add('Shougo/neomru.vim')
-  call dein#add('w1mvy/vim-denite-tab')
-
-  " git関連
-  "call dein#add('airblade/vim-gitgutter')
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('gregsexton/gitv')
-  call dein#add('rhysd/committia.vim')
-  call dein#add('idanarye/vim-merginal')
   " }}}
-
-  call dein#add('mattn/emmet-vim')
-  call dein#add('othree/eregex.vim')
-  call dein#add('tyru/open-browser.vim')
-  call dein#add('tyru/urilib.vim')
-  call dein#add('kchmck/vim-coffee-script')
-  call dein#add('thinca/vim-localrc')
-  call dein#add('thinca/vim-ref')
-  call dein#add('fuenor/qfixhowm')
-  call dein#add('hail2u/vim-css3-syntax')
-  " underscore,camelcase文字列をテキストオブジェ化
-  " call dein#add('h1mesuke/textobj-wiw')
-  call dein#add('tpope/vim-speeddating')
-  " <C+_><C+_>でコメントアウト
-  call dein#add('tomtom/tcomment_vim')
-  " 単語へのカーソル移動
-  call dein#add('Lokaltog/vim-easymotion')
-   call dein#add('Yggdroot/indentLine')
-  let g:indentLine_char = '|'
-  "call dein#add('nathanaelkane/vim-indent-guides')
-  " 括弧の自動補完
-  "call dein#add('vim-scripts/AutoClose--Alves')
-  call dein#add('Townk/vim-autoclose')
-  call dein#add('h1mesuke/vim-alignta')
-  call dein#add('plasticboy/vim-markdown')
-  call dein#add('vim-scripts/surround.vim')
-  call dein#add('vim-scripts/IndentAnything')
-  call dein#add('vim-scripts/grep.vim')
-  call dein#add('vim-scripts/sudo.vim')
-  call dein#add('vim-scripts/renamer.vim')
-  call dein#add('vim-scripts/mru.vim')
-  call dein#add('vim-scripts/xmledit')
-  " '%' で対応する括弧に飛ぶ機能を強化
-  call dein#add('vim-scripts/matchit.zip')
-  " 「,w」,「,b」でキャメルケース、アンスコの変数を単語毎に移動できる
-  call dein#add('vim-scripts/camelcasemotion')
-  call dein#add('othree/html5.vim')
-  call dein#add('vim-scripts/Better-Javascript-Indentation')
-  call dein#add('vim-scripts/javacomplete')
-  call dein#add('vim-scripts/smartchr')
-  " taglist, Source-Explorer-srcexpl, ctags用プラグイン
-  call dein#add('vim-scripts/Source-Explorer-srcexpl.vim')
-  call dein#add('vim-scripts/taglist.vim')
-  call dein#add('vim-scripts/buftabs')
-  call dein#add('vim-scripts/JSON.vim')
 
   " ruby
   "call dein#add('vim-ruby/vim-ruby')
@@ -98,6 +28,7 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('Keithbsmiley/rspec.vim')
   call dein#add('AndrewRadev/switch.vim')
+  call dein#add('Shougo/denite.nvim')
   nnoremap - :Switch<cr>
   autocmd FileType eruby let b:switch_custom_definitions =
       \ [
@@ -128,35 +59,21 @@ if dein#load_state('~/.cache/dein')
       \ ]
   "}}}
 
-  "go
-  call dein#add('fatih/vim-go')
 
-  "swift
-  call dein#add('toyamarinyon/vim-swift')
-
-  call dein#add('vim-scripts/progressbar-widget')
-
-  call dein#add('koron/codic-vim')
-  call dein#add('aereal/vim-colors-japanesque')
-
-  " colorscheme : {{{
-  call dein#add('nanotech/jellybeans.vim')
-  " }}}
-  " statusline : {{{
-  call dein#add('itchyny/lightline.vim')
-  " }}}
-
-  call dein#add("bkad/vim-terraform")
-  call dein#add("jceb/vim-hier")
-  call dein#add("osyo-manga/vim-watchdogs")
-
-  call dein#add('glidenote/serverspec-snippets')
+  " underscore,camelcase文字列をテキストオブジェ化
+  " call dein#add('h1mesuke/textobj-wiw')
+  "call dein#add('nathanaelkane/vim-indent-guides')
+  " 括弧の自動補完
+  "call dein#add('vim-scripts/AutoClose--Alves')
+  call dein#load_toml(s:plugin_toml, {'lazy': 0})
 
   call dein#end()
   call dein#save_state()
 endif
 
 filetype plugin indent on
+syntax on
+colorscheme jellybeans
 "}}}
 
 " Plugins Setting:"{{{
@@ -450,10 +367,6 @@ nmap <ESC><ESC> :nohlsearch<CR><ESC>
 autocmd BufWritePre * :%s/\s\+$//ge
 
 syntax on
-colorscheme jellybeans
-let g:lightline = {
-\  'colorscheme':'jellybeans'
-\  }
 highlight LineNr ctermfg=darkgrey
 " Ctrl+Pで連続ペースト
 vnoremap <silent> <C-p> "0p<CR>"

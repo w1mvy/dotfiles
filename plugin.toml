@@ -1,0 +1,140 @@
+[[plugins]]
+repo = "Shougo/deoplete.nvim"
+depends = ["roxma/nvim-yarp", "roxma/vim-hug-neovim-rpc"]
+hook_add = '''
+  let g:deoplete#enable_at_startup = 1
+'''
+[[plugins]]
+repo = "w1mvy/vim-denite-tab"
+[[plugins]]
+repo = "mattn/emmet-vim"
+[[plugins]]
+repo = "othree/eregex.vim"
+[[plugins]]
+repo = "tyru/open-browser.vim"
+[[plugins]]
+repo = "tyru/urilib.vim"
+[[plugins]]
+repo = "kchmck/vim-coffee-script"
+[[plugins]]
+repo = "cespare/vim-toml"
+[[plugins]]
+repo = "thinca/vim-localrc"
+[[plugins]]
+repo = "thinca/vim-ref"
+[[plugins]]
+repo = "fuenor/qfixhowm"
+[[plugins]]
+repo = "hail2u/vim-css3-syntax"
+[[plugins]]
+repo = "Yggdroot/indentLine"
+hook_add = '''
+  let g:indentLine_char = '|'
+'''
+[[plugins]]
+repo = "daisuzu/rainbowcyclone.vim"
+[[plugins]]
+repo = "tpope/vim-speeddating"
+[[plugins]]
+# <C+_><C+_>でコメントアウト
+repo = "tomtom/tcomment_vim"
+[[plugins]]
+# 単語へのカーソル移動
+repo = "Lokaltog/vim-easymotion"
+[[plugins]]
+repo = "plasticboy/vim-markdown"
+[[plugins]]
+repo = "previm/previm"
+[[plugins]]
+repo = "vim-scripts/surround.vim"
+[[plugins]]
+repo = "vim-scripts/IndentAnything"
+[[plugins]]
+repo = "vim-scripts/grep.vim"
+[[plugins]]
+repo = "vim-scripts/sudo.vim"
+[[plugins]]
+repo = "vim-scripts/renamer.vim"
+[[plugins]]
+repo = "vim-scripts/mru.vim"
+[[plugins]]
+repo = "vim-scripts/xmledit"
+# '%' で対応する括弧に飛ぶ機能を強化
+[[plugins]]
+repo = "vim-scripts/matchit.zip"
+# 「,w」,「,b」でキャメルケース、アンスコの変数を単語毎に移動できる
+repo = "vim-scripts/camelcasemotion"
+[[plugins]]
+repo = "othree/html5.vim"
+[[plugins]]
+repo = "vim-scripts/Better-Javascript-Indentation"
+[[plugins]]
+repo = "vim-scripts/javacomplete"
+[[plugins]]
+repo = "vim-scripts/smartchr"
+# taglist, Source-Explorer-srcexpl, ctags用プラグイン
+[[plugins]]
+repo = "vim-scripts/Source-Explorer-srcexpl.vim"
+[[plugins]]
+repo = "vim-scripts/taglist.vim"
+[[plugins]]
+repo = "vim-scripts/buftabs"
+[[plugins]]
+repo = "vim-scripts/JSON.vim"
+[[plugins]]
+repo = "Townk/vim-autoclose"
+[[plugins]]
+repo = "h1mesuke/vim-alignta"
+[[plugins]]
+repo = "mattn/benchvimrc-vim"
+[[plugins]]
+repo = "nanotech/jellybeans.vim"
+[[plugins]]
+repo = "itchyny/lightline.vim"
+hook_add = '''
+  let g:lightline = {
+  \  'colorscheme':'jellybeans'
+  \  }
+'''
+[[plugins]]
+repo = "toyamarinyon/vim-swift"
+[[plugins]]
+repo = "vim-scripts/progressbar-widget"
+[[plugins]]
+repo = "koron/codic-vim"
+[[plugins]]
+repo = "aereal/vim-colors-japanesque"
+[[plugins]]
+repo = "bkad/vim-terraform"
+[[plugins]]
+repo = "jceb/vim-hier"
+[[plugins]]
+repo = "osyo-manga/vim-watchdogs"
+[[plugins]]
+repo = "glidenote/serverspec-snippets"
+[[plugins]]
+repo = "fatih/vim-go"
+[[plugins]]
+repo = "thinca/vim-quickrun"
+[[plugins]]
+repo = "osyo-manga/shabadou.vim"
+[[plugins]]
+repo = "t9md/vim-textmanip"
+[[plugins]]
+repo = "Shougo/neosnippet"
+[[plugins]]
+repo = "Shougo/neosnippet-snippets"
+#[[plugins]]
+#repo = "Shougo/vimproc.vim', {'build': 'make'}"
+[[plugins]]
+repo = "Shougo/neobundle.vim"
+[[plugins]]
+repo = "Shougo/neomru.vim"
+[[plugins]]
+repo = "tpope/vim-fugitive"
+[[plugins]]
+repo = "gregsexton/gitv"
+[[plugins]]
+repo = "rhysd/committia.vim"
+[[plugins]]
+repo = "idanarye/vim-merginal"
