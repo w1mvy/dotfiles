@@ -78,6 +78,37 @@ colorscheme jellybeans
 
 " Plugins Setting:"{{{
 
+autocmd FileType defx call s:defx_my_settings()
+function s:defx_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ defx#do_action('open')
+endfunction
+
+" lsp
+" go
+if executable('gopls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': {server_info->['gopls']},
+        \ 'whitelist': ['go'],
+        \ })
+    autocmd BufWritePre *.go LspDocumentFormatSync
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> <f2> <plug>(lsp-rename)
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
 " denite {{{
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
@@ -560,6 +591,7 @@ autocmd BufNewFile *.sh 0r ~/.vim/template/template.sh
 autocmd FileType javascript setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
+autocmd FileType typescript setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 "}}}
 " Perl setting{{{
 autocmd BufNewFile *.pl 0r ~/.vim/template/template.pl

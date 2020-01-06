@@ -5,7 +5,18 @@ hook_add = '''
   let g:deoplete#enable_at_startup = 1
 '''
 [[plugins]]
+repo = "roxma/nvim-yarp"
+[[plugins]]
+repo = "roxma/vim-hug-neovim-rpc"
+[[plugins]]
+repo = "Shougo/defx.nvim"
+[[plugins]]
 repo = "w1mvy/vim-denite-tab"
+[[plugins]]
+repo = "prabirshrestha/vim-lsp"
+depends = ["prabirshrestha/async.vim"]
+[[plugins]]
+repo = "prabirshrestha/async.vim"
 [[plugins]]
 repo = "mattn/emmet-vim"
 [[plugins]]
