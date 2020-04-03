@@ -16,6 +16,10 @@ repo = "w1mvy/vim-denite-tab"
 repo = "prabirshrestha/vim-lsp"
 depends = ["prabirshrestha/async.vim"]
 [[plugins]]
+repo = "mattn/vim-lsp-settings"
+[[plugins]]
+repo = "mattn/vim-goimports"
+[[plugins]]
 repo = "prabirshrestha/async.vim"
 [[plugins]]
 repo = "mattn/emmet-vim"
@@ -123,8 +127,6 @@ repo = "jceb/vim-hier"
 repo = "osyo-manga/vim-watchdogs"
 [[plugins]]
 repo = "glidenote/serverspec-snippets"
-[[plugins]]
-repo = "fatih/vim-go"
 [[plugins]]
 repo = "thinca/vim-quickrun"
 [[plugins]]
