@@ -28,7 +28,6 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('Keithbsmiley/rspec.vim')
   call dein#add('AndrewRadev/switch.vim')
-  call dein#add('Shougo/denite.nvim')
   nnoremap - :Switch<cr>
   autocmd FileType eruby let b:switch_custom_definitions =
       \ [
@@ -79,42 +78,10 @@ colorscheme jellybeans
 " Plugins Setting:"{{{
 
 autocmd FileType defx call s:defx_my_settings()
-function s:defx_my_settings() abort
+function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> <CR>
   \ defx#do_action('open')
 endfunction
-
-" denite {{{
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> <TAB>
-  \ denite#do_map('do_action', 'tabopen')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
-endfunction
-autocmd FileType denite-filter call s:denite_filter_my_settings()
-function! s:denite_filter_my_settings() abort
-  imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
-endfunction
-nnoremap [denite] <Nop>
-nmap <C-t> [denite]
-nnoremap <silent> [denite]b :<C-u>Denite buffer:no-current<CR>
-nnoremap <silent> [denite]t :<C-u>Denite tab<CR>
-if executable('ag')
-  call denite#custom#var('file/rec', 'command',
-  \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-endif
-" }}}
 
 " gitv {{{
 autocmd FileType git :setlocal foldlevel=99
