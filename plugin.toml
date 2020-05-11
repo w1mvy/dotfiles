@@ -155,3 +155,5 @@ repo = "gregsexton/gitv"
 repo = "rhysd/committia.vim"
 [[plugins]]
 repo = "idanarye/vim-merginal"
+[[plugins]]
+repo = "elixir-editors/vim-elixir"
