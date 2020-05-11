@@ -157,3 +157,5 @@ repo = "rhysd/committia.vim"
 repo = "idanarye/vim-merginal"
 [[plugins]]
 repo = "elixir-editors/vim-elixir"
+[[plugins]]
+repo = "stephpy/vim-yaml"
