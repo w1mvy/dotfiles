@@ -188,7 +188,6 @@ ls_abbrev() {
 }
 chpwd_functions+=ls_abbrev
 
-
 ############################################################
 # zsh library
 ############################################################
@@ -255,11 +254,11 @@ esac
 
 # {{{ peco setting
 function exists { which $1 &> /dev/null }
-if exists go; then
+#if exists go; then
     export GOPATH=$HOME/go
-    export GOROOT=/usr/local/opt/go/libexec
+#    export GOROOT=/usr/local/opt/go/libexec
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-fi
+#fi
 if exists peco; then
     function peco-select-history() {
         local tac
