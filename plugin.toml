@@ -34,9 +34,18 @@ nnoremap <silent> [denite]b :<C-u>Denite buffer:no-current<CR>
 nnoremap <silent> [denite]t :<C-u>Denite tab<CR>
 nnoremap <silent> [denite]m :<C-u>Denite file_mru<CR>
 nnoremap <silent> [denite]u :<C-u>Denite buffer:no-current tab file_mru file/rec<CR>
-if executable('ag')
+nnoremap <silent> [denite]f :<C-u>DeniteBufferDir file file:new file/rec<CR>
+if executable('rg')
   call denite#custom#var('file/rec', 'command',
-  \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+	\ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
+  call denite#custom#var('grep', {
+    \ 'command': ['rg'],
+    \ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+    \ 'recursive_opts': [],
+    \ 'pattern_opt': ['--regexp'],
+    \ 'separator': ['--'],
+    \ 'final_opts': [],
+    \ })
 endif
 '''
 [[plugins]]
