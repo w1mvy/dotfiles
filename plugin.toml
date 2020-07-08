@@ -35,6 +35,7 @@ nnoremap <silent> [denite]t :<C-u>Denite tab<CR>
 nnoremap <silent> [denite]m :<C-u>Denite file_mru<CR>
 nnoremap <silent> [denite]u :<C-u>Denite buffer:no-current tab file_mru file/rec<CR>
 nnoremap <silent> [denite]f :<C-u>DeniteBufferDir file file:new file/rec<CR>
+nnoremap <silent> [denite]g :<C-u>Denite grep<CR>
 if executable('rg')
   call denite#custom#var('file/rec', 'command',
 	\ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
