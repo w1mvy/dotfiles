@@ -507,7 +507,7 @@ autocmd BufReadPost *.py :call AddPyEncoding()
 autocmd Filetype cs setl dictionary=~/.vim/dict/unity.dict
 "}}}
 " Go setting:"{{{
-autocmd FileType go setl tabstop=8 expandtab shiftwidth=8
+autocmd FileType go setl tabstop=8 shiftwidth=8 noet
 let g:go_highlight_functions = 1
 let g:go_highlight_methods   = 1
 let g:go_highlight_structs   = 1
