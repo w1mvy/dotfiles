@@ -167,7 +167,10 @@ repo = "koron/codic-vim"
 [[plugins]]
 repo = "aereal/vim-colors-japanesque"
 [[plugins]]
-repo = "bkad/vim-terraform"
+repo = "hashivim/vim-terraform"
+hook_add = '''
+let g:terraform_fmt_on_save=1
+'''
 [[plugins]]
 repo = "jceb/vim-hier"
 [[plugins]]
