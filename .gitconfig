@@ -14,3 +14,5 @@
     loggr = log --graph --date-order --pretty=format:'%Cblue%h %Cgreen%ci %Cred%an %Cblue%m %Creset%s %Cred%d'
 [init]
   templatedir = "$HOME/dotfiles/git_template"
+[pull]
+  rebase = false
