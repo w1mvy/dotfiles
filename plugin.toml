@@ -54,7 +54,17 @@ repo = "roxma/nvim-yarp"
 [[plugins]]
 repo = "roxma/vim-hug-neovim-rpc"
 [[plugins]]
-repo = "Shougo/defx.nvim"
+repo = "lambdalisue/fern.vim"
+hook_add = '''
+nnoremap <silent> <Space>f :<C-u>Fern .<CR>
+'''
+[[plugins]]
+repo = "antoinemadec/FixCursorHold.nvim"
+hook_add = '''
+" in millisecond, used for both CursorHold and CursorHoldI,
+" use updatetime instead if not defined
+let g:cursorhold_updatetime = 100
+'''
 [[plugins]]
 repo = "w1mvy/vim-denite-tab"
 [[plugins]]
@@ -95,8 +105,6 @@ repo = "Yggdroot/indentLine"
 hook_add = '''
   let g:indentLine_char = '|'
 '''
-[[plugins]]
-repo = "daisuzu/rainbowcyclone.vim"
 [[plugins]]
 repo = "tpope/vim-speeddating"
 [[plugins]]
@@ -189,8 +197,9 @@ repo = "t9md/vim-textmanip"
 repo = "Shougo/neosnippet"
 [[plugins]]
 repo = "Shougo/neosnippet-snippets"
-#[[plugins]]
-#repo = "Shougo/vimproc.vim', {'build': 'make'}"
+[[plugins]]
+repo = "Shougo/vimproc.vim"
+build = 'make'
 [[plugins]]
 repo = "Shougo/neobundle.vim"
 [[plugins]]
@@ -207,3 +216,10 @@ repo = "idanarye/vim-merginal"
 repo = "elixir-editors/vim-elixir"
 [[plugins]]
 repo = "stephpy/vim-yaml"
+[[plugins]]
+repo = "neomake/neomake"
+[[plugins]]
+repo = "Jagua/vim-denite-ghq"
+[[plugins]]
+repo = "tyru/open-browser-github.vim"
+depends = ["tyru/open-browser.vim"]

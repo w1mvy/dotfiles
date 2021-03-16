@@ -77,12 +77,6 @@ colorscheme jellybeans
 
 " Plugins Setting:"{{{
 
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('open')
-endfunction
-
 " gitv {{{
 autocmd FileType git :setlocal foldlevel=99
 " }}}
@@ -188,11 +182,6 @@ let g:user_zen_settings = {
 \}
 "}}}
 
-" memolist
-map <Leader>mn  :MemoNew<CR>
-map <Leader>ml  :MemoList<CR>
-map <Leader>mg  :MemoGrep<CR>
-
 autocmd FileType quickrun AnsiEsc
 let g:quickrun_config = {
 \  "ruby.rspec/watchdogs_checker" : {
@@ -243,22 +232,6 @@ fun! QRunRspecCurrentLine()
 endfun
 autocmd BufReadPost *_spec.rb call RSpecQuickrun()
 
-" project.vim:"{{{
-" カレントディレクトリに管理ファイルがあったら読み込む
-if getcwd() != $HOME
-    if filereadable(getcwd(). '/.vimprojects')
-      Project .vimprojects
-    endif
-endif
-" ファイルが選択されたら、ウィンドウを閉じる
-let g:proj_flags = "imstc"
-" <Leader>Pでプロジェクトとぐる開閉
-nmap <silent> <Leader>P <Plug>ToggleProject
-" <Leader>pで、デフォルトのプロジェクトを開く
-nmap <silent> <Leader>p :Project<CR>
-" プロジェクト開いたときにフォールディングを展開した状態にする
-autocmd BufAdd .vimprojects silent! %foldopen!
-"}}}
 " smartchr:"{{{
 inoremap <expr> = smartchr#loop('=',' = ',' == ',' === ')
 inoremap <expr> , smartchr#loop(',', ', ')
@@ -298,16 +271,6 @@ let g:EasyMotion_grouping=1
 " カラー設定変更
 hi EasyMotionTarget ctermbg=none ctermfg=red
 hi EasyMotionShade  ctermbg=none ctermfg=blue
-"}}}
-
-"{{{ rainbowcyclone
-nmap c/ <Plug>(rc_search_forward)
-nmap c? <Plug>(rc_search_backward)
-nmap c* <Plug>(rc_search_forward_with_cursor)
-nmap c# <Plug>(rc_search_backward_with_cursor)
-nmap cn <Plug>(rc_search_forward_with_last_pattern)
-nmap cN <Plug>(rc_search_backward_with_last_pattern)
-nmap cc <Plug>(rc_highlight)
 "}}}
 
 " AnySetting:"{{{
