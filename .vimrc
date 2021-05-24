@@ -529,6 +529,8 @@ autocmd BufRead,BufNewFile *.md setfiletype mkd
 autocmd BufNewFile,BufRead *.yml,*.yaml setfiletype yaml
 autocmd FileType yaml setlocal expandtab shiftwidth=2
 
+"autocmd FileType elixir autocmd BufWritePost * !mix format <afile>
+
 "{{{: JSON setting use JSON.vim
 au! BufRead,BufNewFile *.json set filetype=json
 augroup json_autocmd
@@ -556,3 +558,4 @@ endif
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
+
