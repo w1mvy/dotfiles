@@ -17,6 +17,8 @@ function! s:denite_my_settings() abort
   \ denite#do_map('do_action', 'delete')
   nnoremap <silent><buffer><expr> p
   \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> c
+  \ denite#do_map('do_action', 'cd')
   nnoremap <silent><buffer><expr> q
   \ denite#do_map('quit')
   nnoremap <silent><buffer><expr> i
@@ -48,6 +50,8 @@ if executable('rg')
     \ 'final_opts': [],
     \ })
 endif
+call denite#custom#var('ghq', 'command',
+  \ ['ghq', 'list', '--full-path', '--vcs', 'git'])
 '''
 [[plugins]]
 repo = "roxma/nvim-yarp"
@@ -70,6 +74,9 @@ repo = "w1mvy/vim-denite-tab"
 [[plugins]]
 repo = "prabirshrestha/vim-lsp"
 depends = ["prabirshrestha/async.vim"]
+hook_add ='''
+nnoremap <C-]> :<C-u>LspDefinition<CR>
+'''
 [[plugins]]
 repo = "mattn/vim-lsp-settings"
 [[plugins]]
@@ -223,3 +230,5 @@ repo = "Jagua/vim-denite-ghq"
 [[plugins]]
 repo = "tyru/open-browser-github.vim"
 depends = ["tyru/open-browser.vim"]
+[[plugins]]
+repo = 'ConradIrwin/vim-bracketed-paste'
