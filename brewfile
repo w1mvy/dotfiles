@@ -1,54 +1,21 @@
-tap phinze/homebrew-cask || true
-tap homebrew/versions|| true
-update || true
-
-install brew-cask || true
-install git || true
-install ag || true
-install gist || true
-install gibo || true
-install hub || true
-install tmux || true
-install wemux || true
-install tree || true
-install openssl || true
-install readline || true
-install cmake || true
-install fish || true
-install zsh || true
-install wget || true
-install curl || true
-install libtool || true
-install automake || true
-install cmake || true
-
-install llvm || true
-install jq || true
-install python3 || true
-install ruby-build || true
-install rbenv || true
-install heroku-toolbelt || true
-
-cask install keyremap4macbook || true
-cask install dropbox || true
-cask install hipchat || true
-cask install skype || true
-cask install blender || true
-cask install github || true
-cask install alfred || true
-cask install sourcetree || true
-cask install google-chrome || true
-cask install firefox || true
-cask install kindle || true
-cask install kobito || true
-cask install virtualbox || true
-cask install vagrant || true
-cask install vlc || true
-cask install vmware-fusion || true
-cask install unity3d || true
-cask install xamarin-studio || true
-cask install iterm2 || true
-cask install soundflower || true
-cask install steam || true
-cask install appcleaner || true
-cask install line || true
+brew "git"
+brew "rg"
+brew "tmux"
+cask "dropbox"
+brew "cmake"
+brew "zsh"
+brew "curl"
+brew "jq"
+brew "python3"
+cask "alfred"
+cask "iterm2"
+brew "tree"
+brew "readline"
+brew "openssl"
+brew "asdf"
+brew "ghq"
+cask "docker"
+brew "direnv"
+cask "keepassxc"
+brew "wget"
+brew "lv"
