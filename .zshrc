@@ -297,16 +297,16 @@ if exists peco; then
     bindkey '^q' peco-find-file
 
     if exists ghq; then
-        function peco-src () {
-            local selected_dir=$(ghq list --full-path | peco --query "$LBUFFER")
+        function fzf-src () {
+            local selected_dir=$(ghq list --full-path --vcs git | fzf --query "$LBUFFER")
             if [ -n "$selected_dir" ]; then
                 BUFFER="cd ${selected_dir}"
                 zle accept-line
             fi
             zle clear-screen
         }
-        zle -N peco-src
-        bindkey '^a' peco-src
+        zle -N fzf-src
+        bindkey '^a' fzf-src
     fi
 fi
 
@@ -360,3 +360,5 @@ fi
 if [ -n "$LS_COLORS" ]; then
   zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
