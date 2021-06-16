@@ -252,7 +252,6 @@ case ${OSTYPE} in
 esac
 # }}}
 
-function exists { which $1 &> /dev/null }
 # install any tools
 if ! exists asdf; then
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf
