@@ -16,3 +16,5 @@
   templatedir = "$HOME/dotfiles/git_template"
 [pull]
   rebase = false
+[ghq]
+  root = ~/go/src
