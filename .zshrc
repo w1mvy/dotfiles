@@ -252,65 +252,30 @@ case ${OSTYPE} in
 esac
 # }}}
 
-# {{{ peco setting
 function exists { which $1 &> /dev/null }
-#if exists go; then
-    export GOPATH=$HOME/go
-#    export GOROOT=/usr/local/opt/go/libexec
-    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-#fi
-if exists peco; then
-    function peco-select-history() {
-        local tac
-        if which tac > /dev/null; then
-            tac="tac"
-        else
-            tac="tail -r"
-        fi
-        BUFFER=$(history -n 1 | \
-            eval $tac | \
-            peco --query "$LBUFFER")
-        CURSOR=$#BUFFER
-        zle clear-screen
-    }
-    zle -N peco-select-history
-    bindkey '^r' peco-select-history
-
-    function peco-find-file() {
-        if git rev-parse 2> /dev/null; then
-            source_files=$(git ls-files)
-        else
-            source_files=$(find . -type f)
-        fi
-        selected_files=$(echo $source_files | peco --prompt "[find file]")
-
-        result=''
-        for file in $selected_files; do
-            result="${result}$(echo $file | tr '\n' ' ')"
-        done
-
-        BUFFER="${BUFFER}${result}"
-        CURSOR=$#BUFFER
-        zle redisplay
-    }
-    zle -N peco-find-file
-    bindkey '^q' peco-find-file
-
-    if exists ghq; then
-        function fzf-src () {
-            local selected_dir=$(ghq list --full-path --vcs git | fzf --query "$LBUFFER")
-            if [ -n "$selected_dir" ]; then
-                BUFFER="cd ${selected_dir}"
-                zle accept-line
-            fi
-            zle clear-screen
-        }
-        zle -N fzf-src
-        bindkey '^a' fzf-src
-    fi
+# install any tools
+if ! exists asdf; then
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 fi
-
-# }}}
+if ! exists fzf; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi
+if ! exists ghq; then
+  asdf plugin add ghq
+  asdf install ghq latest
+fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+function fzf-src () {
+    local selected_dir=$(ghq list --full-path --vcs git | fzf --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N fzf-src
+bindkey '^a' fzf-src
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -361,4 +326,6 @@ if [ -n "$LS_COLORS" ]; then
   zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if exists direnv; then
+  eval "$(direnv hook zsh)"
+fi
