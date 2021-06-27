@@ -252,48 +252,30 @@ case ${OSTYPE} in
 esac
 # }}}
 
-# install any tools
-if ! exists asdf; then
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-fi
-if ! exists fzf; then
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
-fi
-if ! exists ghq; then
-  asdf plugin add ghq
-  asdf install ghq latest
-fi
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-function fzf-src () {
-    local selected_dir=$(ghq list --full-path --vcs git | fzf --query "$LBUFFER")
-    if [ -n "$selected_dir" ]; then
-        BUFFER="cd ${selected_dir}"
-        zle accept-line
-    fi
-    zle clear-screen
-}
-zle -N fzf-src
-bindkey '^a' fzf-src
-
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 load-if-exists $HOME/dotfiles/.zshrc.git
 load-if-exists $HOME/.pythonbrew/etc/bashrc
 load-if-exists $HOME/.zshrc.local
 
-# Check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
   source ~/.zplug/init.zsh && zplug update --self
 fi
 
-# Essential
 source ~/.zplug/init.zsh
 
 # from:gh-r
-zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+if [[ `uname -m` == "x86_64" ]]; then
+  arch="linux_amd64"
+else
+  arch="darwin_arm64"
+fi
+zplug "b4b4r07/enhancd", use:init.sh
+zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf, use:"*${arch}*"
+zplug "junegunn/fzf", use:"shell/*.zsh", as:plugin, defer:2
+zplug "junegunn/fzf", as:command, use:"bin/fzf-tmux"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
 # Install packages that have not been installed yet
@@ -306,6 +288,33 @@ if ! zplug check --verbose; then
     fi
 fi
 zplug load --verbose
+
+# install any tools
+if ! exists asdf; then
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+fi
+#if ! exists fzf; then
+#  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+#  ~/.fzf/install
+#fi
+if ! exists ghq; then
+  asdf plugin add ghq
+  asdf install ghq latest
+fi
+
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+function fzf-src () {
+    local selected_dir=$(ghq list --full-path --vcs git | fzf --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N fzf-src
+bindkey '^a' fzf-src
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 if exists rbenv; then
