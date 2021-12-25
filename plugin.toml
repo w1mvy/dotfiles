@@ -76,6 +76,12 @@ repo = "prabirshrestha/vim-lsp"
 depends = ["prabirshrestha/async.vim"]
 hook_add ='''
 nnoremap <C-]> :<C-u>LspDefinition<CR>
+nnoremap [lsp] <Nop>
+nmap <Space>l [lsp]
+nnoremap <silent> [lsp]d :<C-u>LspDefinition<CR>
+nnoremap <silent> [lsp]pd :<C-u>LspPeekDefinition<CR>
+nnoremap <silent> [lsp]i :<C-u>LspImplementation<CR>
+nnoremap <silent> [lsp]pi :<C-u>LspPeekImplementation<CR>
 '''
 [[plugins]]
 repo = "mattn/vim-lsp-settings"
@@ -232,3 +238,10 @@ repo = "tyru/open-browser-github.vim"
 depends = ["tyru/open-browser.vim"]
 [[plugins]]
 repo = 'ConradIrwin/vim-bracketed-paste'
+[[plugins]]
+repo = "tsandall/vim-rego"
+hook_add = '''
+autocmd bufwritepost *.rego  silent !opa fmt -w %
+'''
+[[plugins]]
+repo = "editorconfig/editorconfig-vim"
