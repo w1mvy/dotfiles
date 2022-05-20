@@ -4,71 +4,207 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+call plug#begin()
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/denite.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'lambdalisue/fern.vim'
+  Plug 'antoinemadec/FixCursorHold.nvim'
+  Plug 'w1mvy/vim-denite-tab'
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'mattn/vim-lsp-settings'
+  Plug 'mattn/vim-goimports'
+  Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  Plug 'mattn/emmet-vim'
+  Plug 'othree/eregex.vim'
+  Plug 'tyru/open-browser.vim'
+  Plug 'tyru/urilib.vim'
+  Plug 'kchmck/vim-coffee-script'
+  Plug 'cespare/vim-toml'
+  Plug 'thinca/vim-localrc'
+  Plug 'thinca/vim-ref'
+  Plug 'fuenor/qfixhowm'
+  Plug 'hail2u/vim-css3-syntax'
+  Plug 'Yggdroot/indentLine'
+  Plug 'tpope/vim-speeddating'
+  Plug 'tomtom/tcomment_vim'
+  Plug 'Lokaltog/vim-easymotion'
+  Plug 'previm/previm'
+  Plug 'vim-scripts/surround.vim'
+  Plug 'vim-scripts/IndentAnything'
+  Plug 'vim-scripts/grep.vim'
+  Plug 'vim-scripts/sudo.vim'
+  Plug 'vim-scripts/renamer.vim'
+  Plug 'vim-scripts/mru.vim'
+  Plug 'vim-scripts/xmledit'
+  Plug 'vim-scripts/matchit.zip'
+  Plug 'vim-scripts/camelcasemotion'
+  Plug 'othree/html5.vim'
+  Plug 'vim-scripts/Better-Javascript-Indentation'
+  Plug 'vim-scripts/javacomplete'
+  Plug 'vim-scripts/smartchr'
+  Plug 'vim-scripts/Source-Explorer-srcexpl.vim'
+  Plug 'vim-scripts/taglist.vim'
+  Plug 'vim-scripts/buftabs'
+  Plug 'vim-scripts/JSON.vim'
+  Plug 'Townk/vim-autoclose'
+  Plug 'h1mesuke/vim-alignta'
+  Plug 'mattn/benchvimrc-vim'
+  Plug 'nanotech/jellybeans.vim'
+  Plug 'itchyny/lightline.vim'
+  Plug 'toyamarinyon/vim-swift'
+  Plug 'vim-scripts/progressbar-widget'
+  Plug 'koron/codic-vim'
+  Plug 'aereal/vim-colors-japanesque'
+  Plug 'hashivim/vim-terraform'
+  Plug 'jceb/vim-hier'
+  Plug 'osyo-manga/vim-watchdogs'
+  Plug 'glidenote/serverspec-snippets'
+  Plug 'thinca/vim-quickrun'
+  Plug 'vim-test/vim-test'
+  Plug 'osyo-manga/shabadou.vim'
+  Plug 't9md/vim-textmanip'
+  Plug 'Shougo/neosnippet'
+  Plug 'Shougo/neosnippet-snippets'
+  Plug 'Shougo/vimproc.vim'
+  Plug 'Shougo/neobundle.vim'
+  Plug 'Shougo/neomru.vim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'gregsexton/gitv'
+  Plug 'rhysd/committia.vim'
+  Plug 'idanarye/vim-merginal'
+  Plug 'elixir-editors/vim-elixir'
+  Plug 'stephpy/vim-yaml'
+  Plug 'neomake/neomake'
+  Plug 'Jagua/vim-denite-ghq'
+  Plug 'tyru/open-browser-github.vim'
+  Plug 'ConradIrwin/vim-bracketed-paste'
+  Plug 'tsandall/vim-rego'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'thalesmello/lkml.vim'
+  Plug 'pocke/dicts'
+  Plug 'Keithbsmiley/rspec.vim'
+  Plug 'AndrewRadev/switch.vim'
+call plug#end()
 
-let s:plugin_toml = '~/dotfiles/plugin.toml'
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
+" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
 
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  if !has('python3')
-    echo "you require to install pynvim. `pip3 install --user pynvim`"
-  endif
-  let g:deoplete#enable_at_startup = 1
-  " for syntax
-  " }}}
-
-  " ruby
-  "call dein#add('vim-ruby/vim-ruby')
-  call dein#add('pocke/dicts')
-  let g:neocomplete#sources#dictionary#dictionaries = {
-  \   'ruby': $HOME . '.vim/bundle/dicts/ruby.dict',
-  \ }
-
-  call dein#add('Keithbsmiley/rspec.vim')
-  call dein#add('AndrewRadev/switch.vim')
-  nnoremap - :Switch<cr>
-  autocmd FileType eruby let b:switch_custom_definitions =
-      \ [
-      \   ['if', 'unless'],
-      \   ['while', 'until'],
-      \   ['.blank?', '.present?'],
-      \   ['include', 'extend'],
-      \   ['class', 'module'],
-      \   ['.inject', '.delete_if'],
-      \   ['.map', '.map!'],
-      \   ['attr_accessor', 'attr_reader', 'attr_writer'],
-      \   [
-      \     {
-      \       ':\(\k\+\)\s\+=>': '\1:',
-      \       '\<\(\k\+\):':     ':\1 =>',
-      \     }
-      \   ]
-      \ ]
-  autocmd FileType rspec let b:switch_custom_definitions =
-      \ [
-      \   ['describe', 'context', 'it'],
-      \   ['before', 'after'],
-      \   ['get', 'post', 'put', 'delete'],
-      \   ['\.to_not', '\.to'],
-      \   ['==', 'eql', 'equal'],
-      \   { '\([^. ]\+\)\.should\(_not\|\)': 'expect(\1)\.to\2' },
-      \   { 'expect(\([^. ]\+\))\.to\(_not\|\)': '\1.should\2' },
-      \ ]
-  "}}}
-
-
-  " underscore,camelcase文字列をテキストオブジェ化
-  " call dein#add('h1mesuke/textobj-wiw')
-  "call dein#add('nathanaelkane/vim-indent-guides')
-  " 括弧の自動補完
-  "call dein#add('vim-scripts/AutoClose--Alves')
-  call dein#load_toml(s:plugin_toml, {'lazy': 0})
-
-  call dein#end()
-  call dein#save_state()
+" denite.nvim
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> <TAB>
+  \ denite#do_map('do_action', 'tabopen')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> c
+  \ denite#do_map('do_action', 'cd')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+autocmd FileType denite-filter call s:denite_filter_my_settings()
+function! s:denite_filter_my_settings() abort
+  imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+endfunction
+nnoremap [denite] <Nop>
+nmap <Space>u [denite]
+nnoremap <silent> [denite]b :<C-u>Denite buffer:no-current<CR>
+nnoremap <silent> [denite]t :<C-u>Denite tab<CR>
+nnoremap <silent> [denite]m :<C-u>Denite file_mru<CR>
+nnoremap <silent> [denite]u :<C-u>Denite buffer:no-current tab file_mru file/rec<CR>
+nnoremap <silent> [denite]f :<C-u>DeniteBufferDir file file:new file/rec<CR>
+nnoremap <silent> [denite]g :<C-u>Denite grep<CR>
+if executable('rg')
+  call denite#custom#var('file/rec', 'command',
+	\ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
+  call denite#custom#var('grep', {
+    \ 'command': ['rg'],
+    \ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+    \ 'recursive_opts': [],
+    \ 'pattern_opt': ['--regexp'],
+    \ 'separator': ['--'],
+    \ 'final_opts': [],
+    \ })
 endif
+call denite#custom#var('ghq', 'command',
+  \ ['ghq', 'list', '--full-path', '--vcs', 'git'])
+
+"fern
+nnoremap <silent> <Space>f :<C-u>Fern .<CR>
+
+" FixCursorHold.nvim
+let g:cursorhold_updatetime = 100
+
+" vim-lsp
+nnoremap <C-]> :<C-u>LspDefinition<CR>
+nnoremap [lsp] <Nop>
+nmap <Space>l [lsp]
+nnoremap <silent> [lsp]d :<C-u>LspDefinition<CR>
+nnoremap <silent> [lsp]pd :<C-u>LspPeekDefinition<CR>
+nnoremap <silent> [lsp]i :<C-u>LspImplementation<CR>
+nnoremap <silent> [lsp]pi :<C-u>LspPeekImplementation<CR>
+
+" indentline
+let g:indentLine_char = '|'
+
+" lightline
+let g:lightline = {
+\  'colorscheme':'jellybeans'
+\  }
+
+" terraform-vim
+let g:terraform_fmt_on_save=1
+
+" vim-rego
+autocmd bufwritepost *.rego  silent !opa fmt -w %
+
+" 'pocke/dicts')
+let g:neocomplete#sources#dictionary#dictionaries = {
+\   'ruby': $HOME . '.vim/bundle/dicts/ruby.dict',
+\ }
+
+" swith.vim
+nnoremap - :Switch<cr>
+autocmd FileType eruby let b:switch_custom_definitions =
+    \ [
+    \   ['if', 'unless'],
+    \   ['while', 'until'],
+    \   ['.blank?', '.present?'],
+    \   ['include', 'extend'],
+    \   ['class', 'module'],
+    \   ['.inject', '.delete_if'],
+    \   ['.map', '.map!'],
+    \   ['attr_accessor', 'attr_reader', 'attr_writer'],
+    \   [
+    \     {
+    \       ':\(\k\+\)\s\+=>': '\1:',
+    \       '\<\(\k\+\):':     ':\1 =>',
+    \     }
+    \   ]
+    \ ]
+autocmd FileType rspec let b:switch_custom_definitions =
+    \ [
+    \   ['describe', 'context', 'it'],
+    \   ['before', 'after'],
+    \   ['get', 'post', 'put', 'delete'],
+    \   ['\.to_not', '\.to'],
+    \   ['==', 'eql', 'equal'],
+    \   { '\([^. ]\+\)\.should\(_not\|\)': 'expect(\1)\.to\2' },
+    \   { 'expect(\([^. ]\+\))\.to\(_not\|\)': '\1.should\2' },
+    \ ]
+"}}}
+
 
 filetype plugin indent on
 syntax on
