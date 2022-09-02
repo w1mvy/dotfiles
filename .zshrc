@@ -8,9 +8,10 @@ else
 fi
 # vim no plugin mode
 alias suvim='vim -u NORC'
+export EDITOR=vi
 alias ls='ls -lFGha'
 alias grep='grep --color'
-alias hgrep='history 0 | grep '
+alias rg="rg --hidden --glob '!.git'"
 alias l='less'
 alias -g G='| grep '
 alias -g L='| less'
@@ -41,10 +42,6 @@ fi
 ############################################################
 function load-if-exists() { test -e "$1" && source "$1" }
 
-############################################################
-# プロンプト、色関係
-############################################################
-source ~/dotfiles/.zshrc.color
 
 ############################################################
 # 履歴関係
@@ -272,12 +269,13 @@ else
   arch="darwin_arm64"
 fi
 zplug "b4b4r07/enhancd", use:init.sh
-zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf, use:"*${arch}*"
+#zplug "junegunn/fzf", from:gh-r, as:command, rename-to:fzf, use:"*${arch}*"
 zplug "junegunn/fzf", use:"shell/*.zsh", as:plugin, defer:2
 zplug "junegunn/fzf", as:command, use:"bin/fzf-tmux"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
+zplug "superbrothers/zsh-kubectl-prompt"
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -337,3 +335,5 @@ fi
 if exists direnv; then
   eval "$(direnv hook zsh)"
 fi
+
+source ~/dotfiles/.zshrc.color
