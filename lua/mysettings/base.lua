@@ -8,9 +8,13 @@ vim.o.textwidth = 0
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
+vim.o.list = true
+vim.o.listchars = 'tab:>-,trail:_'
 vim.o.expandtab = true
 vim.o.autoindent = true
 vim.o.smartindent = true
+vim.o.cursorline = true
+vim.api.nvim_set_hl(0, 'CursorLine', { underline = true })
 vim.cmd[[syntax on]]
 vim.cmd[[colorscheme jellybeans]]
 
@@ -51,8 +55,10 @@ vim.api.nvim_set_keymap('n', 'gk', 'k', { noremap = true })
 
 
 -- delete end of line space
+vim.api.nvim_create_augroup('DoWritePre', {})
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   pattern = '*',
+  group = 'DoWritePre',
   command = [[:%s/\s\+$//ge]],
 })
 
@@ -65,3 +71,15 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = 'rego',
   command = 'setl tabstop=8 shiftwidth=8 noet',
 })
+
+vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+  pattern = '*.rego',
+  command = [[silent !opa fmt -w %]],
+})
+
+-- window
+vim.api.nvim_set_keymap('n', 'gh', '<C-w>h', { noremap = false })
+vim.api.nvim_set_keymap('n', 'gl', '<C-w>l', { noremap = false })
+vim.api.nvim_set_keymap('n', 'gj', '<C-w>j', { noremap = false })
+vim.api.nvim_set_keymap('n', 'gk', '<C-w>k', { noremap = false })
+
