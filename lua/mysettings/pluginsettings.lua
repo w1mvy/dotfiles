@@ -102,3 +102,8 @@ vim.api.nvim_create_autocmd('InsertEnter', {
 -- vim.g.vsnip_filetypes = {
 --     go = { "go" }
 -- }
+
+require("ibl").setup()
+require('gitsigns').setup()
+require("nvim-surround").setup()
+require("nvim-autopairs").setup()
