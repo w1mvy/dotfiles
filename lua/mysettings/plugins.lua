@@ -7,16 +7,20 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
-  use "hrsh7th/nvim-cmp"
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/vim-vsnip"
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/vim-vsnip'
+  use 'hrsh7th/vim-vsnip-integ'
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-cmdline'
+  use "rafamadriz/friendly-snippets"
+  use 'petertriho/cmp-git'
   use 'nvim-lua/plenary.nvim'
   use { 'nvim-telescope/telescope.nvim', tag = '0.1.4' }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use {'nvim-telescope/telescope-ui-select.nvim' }
-  use {
-    "nvim-telescope/telescope-frecency.nvim"
-  }
+  use 'nvim-telescope/telescope-frecency.nvim'
   use 'nanotech/jellybeans.vim'
   use 'tyru/open-browser.vim'
   use 'tyru/open-browser-github.vim'
@@ -40,4 +44,5 @@ return require('packer').startup(function(use)
   use 'itchyny/lightline.vim'
   use 'AndrewRadev/switch.vim'
   use 'sebdah/vim-delve'
+  use 'yamatsum/nvim-cursorline'
 end)

@@ -1,5 +1,10 @@
 -- telescope
 require("telescope").setup {
+  pickers = {
+    git_files = {
+      git_command = {'git', 'ls-files', '--exclude-standard', '--cached', '--others',},
+    },
+  },
   extensions = {
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
@@ -18,7 +23,7 @@ require("telescope").setup {
   }
 }
 require("telescope").load_extension("ui-select")
-require("telescope").load_extension "frecency"
+require("telescope").load_extension("frecency")
 
 vim.api.nvim_set_keymap('n', '[t]', '<Nop>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Space>u', '[t]', { noremap = false })
@@ -68,3 +73,32 @@ vim.g.EasyMotion_grouping=1
 
 -- vim-goimports
 vim.g.goimports_simplify = 1
+
+-- cursorline
+-- cursorline setting
+require('nvim-cursorline').setup {
+  cursorline = {
+    enable = true,
+    timeout = 1000,
+    number = false,
+  },
+  cursorword = {
+    enable = true,
+    min_length = 3,
+    hl = { underline = true },
+  }
+}
+
+-- vim-vsnip
+vim.api.nvim_create_autocmd('InsertEnter', {
+    callback = function(ev)
+        vim.keymap.set({'i', 's'}, '<C-j>', function() return vim.fn['vsnip#available'](1) == 1 and '<Plug>(vsnip-expand-or-jump)' or '<C-l>' end, { expr = true, noremap = false })
+        vim.keymap.set({'i', 's'}, '<Tab>', function() return vim.fn['vsnip#jumpable'](1) == 1 and '<Plug>(vsnip-jump-next)' or '<Tab>' end, { expr = true, noremap = false })
+        vim.keymap.set({'i', 's'}, '<S-Tab>', function() return vim.fn['vsnip#jumpable'](-1) == 1 and '<Plug>(vsnip-jump-prev)' or '<S-Tab>' end, { expr = true, noremap = false })
+        vim.keymap.set({'n', 's'}, '<s>', [[<Plug>(vsnip-select-text)]], { expr = true, noremap = false })
+        vim.keymap.set({'n', 's'}, '<S>', [[<Plug>(vsnip-cut-text)]], { expr = true, noremap = false })
+    end,
+})
+-- vim.g.vsnip_filetypes = {
+--     go = { "go" }
+-- }
