@@ -1,3 +1,4 @@
+vim.lsp.set_log_level("off")
 require('mason').setup()
 require('mason-lspconfig').setup_handlers({ function(server)
   local opt = {

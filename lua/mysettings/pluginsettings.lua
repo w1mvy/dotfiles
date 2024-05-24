@@ -19,6 +19,11 @@ require("telescope").setup {
       --      do the following
       --   codeactions = false,
       -- }
+    },
+    ["frecency"] = {
+        --opts.db_safe_mode = false
+        db_safe_mode = false,
+        auto_validate = false
     }
   }
 }
@@ -36,6 +41,7 @@ vim.api.nvim_set_keymap('n', '[t]lr', ':<C-u>Telescope lsp_references<CR>', { no
 vim.api.nvim_set_keymap('n', '[t]lt', ':<C-u>Telescope lsp_type_definitions<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '[t]g', ':<C-u>Telescope live_grep<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '[t]la', ':<C-u>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '[t]rn', ':<C-u>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   pattern = '*',
   group = 'DoWritePre',
@@ -103,7 +109,22 @@ vim.api.nvim_create_autocmd('InsertEnter', {
 --     go = { "go" }
 -- }
 
-require("ibl").setup()
+-- require("ibl").setup()
 require('gitsigns').setup()
 require("nvim-surround").setup()
 require("nvim-autopairs").setup()
+
+vim.g.copilot_no_tab_map = true
+
+local keymap = vim.keymap.set
+-- https://github.com/orgs/community/discussions/29817#discussioncomment-4217615
+keymap(
+"i",
+"<C-g>",
+'copilot#Accept("<CR>")',
+{ silent = true, expr = true, script = true, replace_keycodes = false }
+)
+keymap("i", "<C-j>", "<Plug>(copilot-next)")
+keymap("i", "<C-k>", "<Plug>(copilot-previous)")
+keymap("i", "<C-o>", "<Plug>(copilot-dismiss)")
+keymap("i", "<C-s>", "<Plug>(copilot-suggest)")

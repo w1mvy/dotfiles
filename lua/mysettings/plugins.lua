@@ -29,7 +29,8 @@ return require('packer').startup(function(use)
   use 'mattn/emmet-vim'
   use 'othree/eregex.vim'
   use 'fuenor/qfixhowm'
-  use "lukas-reineke/indent-blankline.nvim"
+  use 'nathanaelkane/vim-indent-guides'
+  --use "lukas-reineke/indent-blankline.nvim"
   use 'tpope/vim-speeddating'
   use 'tomtom/tcomment_vim'
   use 'Lokaltog/vim-easymotion'
@@ -47,4 +48,7 @@ return require('packer').startup(function(use)
   use 'sindrets/diffview.nvim'
   use 'lewis6991/gitsigns.nvim'
   use 'windwp/nvim-autopairs'
+  use 'andymass/vim-matchup'
+  use 'nvim-tree/nvim-web-devicons'
+  use 'github/copilot.vim'
 end)

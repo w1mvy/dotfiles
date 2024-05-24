@@ -56,11 +56,11 @@ vim.api.nvim_set_keymap('n', 'gk', 'k', { noremap = true })
 
 -- delete end of line space
 vim.api.nvim_create_augroup('DoWritePre', {})
-vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-  pattern = '*',
-  group = 'DoWritePre',
-  command = [[:%s/\s\+$//ge]],
-})
+-- vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+--   pattern = '*',
+--   group = 'DoWritePre',
+--   command = [[:%s/\s\+$//ge]],
+-- })
 
 -- file settings
 vim.api.nvim_create_autocmd({ 'FileType' }, {
@@ -82,4 +82,3 @@ vim.api.nvim_set_keymap('n', 'gh', '<C-w>h', { noremap = false })
 vim.api.nvim_set_keymap('n', 'gl', '<C-w>l', { noremap = false })
 vim.api.nvim_set_keymap('n', 'gj', '<C-w>j', { noremap = false })
 vim.api.nvim_set_keymap('n', 'gk', '<C-w>k', { noremap = false })
-
