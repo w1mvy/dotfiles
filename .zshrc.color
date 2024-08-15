@@ -1,6 +1,8 @@
 ############################################################
 # プロンプト、色関係
 ############################################################
+DISABLE_AUTO_UPDATE=false
+DISABLE_UPDATE_PROMPT=false
 autoload -U colors
 colors
 
@@ -27,13 +29,30 @@ bg256(){
     echo -n $'\e[48;5;'$(color256 "$@")"m"
 }
 
+autoload -Uz add-zsh-hook
+setopt prompt_subst
+
+function gcloud_current() {
+  if [ -f "$HOME/.config/gcloud/active_config" ]; then
+    local active=$(cat $HOME/.config/gcloud/active_config)
+    ZSH_GCLOUD_ACTIVE_CONFIG_PROMPT=$active
+  fi
+}
+
+add-zsh-hook precmd gcloud_current
+gcloud_current
+
 # プロンプト指定
-PROMPT="
-%{${fg[yellow]}%}[%n@%m]# %{${reset_color}%}
+function set_prompt() {
+prompt="%{${fg[yellow]}%}[%n@%m]%{${reset_color}%}"
+prompt+="%{$fg[cyan]%}g:${ZSH_GCLOUD_ACTIVE_CONFIG_PROMPT}|k:${ZSH_KUBECTL_CONTEXT}/${ZSH_KUBECTL_NAMESPACE}%{$reset_color%}
 %(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
-# プロンプト指定(コマンドの続き)
-PROMPT2='[%n]> '
-# もしかして時のプロンプト指定
+  PROMPT=$prompt
+  PROMPT2='[%n]> '
+}
+add-zsh-hook precmd set_prompt
+set_prompt
+
 SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),, e]:${reset_color} "
 #RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}" #右側
 function zle-line-init zle-keymap-select {
@@ -41,6 +60,7 @@ function zle-line-init zle-keymap-select {
     RPS2=$RPS1
     #zle reset-prompt
 }
+
 #zle -N zle-line-init
 #zle -N zle-keymap-select
 

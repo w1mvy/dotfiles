@@ -1,4 +1,8 @@
 bindkey -v #vimlike
+function load-if-exists() { test -e "$1" && source "$1" }
+load-if-exists $HOME/.zshrc.local
+load-if-exists $HOME/dotfiles/.zshrc.git
+load-if-exists $HOME/.pythonbrew/etc/bashrc
 function exists { which $1 &> /dev/null }
 if exists nvim; then
   alias vi='nvim'
@@ -40,7 +44,6 @@ fi
 ############################################################
 # Util methods
 ############################################################
-function load-if-exists() { test -e "$1" && source "$1" }
 
 
 ############################################################
@@ -64,7 +67,7 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
-bindkey "^r" history-incremental-pattern-search-backward
+#bindkey "^r" history-incremental-pattern-search-backward
 
 ############################################################
 # 補完関係
@@ -251,9 +254,22 @@ esac
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-load-if-exists $HOME/dotfiles/.zshrc.git
-load-if-exists $HOME/.pythonbrew/etc/bashrc
-load-if-exists $HOME/.zshrc.local
+# load-if-exists $HOME/.zshrc.local
+# load-if-exists $HOME/dotfiles/.zshrc.git
+# load-if-exists $HOME/.pythonbrew/etc/bashrc
+
+# plugin manager
+#if [[ ! -f ~/.antigen.zsh ]]; then
+#    curl -L git.io/antigen > ~/.antigen.zsh
+#fi
+#source ~/.antigen.zsh
+#antigen bundle b4b4r07/enhancd
+#antigen bundle junegunn/fzf
+#antigen bundle zsh-users/zsh-syntax-highlighting
+#antigen bundle zsh-users/zsh-history-substring-search
+#antigen bundle zsh-users/zsh-completions
+#antigen bundle superbrothers/zsh-kubectl-prompt
+#antigen apply
 
 if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
@@ -291,6 +307,7 @@ zplug load --verbose
 if ! exists asdf; then
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 fi
+#. $HOME/.asdf/asdf.sh
 #if ! exists fzf; then
 #  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 #  ~/.fzf/install
@@ -312,7 +329,15 @@ function fzf-src () {
     zle clear-screen
 }
 zle -N fzf-src
-bindkey '^a' fzf-src
+bindkey '^g' fzf-src
+
+function fzf-select-history() {
+    BUFFER=$(history -n -r 1 | fzf --no-sort --exact --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 if exists rbenv; then
@@ -337,3 +362,8 @@ if exists direnv; then
 fi
 
 source ~/dotfiles/.zshrc.color
+export PATH=$PATH:$HOME/.local/bin
+
+if exists cargo; then
+    export PATH=$PATH:$HOME/.cargo/bin
+fi

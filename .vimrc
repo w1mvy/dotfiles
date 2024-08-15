@@ -5,13 +5,17 @@ if &compatible
 endif
 
 call plug#begin()
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'Shougo/denite.nvim'
+"  Plug 'Shougo/deoplete.nvim'
+"  Plug 'Shougo/denite.nvim'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+  " Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+  " Plug 'junegunn/fzf.vim'
+  " Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
   Plug 'lambdalisue/fern.vim'
   Plug 'antoinemadec/FixCursorHold.nvim'
-  Plug 'w1mvy/vim-denite-tab'
   Plug 'prabirshrestha/vim-lsp'
   Plug 'mattn/vim-lsp-settings'
   Plug 'mattn/vim-goimports'
@@ -21,14 +25,15 @@ call plug#begin()
   Plug 'mattn/emmet-vim'
   Plug 'othree/eregex.vim'
   Plug 'tyru/open-browser.vim'
-  Plug 'tyru/urilib.vim'
+
+  " Plug 'tyru/urilib.vim'
   Plug 'kchmck/vim-coffee-script'
   Plug 'cespare/vim-toml'
   Plug 'thinca/vim-localrc'
   Plug 'thinca/vim-ref'
   Plug 'fuenor/qfixhowm'
   Plug 'hail2u/vim-css3-syntax'
-  Plug 'Yggdroot/indentLine'
+  Plug 'nathanaelkane/vim-indent-guides'
   Plug 'tpope/vim-speeddating'
   Plug 'tomtom/tcomment_vim'
   Plug 'Lokaltog/vim-easymotion'
@@ -70,8 +75,8 @@ call plug#begin()
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
   Plug 'Shougo/vimproc.vim'
-  Plug 'Shougo/neobundle.vim'
-  Plug 'Shougo/neomru.vim'
+  " Plug 'Shougo/neobundle.vim'
+  " Plug 'Shougo/neomru.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'gregsexton/gitv'
   Plug 'rhysd/committia.vim'
@@ -79,7 +84,7 @@ call plug#begin()
   Plug 'elixir-editors/vim-elixir'
   Plug 'stephpy/vim-yaml'
   Plug 'neomake/neomake'
-  Plug 'Jagua/vim-denite-ghq'
+  " Plug 'Jagua/vim-denite-ghq'
   Plug 'tyru/open-browser-github.vim'
   Plug 'ConradIrwin/vim-bracketed-paste'
   Plug 'tsandall/vim-rego'
@@ -88,63 +93,118 @@ call plug#begin()
   Plug 'pocke/dicts'
   Plug 'Keithbsmiley/rspec.vim'
   Plug 'AndrewRadev/switch.vim'
+  Plug 'mattn/vim-sqlfmt'
+  Plug 'sebdah/vim-delve'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-telescope/telescope-ui-select.nvim'
 call plug#end()
 
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
 
+let g:coc_node_path = trim(system('which node'))
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+
+" for asyncomplete.vim log
+let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+
+
+" fzf
+"
+set shell=/bin/zsh
+let $SHELL = "/bin/zsh"
+augroup fzf_preview
+  autocmd!
+  autocmd User fzf_preview#rpc#initialized call s:fzf_preview_settings() " fzf_preview#remote#initialized or fzf_preview#coc#initialized
+augroup END
+
+function! s:fzf_preview_settings() abort
+  let g:fzf_preview_fzf_preview_window_option = 'right:50%'
+  let g:fzf_preview_command = 'bat --color=always --plain {-1}'
+endfunction
+
+nnoremap [fzf] <Nop>
+nmap <Space>u [fzf]
+
+" vim-lsp
+nnoremap <silent> [fzf]b :<C-u>FzfPreviewBuffersRpc<CR>
+nnoremap <silent> [fzf]f :<C-u>FzfPreviewProjectFilesRpc<CR>
+nnoremap <silent> [fzf]m :<C-u>FzfPreviewProjectMruFilesRpc<CR>
+nnoremap <silent> [fzf]ld :<C-u>FzfPreviewVimLspDefinitionRpc<CR>
+nnoremap <silent> [fzf]li :<C-u>FzfPreviewVimLspImplementationsRpc<CR>
+nnoremap <silent> [fzf]lr :<C-u>FzfPreviewVimLspReferencesRpc<CR>
+nnoremap <silent> [fzf]lt :<C-u>FzfPreviewVimLspTypeDefinitionRpc<CR>
+nnoremap          [fzf]gr    :<C-u>FzfPreviewProjectGrepRpc<Space>
+xnoremap          [fzf]gr    "sy:FzfPreviewProjectGrepRpc<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+
+" coc
+" set tagfunc=CocTagFunc
+" nnoremap <silent> [fzf]f :<C-u>CocCommand fzf-preview.ProjectFiles<CR>
+" nnoremap <silent> [fzf]m :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR>
+" nnoremap <silent> [fzf]ld :<C-u>CocCommand fzf-preview.CocDefinition<CR>
+" nnoremap <silent> [fzf]li :<C-u>CocCommand fzf-preview.CocImplementations<CR>
+" nnoremap <silent> [fzf]lr :<C-u>CocCommand fzf-preview.CocReferences<CR>
+" nnoremap <silent> [fzf]lt :<C-u>CocCommand fzf-preview.CocTypeDefinition<CR>
+" nnoremap          [fzf]gr    :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+" xnoremap          [fzf]gr    "sy:CocCommand fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+
+
 " denite.nvim
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> <TAB>
-  \ denite#do_map('do_action', 'tabopen')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> c
-  \ denite#do_map('do_action', 'cd')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
-endfunction
-autocmd FileType denite-filter call s:denite_filter_my_settings()
-function! s:denite_filter_my_settings() abort
-  imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
-endfunction
-nnoremap [denite] <Nop>
-nmap <Space>u [denite]
-nnoremap <silent> [denite]b :<C-u>Denite buffer:no-current<CR>
-nnoremap <silent> [denite]t :<C-u>Denite tab<CR>
-nnoremap <silent> [denite]m :<C-u>Denite file_mru<CR>
-nnoremap <silent> [denite]u :<C-u>Denite buffer:no-current tab file_mru file/rec<CR>
-nnoremap <silent> [denite]f :<C-u>DeniteBufferDir file file:new file/rec<CR>
-nnoremap <silent> [denite]g :<C-u>Denite grep<CR>
-if executable('rg')
-  call denite#custom#var('file/rec', 'command',
-	\ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
-  call denite#custom#var('grep', {
-    \ 'command': ['rg'],
-    \ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
-    \ 'recursive_opts': [],
-    \ 'pattern_opt': ['--regexp'],
-    \ 'separator': ['--'],
-    \ 'final_opts': [],
-    \ })
-endif
-call denite#custom#var('ghq', 'command',
-  \ ['ghq', 'list', '--full-path', '--vcs', 'git'])
+"autocmd FileType denite call s:denite_my_settings()
+"function! s:denite_my_settings() abort
+"  nnoremap <silent><buffer><expr> <CR>
+"  \ denite#do_map('do_action')
+"  nnoremap <silent><buffer><expr> <TAB>
+"  \ denite#do_map('do_action', 'tabopen')
+"  nnoremap <silent><buffer><expr> d
+"  \ denite#do_map('do_action', 'delete')
+"  nnoremap <silent><buffer><expr> p
+"  \ denite#do_map('do_action', 'preview')
+"  nnoremap <silent><buffer><expr> c
+"  \ denite#do_map('do_action', 'cd')
+"  nnoremap <silent><buffer><expr> q
+"  \ denite#do_map('quit')
+"  nnoremap <silent><buffer><expr> i
+"  \ denite#do_map('open_filter_buffer')
+"  nnoremap <silent><buffer><expr> <Space>
+"  \ denite#do_map('toggle_select').'j'
+"endfunction
+"autocmd FileType denite-filter call s:denite_filter_my_settings()
+"function! s:denite_filter_my_settings() abort
+"  imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+"endfunction
+"nnoremap [denite] <Nop>
+"nmap <Space>u [denite]
+"nnoremap <silent> [denite]b :<C-u>Denite buffer:no-current<CR>
+"nnoremap <silent> [denite]t :<C-u>Denite tab<CR>
+"nnoremap <silent> [denite]m :<C-u>Denite file_mru<CR>
+"nnoremap <silent> [denite]u :<C-u>Denite buffer:no-current tab file_mru file/rec<CR>
+"nnoremap <silent> [denite]f :<C-u>DeniteBufferDir file file:new file/rec<CR>
+"nnoremap <silent> [denite]g :<C-u>Denite grep<CR>
+"if executable('rg')
+"  call denite#custom#var('file/rec', 'command',
+"	\ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
+"  call denite#custom#var('grep', {
+"    \ 'command': ['rg'],
+"    \ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+"    \ 'recursive_opts': [],
+"    \ 'pattern_opt': ['--regexp'],
+"    \ 'separator': ['--'],
+"    \ 'final_opts': [],
+"    \ })
+"endif
+"call denite#custom#var('ghq', 'command',
+"  \ ['ghq', 'list', '--full-path', '--vcs', 'git'])
 
 "fern
 nnoremap <silent> <Space>f :<C-u>Fern .<CR>
 
 " FixCursorHold.nvim
 let g:cursorhold_updatetime = 100
+
 
 " vim-lsp
 nnoremap <C-]> :<C-u>LspDefinition<CR>
@@ -155,8 +215,8 @@ nnoremap <silent> [lsp]pd :<C-u>LspPeekDefinition<CR>
 nnoremap <silent> [lsp]i :<C-u>LspImplementation<CR>
 nnoremap <silent> [lsp]pi :<C-u>LspPeekImplementation<CR>
 
-" indentline
-let g:indentLine_char = '|'
+" vim-indent-guides
+let g:indent_guides_enable_on_vim_startup = 1
 
 " lightline
 let g:lightline = {
@@ -168,6 +228,9 @@ let g:terraform_fmt_on_save=1
 
 " vim-rego
 autocmd bufwritepost *.rego  silent !opa fmt -w %
+
+" vim-goimports
+let g:goimports_simplify = 1
 
 " 'pocke/dicts')
 let g:neocomplete#sources#dictionary#dictionaries = {
@@ -209,6 +272,8 @@ autocmd FileType rspec let b:switch_custom_definitions =
 filetype plugin indent on
 syntax on
 colorscheme jellybeans
+" colorscheme fairyfloss
+
 "}}}
 
 " Plugins Setting:"{{{
@@ -380,7 +445,7 @@ let g:indent_guides_guide_size = 1
 " QFix Hown{{{
 set runtimepath+=~/.vim/plugin/qfixapp
 let QFixHowm_Key = 'g'
-let howm_dir='~/Dropbox/howm'
+let howm_dir='~/tmp/howm'
 let homm_fileencoding='utf-8'
 let hown_fileformat='unix'
 " ファイル拡張子をmkdにする
@@ -409,6 +474,22 @@ hi EasyMotionTarget ctermbg=none ctermfg=red
 hi EasyMotionShade  ctermbg=none ctermfg=blue
 "}}}
 
+let g:lsp_settings = {}
+let g:lsp_settings['gopls'] = {
+  \  'workspace_config': {
+  \    'usePlaceholders': v:true,
+  \    'analyses': {
+  \      'fillstruct': v:true,
+  \    },
+  \  },
+  \  'initialization_options': {
+  \    'usePlaceholders': v:true,
+  \    'analyses': {
+  \      'fillstruct': v:true,
+  \    },
+  \  },
+  \}
+
 " AnySetting:"{{{
 " バックアップ
 set backup
@@ -429,8 +510,8 @@ augroup cch
   autocmd WinEnter,BufRead * set cursorline
 augroup END
 hi clear CursorLine
-hi CursorLine gui=underline
-highlight CursorLine ctermbg=black guibg=black
+hi CursorLine gui=underline cterm=underline
+"highlight CursorLine ctermfg=Blue ctermbg=black guibg=black
 
 "ESC2回押しでハイライト消去
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
@@ -607,6 +688,7 @@ autocmd Filetype cs setl dictionary=~/.vim/dict/unity.dict
 "}}}
 " Go setting:"{{{
 autocmd FileType go setl tabstop=8 shiftwidth=8 noet
+autocmd FileType rego setl tabstop=8 shiftwidth=8 noet
 let g:go_highlight_functions = 1
 let g:go_highlight_methods   = 1
 let g:go_highlight_structs   = 1
@@ -686,9 +768,9 @@ set fileencodings=utf-8,iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,ucs-bom,eu
 set encoding=utf-8
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
-if exists('&ambiwidth')
-  set ambiwidth=double
-endif
+"if exists('&ambiwidth')
+"  set ambiwidth=double
+"endif
 "}}}
 
 if filereadable(expand('~/.vimrc.local'))
