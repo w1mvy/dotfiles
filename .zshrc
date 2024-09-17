@@ -367,3 +367,5 @@ export PATH=$PATH:$HOME/.local/bin
 if exists cargo; then
     export PATH=$PATH:$HOME/.cargo/bin
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
