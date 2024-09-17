@@ -51,4 +51,6 @@ return require('packer').startup(function(use)
   use 'andymass/vim-matchup'
   use 'nvim-tree/nvim-web-devicons'
   use 'github/copilot.vim'
+  use 'slim-template/vim-slim'
+  use 'rgroli/other.nvim'
 end)
