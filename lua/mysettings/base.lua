@@ -23,9 +23,10 @@ vim.o.number = true
 vim.o.ruler = true
 vim.o.showmatch = true
 vim.o.matchtime = 1
+vim.o.swapfile = false
 
 vim.o.title = true
-vim.o.folddmethod = 'marker'
+--vim.o.folddmethod = 'marker'
 
 -- search
 vim.o.incsearch = true
