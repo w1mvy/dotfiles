@@ -26,6 +26,7 @@ cmp.setup({
     { name = "nvim_lsp" },
     { name = 'vsnip' },
     { name = 'buffer' },
+    { name = 'nvim_lsp_signature_help' },
   },
   mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
