@@ -211,3 +211,10 @@ require("other-nvim").setup({
     },
   }
 })
+
+-- fidget.nvim
+require('fidget').setup()
+vim.notify = require("fidget.notification").notify
+
+-- trouble.nvim
+require("trouble").setup()

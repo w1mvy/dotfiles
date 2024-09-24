@@ -14,6 +14,9 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'folke/trouble.nvim'
+  use 'j-hui/fidget.nvim'
   use "rafamadriz/friendly-snippets"
   use 'petertriho/cmp-git'
   use 'nvim-lua/plenary.nvim'
